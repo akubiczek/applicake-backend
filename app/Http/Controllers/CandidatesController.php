@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Candidate;
+use App\Http\Requests\CandidatesIndexRequest;
+use App\Http\Requests\CandidateUpdateRequest;
+use App\Mail\ForwardCv;
+use App\Recruitment;
+use App\Repositories\CandidatesRepository;
+use App\Repositories\RecruitmentsRepository;
+use App\Services\CandidateDeleter;
+use App\Utils\PhoneFormatter;
+use Illuminate\Support\Facades\Mail;
+use App\MessageTemplate;
+use App\Services\MessagesService;
+use App\Stage;
+use Illuminate\Http\Request;
+
+class CandidatesController extends Controller
+{
+    public function list(Request $request)
+    {
+        $recruitmentId = $request->get('recruitmentId');
+
+        if ($recruitmentId) {
+            $candidates = Candidate::where('recruitment_id', $recruitmentId)->with('recruitment')->orderBy('created_at', 'DESC')->get();
+        } else {
+            $candidates = Candidate::with('recruitment')->orderBy('created_at', 'DESC')->get();
+        }
+
+        return response()->json($candidates);
+    }
+
+    public function get($candidateId)
+    {
+        $candidate = Candidate::with('source')->find($candidateId);
+        $candidate->otherApplications = CandidatesRepository::getOtherApplications($candidate);
+        $candidate->phone_number = PhoneFormatter::format($candidate->phone_number);
+        return response()->json($candidate);
+    }
+
+    public function update(Request $request, $candidateId)
+    {
+        $candidate = Candidate::find($candidateId);
+
+        if ($candidate) {
+            $candidate->rate = $request->rate;
+            $candidate->save();
+        }
+
+        return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
+    }
+
+    //TODO: route nie chroniony - docelowo zrobić zabezpieczenie z użyciem jednorazowych tokenów, a także nie przekazywać do klienta pola path_to_cv
+    public function cv(Request $request, $candidateId)
+    {
+        $download = $request->get('download');
+        $candidate = Candidate::find($candidateId);
+
+        if ($download) {
+            return response()->download(storage_path('app/' . $candidate->path_to_cv), $candidate->first_name.'_'.$candidate->last_name.'-CV.pdf');
+        } else {
+            return response()->file(storage_path('app/' . $candidate->path_to_cv));
+        }
+    }
+}
