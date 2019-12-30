@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Candidate;
-use App\Http\Requests\CandidatesIndexRequest;
-use App\Http\Requests\CandidateUpdateRequest;
+use App\Http\Requests\CandidatesListRequest;
 use App\Mail\ForwardCv;
 use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
@@ -17,21 +16,14 @@ use Illuminate\Http\Request;
 
 class CandidatesController extends Controller
 {
-    public function list(Request $request)
+    public function list(CandidatesListRequest $request)
     {
-//        $validated = $request->validated();
-//
-//        $candidates = $this->repository
-//            ->getIndex($validated);
-//
-//        if ($request->get('search') && $candidates->count() === 1) {
-//            return redirect(route('candidates.view', ['id' => $candidates->first()->id]));
-//        }
-
-
         $recruitmentId = $request->get('recruitmentId');
 
-        if ($recruitmentId) {
+        if ($request->get('search')) {
+            $candidates = CandidatesRepository::search($request->validated());
+        }
+        else if ($recruitmentId) {
             $candidates = Candidate::where('recruitment_id', $recruitmentId)->with('recruitment')->orderBy('created_at', 'DESC')->get();
         } else {
             $candidates = Candidate::with('recruitment')->orderBy('created_at', 'DESC')->get();

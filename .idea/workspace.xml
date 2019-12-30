@@ -131,7 +131,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
@@ -175,6 +175,7 @@
       <workItem from="1577389602104" duration="3804000" />
       <workItem from="1577397477674" duration="3267000" />
       <workItem from="1577454858132" duration="2623000" />
+      <workItem from="1577700225407" duration="2253000" />
     </task>
     <servers />
   </component>

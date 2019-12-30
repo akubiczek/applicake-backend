@@ -39,9 +39,10 @@ class CandidatesRepository
             ->values();
     }
 
-    public function getIndex(array $data): Collection
+    public static function search(array $data): Collection
     {
         $query = Candidate::query();
+        $query->with('recruitment');
 
         if ($search = data_get($data, 'search')) {
             $array = explode(' ', $search);
