@@ -13,7 +13,6 @@ use App\Mail\MailMessage;
 use App\Mail\GeneralMessage;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
 
 class MessagesService
 {
@@ -21,7 +20,7 @@ class MessagesService
     {
         $generalMessage = new GeneralMessage($messageTemplate, $author);
 
-        if(!empty($delay) && $delay['condition'] == 1){
+        if (!empty($delay) && $delay['condition'] == 1) {
 
             $delayUntil = Carbon::createFromFormat('m/d/Y H:i', $delay['date'] . ' ' . $delay['time']);
 
@@ -44,20 +43,36 @@ class MessagesService
         $message->save();
     }
 
-    public static function parseTemplate($messageTemplate, Candidate $candidate)
+    public static function parseTemplate($messageTemplate, Candidate $candidate, \DateTime $appointmentDate)
     {
-        $messageTemplate->subject = str_replace('{NAZWA_STANOWISKA}', $candidate->recruitment->name, $messageTemplate->subject);
+        $messageTemplate->subject = str_replace('{NAZWA_STANOWISKA}',
+            $candidate->recruitment->name,
+            $messageTemplate->subject);
         $messageTemplate->body = str_replace('{NAZWA_STANOWISKA}', $candidate->recruitment->name, $messageTemplate->body);
-//        $messageTemplate->body = str_replace('{DATA_SPOTKANIA}', $candidate->recruitment->name, $messageTemplate->body);
-//        $messageTemplate->body = str_replace('{GODZINA_SPOTKANIA}', $candidate->recruitment->name, $messageTemplate->body);
+        $messageTemplate->body = str_replace('{DATA_SPOTKANIA}', self::richDateFormat($appointmentDate), $messageTemplate->body);
+        $messageTemplate->body = str_replace('{GODZINA_SPOTKANIA}', $appointmentDate->format('G:i'), $messageTemplate->body);
+
+        return $messageTemplate;
     }
 
+    protected static function richDateFormat($date)
+    {
+        $prefix = '';
+        $carbonDate = Carbon::instance($date)->locale('pl_PL');
 
+        if ($carbonDate->isTomorrow()) {
+            $prefix = 'jutro, tj. ';
+        } else if ($carbonDate->subDay(1)->isTomorrow()) {
+            $prefix = 'pojutrze, tj. ';
+        }
+
+        return $prefix.$carbonDate->isoFormat('dddd, D MMMM');
+    }
 
     public static function sendNotificationEmail(Candidate $candidate)
     {
         $notificationEmail = $candidate->recruitment->notification_email;
-        if(!empty($notificationEmail)){
+        if (!empty($notificationEmail)) {
             $messageTemplate = (object)[
                 'subject' => $candidate->recruitment->name,
                 'body' => view('emails.newCandidate', [

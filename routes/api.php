@@ -30,6 +30,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/notes', 'NotesController@create');
 
     Route::get('/stages', 'StagesController@list');
+
+    Route::get('/message_templates', 'MessageTemplatesController@get');
+
 });
 
 Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
