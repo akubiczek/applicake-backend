@@ -59,10 +59,11 @@ class MessagesService
     {
         $prefix = '';
         $carbonDate = Carbon::instance($date)->locale('pl_PL');
+        $carbonDateYesterday = $carbonDate->copy();
 
         if ($carbonDate->isTomorrow()) {
             $prefix = 'jutro, tj. ';
-        } else if ($carbonDate->subDay(1)->isTomorrow()) {
+        } else if ($carbonDateYesterday->subDay(1)->isTomorrow()) {
             $prefix = 'pojutrze, tj. ';
         }
 
