@@ -131,12 +131,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Requests" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Http/Requests" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers" />
     </key>
   </component>
@@ -198,10 +199,10 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="497" y="250" key="SettingsEditor" timestamp="1577388950778">
+    <state x="497" y="250" key="SettingsEditor" timestamp="1577962000701">
       <screen x="57" y="23" width="1863" height="1177" />
     </state>
-    <state x="497" y="250" key="SettingsEditor/57.23.1863.1177@57.23.1863.1177" timestamp="1577388950778" />
+    <state x="497" y="250" key="SettingsEditor/57.23.1863.1177@57.23.1863.1177" timestamp="1577962000701" />
     <state x="157" y="123" width="1663" height="977" key="VCS.FileHistoryDialog" timestamp="1574966801582">
       <screen x="57" y="23" width="1863" height="1177" />
     </state>

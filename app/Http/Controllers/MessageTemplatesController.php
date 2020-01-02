@@ -9,7 +9,7 @@ use App\MessageTemplate;
 use App\Repositories\RecruitmentsRepository;
 use App\Services\CandidateDeleter;
 use App\StageMessageTemplate;
-use App\Utils\MessagesService;
+use App\Utils\MessageService;
 
 class MessageTemplatesController extends Controller
 {
@@ -27,7 +27,11 @@ class MessageTemplatesController extends Controller
             $template = StageMessageTemplate::where('stage_id', $stageId)->first();
         }
 
-        $parsedMessage = MessagesService::parseTemplate($template, $candidate, $appointmentDate);
-        return response()->json($parsedMessage);
+        if ($template) {
+            $parsedMessage = MessageService::parseTemplate($template, $candidate, $appointmentDate);
+            return response()->json($parsedMessage);
+        }
+
+        return response()->json(null, 404);
     }
 }

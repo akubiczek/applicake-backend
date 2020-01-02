@@ -14,15 +14,15 @@ use App\Mail\GeneralMessage;
 use App\User;
 use Carbon\Carbon;
 
-class MessagesService
+class MessageService
 {
-    public static function sendMessage(Candidate $candidate, $messageTemplate, $delay = null, ?User $author = null)
+    public static function sendMessage(Candidate $candidate, $messageSubject, $messageBody, $delay = null, ?User $author = null)
     {
-        $generalMessage = new GeneralMessage($messageTemplate, $author);
+        $generalMessage = new GeneralMessage($messageSubject, $messageBody, $author);
 
-        if (!empty($delay) && $delay['condition'] == 1) {
+        if (!empty($delay)) {
 
-            $delayUntil = Carbon::createFromFormat('m/d/Y H:i', $delay['date'] . ' ' . $delay['time']);
+            $delayUntil = Carbon::parse($delay);
 
             //TODO odblokować
             //Mail::to($candidate->email)->later($delayUntil, $generalMessage);

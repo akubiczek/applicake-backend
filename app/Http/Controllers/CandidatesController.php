@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Candidate;
 use App\Http\Requests\CandidatesListRequest;
+use App\Http\Requests\ChangeStageRequest;
 use App\Mail\ForwardCv;
 use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
 use App\Services\CandidateDeleter;
 use App\Utils\PhoneFormatter;
-use App\MessageTemplate;
-use App\Utils\MessagesService;
+use App\Utils\MessageService;
 use App\Stage;
 use Illuminate\Http\Request;
 
@@ -22,8 +22,7 @@ class CandidatesController extends Controller
 
         if ($request->get('search')) {
             $candidates = CandidatesRepository::search($request->validated());
-        }
-        else if ($recruitmentId) {
+        } else if ($recruitmentId) {
             $candidates = Candidate::where('recruitment_id', $recruitmentId)->with('recruitment')->orderBy('created_at', 'DESC')->get();
         } else {
             $candidates = Candidate::with('recruitment')->orderBy('created_at', 'DESC')->get();
@@ -38,7 +37,7 @@ class CandidatesController extends Controller
 
     public function get($candidateId)
     {
-        $candidate = Candidate::with(['source','recruitment'])->find($candidateId);
+        $candidate = Candidate::with(['source', 'recruitment'])->find($candidateId);
         $candidate->otherApplications = CandidatesRepository::getOtherApplications($candidate);
         $candidate->phone_number = PhoneFormatter::format($candidate->phone_number);
         return response()->json($candidate);
@@ -75,35 +74,32 @@ class CandidatesController extends Controller
         }
     }
 
-    public function changeStage(Request $request, $candidateId)
+    public function changeStage(ChangeStageRequest $request)
     {
-        $candidate = Candidate::find($candidateId);
+        $candidate = Candidate::find($request->get('candidate_id'));
 
         if (!$candidate) {
-            return response()->json(null, 404);
+            return response()->json(['error' => 'Candidate not found'], 404);
         }
 
         $stage = Stage::find($request->get('stage_id'));
 
         if (!$stage) {
-            return response()->json(null, 400);
+            return response()->json(['error' => 'Stage not found'], 400);
         }
 
         $candidate->stage_id = $stage->id;
         $candidate->save();
 
-        if ($request->send_message == 1) {
-            $messageTemplate = new MessageTemplate;
-            $messageTemplate->subject = $request->subject;
-            $messageTemplate->body = $request->body;
+        if ($request->send_message) {
 
-            $delay = [
-                'condition' => $request->delay_sending_message,
-                'date' => $request->delay_datepicker,
-                'time' => $request->delay_timepicker,
-            ];
+            $delay = null;
 
-            MessagesService::sendMessage($candidate, $messageTemplate, $delay, $request->user());
+            if ($request->delay_message_send) {
+                $delay = $request->delayed_message_date;
+            }
+
+            MessageService::sendMessage($candidate, $request->get('message_subject'), $request->get('message_body'), $delay, $request->user());
             $notify[] = 'Wiadomość do kandydata została wysłana.';
         }
 
