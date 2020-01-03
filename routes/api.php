@@ -28,6 +28,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
 
+    Route::get('/messages', 'MessagesController@list');
+
     Route::get('/notes', 'NotesController@get');
     Route::post('/notes', 'NotesController@create');
 

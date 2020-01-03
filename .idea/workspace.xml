@@ -131,7 +131,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
@@ -199,10 +199,10 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="726" y="373" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578042733887">
+    <state x="726" y="373" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578051281317">
       <screen x="56" y="23" width="1864" height="1177" />
     </state>
-    <state x="726" y="373" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/377.1223.1280.777/56.23.1864.1177@56.23.1864.1177" timestamp="1578042733887" />
+    <state x="726" y="373" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/377.1223.1280.777/56.23.1864.1177@56.23.1864.1177" timestamp="1578051281317" />
     <state x="497" y="250" key="SettingsEditor" timestamp="1577388950778">
       <screen x="57" y="23" width="1863" height="1177" />
     </state>
