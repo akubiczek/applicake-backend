@@ -24,6 +24,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/candidates', 'CandidatesController@list');
     Route::get('/candidates/{candidateId}', 'CandidatesController@get');
     Route::put('/candidates/{candidateId}', 'CandidatesController@update');
+    Route::delete('/candidates/{candidateId}', 'CandidatesController@delete');
+
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
 
     Route::get('/notes', 'NotesController@get');

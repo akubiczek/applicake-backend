@@ -8,7 +8,7 @@ use App\Http\Requests\ChangeStageRequest;
 use App\Mail\ForwardCv;
 use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
-use App\Services\CandidateDeleter;
+use App\Utils\CandidateDeleter;
 use App\Utils\PhoneFormatter;
 use App\Utils\MessageService;
 use App\Stage;
@@ -59,6 +59,22 @@ class CandidatesController extends Controller
         }
 
         return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
+    }
+
+    public function delete($candidateId)
+    {
+        $candidate = Candidate::find($candidateId);
+
+        if ($candidate) {
+            $messageSubject = 'Usunięcie kandydatury z bazy KISS digital';
+            $messageBody = 'Informuję, że Pana/Pani dane oraz plik CV zostały usunięte z bazy rekrutacyjnej firmy KISS digital. Dziękuję za zgłoszenie i zachęcam do kandydowania w przyszłości - aktualne oferty pracy można znaleźć na stronie https://kissdigital.com/jobs.';
+            MessageService::sendMessage($candidate, $messageSubject, $messageBody);
+            CandidateDeleter::delete($candidate);
+
+            return response()->json(null, 200);
+        }
+
+        return response()->json(null, 404);
     }
 
     //TODO: route nie chroniony - docelowo zrobić zabezpieczenie z użyciem jednorazowych tokenów, a także nie przekazywać do klienta pola path_to_cv
