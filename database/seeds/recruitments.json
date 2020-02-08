@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Senior PHP Developer",
+        "notification_email": "test@example.com"
+    },
+    {
+        "name": "Project Manager",
+        "notification_email": "test@example.com"
+    }
+]
