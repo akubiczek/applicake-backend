@@ -39,10 +39,9 @@ class CandidatesRepository
             ->values();
     }
 
-    public static function search(array $data): Collection
+    public static function search(array $data, array $columns = null): Collection
     {
         $query = Candidate::query();
-        $query->with('recruitment');
 
         if ($search = data_get($data, 'search')) {
             $array = explode(' ', $search);
@@ -71,6 +70,12 @@ class CandidatesRepository
 
         if ($recruitment = data_get($data, 'recruitment')) {
             $query = $query->where('recruitment_id', $recruitment);
+        }
+
+        if (!empty($columns)) {
+            $query->select($columns);
+        } else {
+            $query->with('recruitment');
         }
 
         return $query->get();

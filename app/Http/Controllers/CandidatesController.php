@@ -35,6 +35,19 @@ class CandidatesController extends Controller
         return response()->json($candidates);
     }
 
+    public function names(Request $request)
+    {
+        $search = $request->get('search');
+        $columns = ['id', 'first_name', 'last_name'];
+
+        if ($search) {
+            $candidates = CandidatesRepository::search(['search' => $search], $columns);
+        } else {
+            $candidates = Candidate::select($columns)->get();
+        }
+        return response()->json($candidates);
+    }
+
     public function get($candidateId)
     {
         $candidate = Candidate::with(['source', 'recruitment'])->find($candidateId);
