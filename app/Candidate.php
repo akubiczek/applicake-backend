@@ -61,8 +61,4 @@ class Candidate extends Model
     {
         return $query->where('stage_id', '=', Stage::STAGE_NEW);
     }
-
-    protected $dispatchesEvents = [
-        'created' => \App\Events\NewCandidateApplied::class,
-    ];
 }

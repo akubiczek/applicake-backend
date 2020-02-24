@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Candidate;
+use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
 use App\Http\Requests\ChangeStageRequest;
-use App\Mail\ForwardCv;
 use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
 use App\Utils\CandidateDeleter;
@@ -16,6 +16,27 @@ use Illuminate\Http\Request;
 
 class CandidatesController extends Controller
 {
+    public function create(CandidatesCreateRequest $request)
+    {
+        $candidate = new Candidate();
+        $candidate->first_name = $request->get('first_name');
+        $candidate->last_name = $request->get('first_name');
+        $candidate->email = $request->get('email');
+        $candidate->phone_number = $request->get('phone_number');
+        $candidate->additional_info = $request->get('additional_info');
+        $candidate->future_agreement = (bool)data_get($request->validated(), 'future_agreement');
+
+        $candidate->stage_id = 1;
+        $candidate->path_to_cv = 0;
+        $candidate->source_id = 0;
+        $candidate->recruitment_id = 1;
+
+        $candidate->save();
+
+        $candidate = Candidate::find($candidate->id);
+        return response()->json($candidate);
+    }
+
     public function list(CandidatesListRequest $request)
     {
         $recruitmentId = $request->get('recruitmentId');
