@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Candidate;
+use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
 use App\Http\Requests\ChangeStageRequest;
-use App\Mail\ForwardCv;
+use App\Recruitment;
 use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
+use App\Source;
 use App\Utils\CandidateDeleter;
+use App\Utils\Candidates\CandidateCreator;
 use App\Utils\PhoneFormatter;
 use App\Utils\MessageService;
 use App\Stage;
@@ -16,6 +19,17 @@ use Illuminate\Http\Request;
 
 class CandidatesController extends Controller
 {
+    public function create(CandidatesCreateRequest $request)
+    {
+        $candidate = CandidateCreator::create($request);
+
+        if ($candidate) {
+            return response()->json($candidate);
+        }
+
+        return response()->json(['status' => 'Recruitment not found'], 404);
+    }
+
     public function list(CandidatesListRequest $request)
     {
         $recruitmentId = $request->get('recruitmentId');

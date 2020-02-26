@@ -22,6 +22,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/recruitments/{recruitmentId}', 'RecruitmentsController@get');
 
     Route::get('/candidates', 'CandidatesController@list');
+    Route::post('/candidates', 'CandidatesController@create');
     Route::get('/candidates/names', 'CandidatesController@names');
     Route::get('/candidates/{candidateId}', 'CandidatesController@get');
     Route::put('/candidates/{candidateId}', 'CandidatesController@update');
