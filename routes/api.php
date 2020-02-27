@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/notes', 'NotesController@create');
 
     /* Remaining endpoints */
+    Route::post('/sources', 'SourcesController@create');
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
     Route::get('/messages', 'MessagesController@list');
     Route::get('/stages', 'StagesController@list');
