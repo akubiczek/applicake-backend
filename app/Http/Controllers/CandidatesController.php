@@ -6,16 +6,16 @@ use App\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
 use App\Http\Requests\ChangeStageRequest;
-use App\Recruitment;
+use App\Http\Resources\CandidateCollection;
+use App\Http\Resources\TruncatedCandidateResource;
 use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
-use App\Source;
 use App\Utils\CandidateDeleter;
 use App\Utils\Candidates\CandidateCreator;
-use App\Utils\PhoneFormatter;
 use App\Utils\MessageService;
 use App\Stage;
 use Illuminate\Http\Request;
+use App\Http\Resources\CandidateResource;
 
 class CandidatesController extends Controller
 {
@@ -42,11 +42,7 @@ class CandidatesController extends Controller
             $candidates = Candidate::with('recruitment')->orderBy('created_at', 'DESC')->get();
         }
 
-        foreach ($candidates as $candidate) {
-            $candidate->phone_number = PhoneFormatter::format($candidate->phone_number);
-        }
-
-        return response()->json($candidates);
+        return TruncatedCandidateResource::collection($candidates);
     }
 
     public function names(Request $request)
@@ -64,10 +60,7 @@ class CandidatesController extends Controller
 
     public function get($candidateId)
     {
-        $candidate = Candidate::with(['source', 'recruitment'])->find($candidateId);
-        $candidate->otherApplications = CandidatesRepository::getOtherApplications($candidate);
-        $candidate->phone_number = PhoneFormatter::format($candidate->phone_number);
-        return response()->json($candidate);
+        return new CandidateResource(Candidate::find($candidateId));
     }
 
     public function update(Request $request, $candidateId)
@@ -79,8 +72,15 @@ class CandidatesController extends Controller
             if (isset($request->recruitment_id))
                 $candidate->recruitment_id = $request->recruitment_id;
 
-            if (isset($request->rate))
+            if (isset($request->rate)) {
                 $candidate->rate = $request->rate;
+
+                $activity = new Activity();
+                $activity->candidate_id = $candidate->id;
+                $activity->type = Activity::TYPE_RATE;
+                $activity->value = $request->rate;
+                $activity->save();
+            }
 
             $candidate->save();
         }
@@ -149,3 +149,4 @@ class CandidatesController extends Controller
         return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
     }
 }
+
