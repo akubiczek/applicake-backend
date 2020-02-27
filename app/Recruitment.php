@@ -28,6 +28,6 @@ class Recruitment extends Model
     }
 
     protected $dispatchesEvents = [
-        'created' => \App\Events\RecruitmentWasStored::class,
+//        'created' => \App\Events\RecruitmentWasStored::class,
     ];
 }

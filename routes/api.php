@@ -18,9 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function () {
+
+    /* Recruitments */
     Route::get('/recruitments', 'RecruitmentsController@list');
     Route::get('/recruitments/{recruitmentId}', 'RecruitmentsController@get');
+    Route::post('/recruitments', 'RecruitmentsController@create');
 
+    /* Candidates */
     Route::get('/candidates', 'CandidatesController@list');
     Route::post('/candidates', 'CandidatesController@create');
     Route::get('/candidates/names', 'CandidatesController@names');
@@ -28,15 +32,14 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/candidates/{candidateId}', 'CandidatesController@update');
     Route::delete('/candidates/{candidateId}', 'CandidatesController@delete');
 
-    Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
-
-    Route::get('/messages', 'MessagesController@list');
-
+    /* Notes */
     Route::get('/notes', 'NotesController@get');
     Route::post('/notes', 'NotesController@create');
 
+    /* Remaining endpoints */
+    Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
+    Route::get('/messages', 'MessagesController@list');
     Route::get('/stages', 'StagesController@list');
-
     Route::get('/message_templates', 'MessageTemplatesController@get');
 
 });
