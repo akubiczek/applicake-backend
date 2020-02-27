@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Candidate;
+use App\Models\Candidate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 

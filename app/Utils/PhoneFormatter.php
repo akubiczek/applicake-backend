@@ -3,7 +3,6 @@
 namespace App\Utils;
 
 use McCool\LaravelAutoPresenter\BasePresenter;
-use Carbon\Carbon;
 
 class PhoneFormatter
 {

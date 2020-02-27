@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RecruitmentCreateRequest;
 use App\Http\Requests\RecruitmentUpdateRequest;
-use App\Recruitment;
+use App\Models\Recruitment;
 use App\Utils\Recruitments\RecruitmentCreator;
 
 class RecruitmentsController extends Controller

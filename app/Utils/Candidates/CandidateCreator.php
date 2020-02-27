@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Utils\Candidates;
 
-
-use App\Candidate;
+use App\Models\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
-use App\Recruitment;
-use App\Source;
+use App\Models\Recruitment;
+use App\Models\Source;
 
 class CandidateCreator
 {

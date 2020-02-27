@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Candidate;
-use App\Message;
-use App\Recruitment;
-use App\MessageTemplate;
+use App\Models\Candidate;
+use App\Models\Message;
+use App\Models\MessageTemplate;
 use App\Services\UtilsService;
-use App\StageMessageTemplate;
+use App\Models\StageMessageTemplate;
 use Illuminate\Http\Request;
 use App\Services\MessagesService;
 

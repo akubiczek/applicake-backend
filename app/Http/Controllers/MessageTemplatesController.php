@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Candidate;
+use App\Models\Candidate;
 use App\Http\Requests\CandidatesListRequest;
-use App\Mail\ForwardCv;
-use App\MessageTemplate;
+use App\Models\MessageTemplate;
 use App\Repositories\RecruitmentsRepository;
 use App\Services\CandidateDeleter;
 use App\StageMessageTemplate;

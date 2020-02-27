@@ -1,7 +1,7 @@
 <?php
 namespace App\Utils;
 
-use App\Candidate;
+use App\Models\Candidate;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateDeleter

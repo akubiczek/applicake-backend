@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Candidate;
+use App\Models\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
 use App\Http\Requests\ChangeStageRequest;
@@ -13,7 +13,7 @@ use App\Repositories\RecruitmentsRepository;
 use App\Utils\CandidateDeleter;
 use App\Utils\Candidates\CandidateCreator;
 use App\Utils\MessageService;
-use App\Stage;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 use App\Http\Resources\CandidateResource;
 

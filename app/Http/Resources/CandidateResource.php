@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Candidate;
 use App\Repositories\CandidatesRepository;
 use App\Utils\PhoneFormatter;
 use Illuminate\Http\Resources\Json\JsonResource;

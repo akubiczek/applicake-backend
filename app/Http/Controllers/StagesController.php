@@ -8,7 +8,7 @@ use App\Mail\ForwardCv;
 use App\Repositories\RecruitmentsRepository;
 use App\Services\CandidateDeleter;
 use App\Services\MessagesService;
-use App\Stage;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 
 class StagesController extends Controller

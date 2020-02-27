@@ -8,10 +8,10 @@
 
 namespace App\Utils;
 
-use App\Candidate;
+use App\Models\Candidate;
 use App\Mail\MailMessage;
 use App\Mail\GeneralMessage;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 
 class MessageService

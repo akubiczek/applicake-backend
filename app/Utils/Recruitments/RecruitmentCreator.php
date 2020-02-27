@@ -2,7 +2,7 @@
 
 namespace App\Utils\Recruitments;
 
-use App\Recruitment;
+use App\Models\Recruitment;
 
 class RecruitmentCreator
 {
