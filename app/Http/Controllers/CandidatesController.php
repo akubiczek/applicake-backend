@@ -74,12 +74,6 @@ class CandidatesController extends Controller
 
             if (isset($request->rate)) {
                 $candidate->rate = $request->rate;
-
-                $activity = new Activity();
-                $activity->candidate_id = $candidate->id;
-                $activity->type = Activity::TYPE_RATE;
-                $activity->value = $request->rate;
-                $activity->save();
             }
 
             $candidate->save();
