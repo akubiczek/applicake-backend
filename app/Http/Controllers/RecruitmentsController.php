@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RecruitmentCreateRequest;
 use App\Http\Requests\RecruitmentUpdateRequest;
 use App\Models\Recruitment;
+use App\Models\Source;
 use App\Utils\Recruitments\RecruitmentCreator;
 
 class RecruitmentsController extends Controller
@@ -26,5 +27,15 @@ class RecruitmentsController extends Controller
     public function get($recruitmentId)
     {
         return response()->json(Recruitment::find($recruitmentId));
+    }
+
+    public function getByKey($key)
+    {
+        $source = Source::where('key', $key)->get()->first();
+
+        if (empty($source))
+            return response()->json(['message'=>'Recruitment not found'], 404);
+
+        return response()->json(['job_title' => $source->recruitment->name]); //TODO return job_title instead of name
     }
 }

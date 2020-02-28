@@ -45,4 +45,5 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
+Route::get('/recruitments/key/{key}', 'RecruitmentsController@getByKey');
 Route::post('/candidates', 'CandidatesController@create'); //TODO: to jest dziura bo dodawac kandydatow bez autoryzacji mozna tylko z formularza zgloszeniowego
