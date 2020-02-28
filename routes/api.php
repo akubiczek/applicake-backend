@@ -26,7 +26,6 @@ Route::middleware('auth:api')->group(function () {
 
     /* Candidates */
     Route::get('/candidates', 'CandidatesController@list');
-    Route::post('/candidates', 'CandidatesController@create');
     Route::get('/candidates/names', 'CandidatesController@names');
     Route::get('/candidates/{candidateId}', 'CandidatesController@get');
     Route::put('/candidates/{candidateId}', 'CandidatesController@update');
@@ -46,3 +45,4 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
+Route::post('/candidates', 'CandidatesController@create'); //TODO: to jest dziura bo dodawac kandydatow bez autoryzacji mozna tylko z formularza zgloszeniowego
