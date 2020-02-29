@@ -24,7 +24,7 @@ class CreateCandidatesTable extends Migration {
 			$table->string('path_to_cv', 191);
 			$table->integer('source_id')->unsigned()->nullable();
 			$table->integer('recruitment_id')->unsigned()->index('recruitment_id');
-            $table->integer('source_recruitment_id')->unsigned()->index('source_recruitment_id');
+            $table->integer('source_recruitment_id')->unsigned()->nullable()->index('source_recruitment_id');
 			$table->dateTime('seen_at')->nullable();
 			$table->integer('stage_id')->unsigned()->default(1);
 			$table->integer('rate')->nullable();

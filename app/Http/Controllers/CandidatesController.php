@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CandidateStageChanged;
 use App\Models\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
@@ -24,7 +25,8 @@ class CandidatesController extends Controller
         $candidate = CandidateCreator::create($request);
 
         if ($candidate) {
-            return response()->json($candidate);
+            event(new CandidateStageChanged($candidate));
+            return response()->json($candidate, 201);
         }
 
         return response()->json(['status' => 'Recruitment not found'], 404);

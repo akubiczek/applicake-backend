@@ -17,7 +17,7 @@ class CreateNotesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->text('body', 65535);
-			$table->integer('candidate_id')->unsigned()->index('candidate_id');
+			$table->integer('candidate_id')->unsigned()->index('candidate_id_idx');
 		});
 	}
 

@@ -32,7 +32,7 @@ class CandidateCreator
 
         $candidate = new Candidate();
         $candidate->first_name = $request->get('first_name');
-        $candidate->last_name = $request->get('first_name');
+        $candidate->last_name = $request->get('last_name');
         $candidate->email = $request->get('email');
         $candidate->phone_number = $request->get('phone_number');
         $candidate->additional_info = $request->get('additional_info');

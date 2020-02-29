@@ -8,6 +8,7 @@
 .idea
 .env
 .env.backup
+.env.testing
 .rnd
 .phpunit.result.cache
 Homestead.json

@@ -21,7 +21,7 @@ class CreateMessageTemplatesTable extends Migration {
 			$table->integer('type')->default(0);
 			$table->integer('stage_id')->nullable();
 			$table->integer('recruitment_id')->unsigned();
-			$table->unique(['recruitment_id','stage_id'], 'recruitment_id');
+			$table->unique(['recruitment_id','stage_id'], 'recruitment_stage_idx');
 		});
 	}
 

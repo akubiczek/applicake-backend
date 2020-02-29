@@ -17,7 +17,7 @@ class CreateSourcesTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('name', 191)->default('');
-			$table->integer('recruitment_id')->unsigned()->index('recruitment_id');
+			$table->integer('recruitment_id')->unsigned()->index('recruitment_id_idx');
 			$table->string('key', 8)->default('')->unique('key');
 		});
 	}
