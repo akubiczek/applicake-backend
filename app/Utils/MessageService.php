@@ -13,19 +13,20 @@ use App\Mail\MailMessage;
 use App\Mail\GeneralMessage;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class MessageService
 {
     public static function sendMessage(Candidate $candidate, $messageSubject, $messageBody, $delay = null, ?User $author = null)
     {
         $generalMessage = new GeneralMessage($messageSubject, $messageBody, $author);
-
+//throw new \Exception($generalMessage);exit;
         if (!empty($delay)) {
 
             $delayUntil = Carbon::parse($delay);
 
             //TODO odblokować
-            //Mail::to($candidate->email)->later($delayUntil, $generalMessage);
+            Mail::to($candidate->email)->later($delayUntil, $generalMessage);
 
             $message = $generalMessage->toMessage();
             $message->candidate_id = $candidate->id;
@@ -36,21 +37,24 @@ class MessageService
         }
 
         //TODO odblokować
-        //Mail::to($candidate->email)->queue($generalMessage);
+        Mail::to($candidate->email)->queue($generalMessage);
 
         $message = $generalMessage->toMessage();
         $message->candidate_id = $candidate->id;
         $message->save();
     }
 
-    public static function parseTemplate($messageTemplate, Candidate $candidate, \DateTime $appointmentDate)
+    public static function parseTemplate($messageTemplate, Candidate $candidate, \DateTime $appointmentDate = null)
     {
         $messageTemplate->subject = str_replace('{NAZWA_STANOWISKA}',
             $candidate->recruitment->name,
             $messageTemplate->subject);
         $messageTemplate->body = str_replace('{NAZWA_STANOWISKA}', $candidate->recruitment->name, $messageTemplate->body);
-        $messageTemplate->body = str_replace('{DATA_SPOTKANIA}', self::richDateFormat($appointmentDate), $messageTemplate->body);
-        $messageTemplate->body = str_replace('{GODZINA_SPOTKANIA}', $appointmentDate->format('G:i'), $messageTemplate->body);
+
+        if ($appointmentDate) {
+            $messageTemplate->body = str_replace('{DATA_SPOTKANIA}', self::richDateFormat($appointmentDate), $messageTemplate->body);
+            $messageTemplate->body = str_replace('{GODZINA_SPOTKANIA}', $appointmentDate->format('G:i'), $messageTemplate->body);
+        }
 
         return $messageTemplate;
     }
@@ -67,7 +71,7 @@ class MessageService
             $prefix = 'pojutrze, tj. ';
         }
 
-        return $prefix.$carbonDate->isoFormat('dddd, D MMMM');
+        return $prefix . $carbonDate->isoFormat('dddd, D MMMM');
     }
 
     public static function sendNotificationEmail(Candidate $candidate)
@@ -87,7 +91,7 @@ class MessageService
             $generalMessage = new MailMessage($messageTemplate, $candidate);
 
             //TODO odblokować
-            //Mail::to($notificationEmail)->queue($generalMessage);
+            Mail::to($notificationEmail)->queue($generalMessage);
         }
     }
 }

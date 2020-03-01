@@ -17,7 +17,7 @@ class CandidateTest extends TestCase
     private $candidate = [
         'first_name' => 'Adam',
         'last_name' => 'Testowy',
-        'email' => 'adam.testowy@example.com',
+        'email' => 'adam@kubiczek.eu',
         'phone_number' => '+48600600600',
         'additional_info' => 'Bierzcie mnie i nikogo innego!',
         'key' => 'XXXYYZ1',

@@ -8,8 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\View;
-use App\MessageTemplate;
-use App\Message;
+use App\Models\MessageTemplate;
+use App\Models\Message;
 
 class GeneralMessage extends Mailable
 {

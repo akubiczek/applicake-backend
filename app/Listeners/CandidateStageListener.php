@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\CandidateStageChanged;
+use App\Models\MessageTemplate;
 use App\Utils\MessageService;
 use App\Utils\UtilsService;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,7 +36,7 @@ class CandidateStageListener implements ShouldQueue
             $messageTemplate->subject = "$messageTemplate->subject $hashSuffix";
 
             MessageService::parseTemplate($messageTemplate, $event->candidate);
-            MessageService::sendMessage($event->candidate, $messageTemplate);
+            MessageService::sendMessage($event->candidate, $messageTemplate->subject, $messageTemplate->body);
         }
     }
 }

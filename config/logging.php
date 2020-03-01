@@ -40,7 +40,11 @@ return [
             'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
-
+        'mail' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/mail-'.php_sapi_name().'.log'),
+            'level' => 'debug',
+        ],
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
