@@ -21,6 +21,7 @@ class CreateCandidatesTable extends Migration {
 			$table->string('email', 191)->nullable();
 			$table->string('phone_number', 40)->nullable();
 			$table->boolean('future_agreement')->default(0);
+            $table->text('additional_info', 65535)->nullable();
 			$table->string('path_to_cv', 191);
 			$table->integer('source_id')->unsigned()->nullable();
 			$table->integer('recruitment_id')->unsigned()->index('recruitment_id');
@@ -28,6 +29,7 @@ class CreateCandidatesTable extends Migration {
 			$table->dateTime('seen_at')->nullable();
 			$table->integer('stage_id')->unsigned()->default(1);
 			$table->integer('rate')->nullable();
+            $table->softDeletes();
 		});
 	}
 

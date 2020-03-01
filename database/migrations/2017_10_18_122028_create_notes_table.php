@@ -15,9 +15,11 @@ class CreateNotesTable extends Migration {
 		Schema::create('notes', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->unsignedBigInteger('user_id')->nullable();
 			$table->timestamps();
 			$table->text('body', 65535);
 			$table->integer('candidate_id')->unsigned()->index('candidate_id_idx');
+            $table->softDeletes();
 		});
 	}
 

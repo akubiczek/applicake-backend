@@ -20,6 +20,8 @@ class CreateMessagesTable extends Migration {
 			$table->integer('candidate_id')->unsigned()->index('candidate_id');
 			$table->string('subject', 191)->nullable()->default('');
 			$table->text('body', 65535);
+            $table->dateTime('scheduled_at')->nullable();
+            $table->softDeletes();
 		});
 	}
 
