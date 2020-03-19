@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recruitment extends Model
 {
+
+    protected $connection = 'tenant';
+
     protected $fillable = [
         'name',
         'notification_email',

@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 
-class ExampleRecruitments extends Seeder
+class ExampleRecruitments extends \App\Services\TenantSeeder
 {
     const JSON_PATH = './database/seeds/recruitments.json';
 
@@ -19,7 +18,7 @@ class ExampleRecruitments extends Seeder
 
         foreach ($recruitments as $recruitment)
         {
-            DB::table('recruitments')->insert([
+            DB::connection($this->connection)->table('recruitments')->insert([
                 'id' => $id,
                 'name' => $recruitment['name'],
                 'notification_email' => $recruitment['notification_email'],
@@ -27,10 +26,10 @@ class ExampleRecruitments extends Seeder
                 'updated_at' => $now,
             ]);
 
-            DB::table('sources')->insert([
+            DB::connection($this->connection)->table('sources')->insert([
                 'name' => 'KISSdigital.com',
                 'recruitment_id' => $id,
-                'key' => 'XXXYYZ'.$id,
+                'key' => 'XXXYYZ' . $id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);

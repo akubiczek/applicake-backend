@@ -17,7 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->group(function () {
+Route::group([
+    'middleware' => ['tenant.identify', 'auth:api'],
+], function () {
 
     /* Recruitments */
     Route::get('/recruitments', 'RecruitmentsController@list');
@@ -41,9 +43,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/messages', 'MessagesController@list');
     Route::get('/stages', 'StagesController@list');
     Route::get('/message_templates', 'MessageTemplatesController@get');
-
 });
 
-Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
-Route::get('/recruitments/key/{key}', 'RecruitmentsController@getByKey');
-Route::post('/candidates', 'CandidatesController@create'); //TODO: to jest dziura bo dodawac kandydatow bez autoryzacji mozna tylko z formularza zgloszeniowego
+Route::group([
+    'middleware' => [\App\Http\Middleware\IdentifyTenant::class],
+], function () {
+    Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
+    Route::get('/recruitments/key/{key}', 'RecruitmentsController@getByKey');
+    Route::post('/candidates', 'CandidatesController@create'); //TODO: to jest dziura bo dodawac kandydatow bez autoryzacji mozna tylko z formularza zgloszeniowego
+});

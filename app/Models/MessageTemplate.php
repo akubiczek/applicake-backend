@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class MessageTemplate extends Model
 {
+
+    protected $connection = 'tenant';
+
     protected $fillable = [
         'subject',
         'body',

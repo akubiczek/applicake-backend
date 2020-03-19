@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+
+    protected $connection = 'tenant';
+
     const ROLE_SUPERADMIN = 'SUPERADMIN';
 
     public function users()

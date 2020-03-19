@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Tenant;
+use App\Services\TenantManager;
 use Illuminate\Console\Command;
 
 class SeedTestData extends Command
@@ -11,23 +13,27 @@ class SeedTestData extends Command
      *
      * @var string
      */
-    protected $signature = 'db:seedtestdata';
+    protected $signature = 'tenant:seedtestdata';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Seed database with example recruitments and fake candidates';
+    protected $description = 'Seed teenant database with example recruitments and fake candidates';
+
+    protected $tenantManager;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TenantManager $tenantManager)
     {
         parent::__construct();
+
+        $this->tenantManager = $tenantManager;
     }
 
     /**
@@ -37,10 +43,22 @@ class SeedTestData extends Command
      */
     public function handle()
     {
-        $seeder = new \ExampleRecruitments();
-        $seeder->run();
+        $tenantId = $this->ask('Tenant ID');
+        $tenant = Tenant::find($tenantId);
 
-        $seeder = new \ExampleCandidates();
-        $seeder->run();
+        if ($tenant) {
+            $this->tenantManager->setTenant($tenant);
+            \DB::purge('tenant');
+
+            $seeder = new \ExampleRecruitments();
+            $seeder->setConnection('tenant');
+            $seeder->run();
+
+            $seeder = new \ExampleCandidates();
+            $seeder->setConnection('tenant');
+            $seeder->run();
+        } else {
+            $this->error('Tenant not found');
+        }
     }
 }
