@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class StageMessageTemplate extends Model
 {
-    //
+    protected $connection = 'tenant';
 }

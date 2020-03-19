@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Source extends Model
 {
+
+    protected $connection = 'tenant';
+
     const SOURCE_KEY_MAXLENGTH = 8;
 
     protected $fillable = [

@@ -9,6 +9,8 @@ class Candidate extends Model
 {
     use SoftDeletes;
 
+    protected $connection = 'tenant';
+
     /**
      * The attributes that should be mutated to dates.
      *
