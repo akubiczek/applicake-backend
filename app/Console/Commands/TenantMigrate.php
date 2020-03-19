@@ -10,7 +10,7 @@ class TenantMigrate extends Command
 {
     protected $signature = 'tenants:migrate';
 
-    protected $description = 'Migrate tenant databases';
+    protected $description = 'Run tenant migrations for all registered tenants';
 
     protected $tenantManager;
 
