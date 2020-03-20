@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CandidateStageChanged
+class CandidateMoved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,18 +20,18 @@ class CandidateStageChanged
      */
     public $candidate;
 
-    public $previousStage, $newStage;
+    public $previousRecruitmentId, $newRecruitmentId;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Candidate $candidate, $previousStage, $newStage)
+    public function __construct(Candidate $candidate, $previousRecruitmentId, $newRecruitmentId)
     {
         $this->candidate = $candidate;
-        $this->previousStage = $previousStage;
-        $this->newStage = $newStage;
+        $this->previousRecruitmentId = $previousRecruitmentId;
+        $this->newRecruitmentId = $newRecruitmentId;
     }
 
     /**

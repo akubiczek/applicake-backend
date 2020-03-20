@@ -53,6 +53,11 @@ class Candidate extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
     /**
      * Scope a query to only include unseen candidates.
      *

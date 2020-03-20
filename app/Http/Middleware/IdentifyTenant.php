@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Services\TenantManager;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IdentifyTenant
 {
@@ -33,6 +34,6 @@ class IdentifyTenant
             return $next($request);
         }
 
-        throw new NotFoundHttpException;
+        throw new NotFoundHttpException('Tenant not found');
     }
 }

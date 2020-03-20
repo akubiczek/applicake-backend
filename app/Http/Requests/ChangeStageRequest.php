@@ -39,7 +39,7 @@ class ChangeStageRequest extends FormRequest
             'stage_id' => [
                 'required',
                 'integer',
-                'exists:stages,id',
+                'exists:tenant.stages,id',
             ],
         ];
     }

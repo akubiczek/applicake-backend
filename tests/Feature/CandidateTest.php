@@ -33,7 +33,7 @@ class CandidateTest extends TestCase
 
         $this->candidate['file'] = UploadedFile::fake()->create('cv.pdf', 30);
 
-        $this->post('/api/candidates', $this->candidate)
+        $this->post('http://tenant1.misspiggy.local/api/candidates', $this->candidate)
             ->assertStatus(201)
             ->assertJsonFragment([
             'first_name' => $this->candidate['first_name'],
