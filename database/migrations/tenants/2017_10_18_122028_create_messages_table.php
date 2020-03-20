@@ -14,17 +14,16 @@ class CreateMessagesTable extends Migration {
 	{
 		Schema::create('messages', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
-			$table->integer('type')->default(1);
-			$table->integer('candidate_id')->unsigned()->index('candidate_id');
-			$table->string('subject', 191)->nullable()->default('');
-			$table->text('body', 65535);
-            $table->dateTime('scheduled_at')->nullable();
+            $table->id('id');
+            $table->timestamps();
             $table->softDeletes();
-		});
+            $table->integer('type')->default(1);
+            $table->integer('candidate_id')->unsigned()->index('candidate_id');
+            $table->string('subject', 191)->nullable()->default('');
+            $table->text('body', 65535);
+            $table->dateTime('scheduled_at')->nullable();
+        });
 	}
-
 
 	/**
 	 * Reverse the migrations.

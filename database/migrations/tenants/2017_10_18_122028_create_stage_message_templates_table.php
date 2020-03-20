@@ -14,13 +14,13 @@ class CreateStageMessageTemplatesTable extends Migration {
 	{
 		Schema::create('stage_message_templates', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
-			$table->string('subject', 191)->default('');
-			$table->text('body', 65535);
-			$table->integer('type')->default(0);
-			$table->integer('stage_id')->nullable()->unique('recruitment_id_2');
-		});
+            $table->id('id');
+            $table->timestamps();
+            $table->string('subject', 191)->default('');
+            $table->text('body', 65535);
+            $table->integer('type')->default(0);
+            $table->integer('stage_id')->nullable()->unique('recruitment_id_2');
+        });
 	}
 
 

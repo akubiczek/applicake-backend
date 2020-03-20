@@ -14,13 +14,13 @@ class CreateSourcesTable extends Migration {
 	{
 		Schema::create('sources', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
-			$table->string('name', 191)->default('');
-			$table->integer('recruitment_id')->unsigned()->index('recruitment_id_idx');
-			$table->string('key', 8)->default('')->unique('key');
+            $table->id('id');
+            $table->timestamps();
             $table->softDeletes();
-		});
+            $table->string('name', 191)->default('');
+            $table->foreignId('recruitment_id')->constrained()->onDelete('cascade');
+            $table->string('key', 8)->default('')->unique('key');
+        });
 	}
 
 

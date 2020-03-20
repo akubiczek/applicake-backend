@@ -13,13 +13,13 @@ class CreateRecruitmentsTable extends Migration
     public function up()
     {
         Schema::create('recruitments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->string('name', 191)->default('');
             $table->string('job_title', 191)->default('');
             $table->integer('state')->default(0);
             $table->string('notification_email', 191)->nullable();
-            $table->softDeletes();
         });
     }
 

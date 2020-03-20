@@ -14,15 +14,15 @@ class CreateMessageTemplatesTable extends Migration {
 	{
 		Schema::create('message_templates', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
-			$table->string('subject', 191)->default('');
-			$table->text('body', 65535);
-			$table->integer('type')->default(0);
-			$table->integer('stage_id')->nullable();
-			$table->integer('recruitment_id')->unsigned();
-			$table->unique(['recruitment_id','stage_id'], 'recruitment_stage_idx');
-		});
+            $table->id('id');
+            $table->timestamps();
+            $table->string('subject', 191)->default('');
+            $table->text('body', 65535);
+            $table->integer('type')->default(0);
+            $table->integer('stage_id')->nullable();
+            $table->foreignId('recruitment_id')->constrained()->onDelete('cascade');
+            $table->unique(['recruitment_id', 'stage_id'], 'recruitment_stage_idx');
+        });
 	}
 
 

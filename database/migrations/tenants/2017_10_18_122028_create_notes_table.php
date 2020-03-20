@@ -14,13 +14,13 @@ class CreateNotesTable extends Migration {
 	{
 		Schema::create('notes', function(Blueprint $table)
 		{
-			$table->increments('id');
-            $table->unsignedBigInteger('user_id')->nullable();
-			$table->timestamps();
-			$table->text('body', 65535);
-			$table->integer('candidate_id')->unsigned()->index('candidate_id_idx');
+            $table->id('id');
+            $table->timestamps();
             $table->softDeletes();
-		});
+            $table->text('body', 65535);
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('candidate_id')->constrained()->onDelete('cascade');
+        });
 	}
 
 

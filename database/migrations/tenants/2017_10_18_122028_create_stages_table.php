@@ -14,9 +14,9 @@ class CreateStagesTable extends Migration {
 	{
 		Schema::create('stages', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->string('name', 191)->default('');
-		});
+            $table->id('id');
+            $table->string('name', 191)->default('');
+        });
 	}
 
 
