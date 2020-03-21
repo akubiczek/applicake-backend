@@ -2,23 +2,21 @@
 
 namespace App\Mail;
 
-use App\Services\UtilsService;
+use App\Models\Candidate;
+use App\Utils\UtilsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\View;
-use App\MessageTemplate;
-use App\Message;
 
-class MailMessage extends Mailable
+class NewCandidateNotification extends Mailable
 {
     use Queueable;
 
     /**
-     * @var MessageTemplate
+     * @var Candidate
      */
-    public $messageTemplate;
     public $candidate;
 
     /**
@@ -26,9 +24,8 @@ class MailMessage extends Mailable
      *
      * @return void
      */
-    public function __construct($messageTemplate, $candidate)
+    public function __construct(Candidate $candidate)
     {
-        $this->messageTemplate = $messageTemplate;
         $this->candidate = $candidate;
     }
 
@@ -41,7 +38,7 @@ class MailMessage extends Mailable
     {
         return $this
             ->subject($this->getSubject())
-            ->view('emails.raw_email')
+            ->view('emails.new_candidate')
             ->attach($this->getCvPath());
     }
 
@@ -57,13 +54,5 @@ class MailMessage extends Mailable
     protected function getCvPath()
     {
         return storage_path('app/' . $this->candidate->path_to_cv);
-    }
-
-    protected function getViewParams()
-    {
-        return [
-            'position' => $this->candidate->recruitment->name,
-            'candidateId' => $this->candidate->id,
-        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CandidateApplied;
 use App\Events\CandidateMoved;
 use App\Events\CandidateRated;
 use App\Events\CandidateStageChanged;
@@ -27,7 +28,7 @@ class CandidatesController extends Controller
         $candidate = CandidateCreator::create($request);
 
         if ($candidate) {
-            event(new CandidateStageChanged($candidate, 0, $candidate->stage_id));
+            event(new CandidateApplied($candidate));
             return response()->json($candidate, 201);
         }
 
@@ -136,19 +137,7 @@ class CandidatesController extends Controller
         $candidate->stage_id = $stage->id;
         $candidate->save();
 
-        event(new CandidateStageChanged($candidate, $previousStage, $stage->id));
-
-        if ($request->send_message) {
-
-            $delay = null;
-
-            if ($request->delay_message_send) {
-                $delay = $request->delayed_message_date;
-            }
-
-            MessageService::sendMessage($candidate, $request->get('message_subject'), $request->get('message_body'), $delay, $request->user());
-            $notify[] = 'Wiadomość do kandydata została wysłana.';
-        }
+        event(new CandidateStageChanged($candidate, $previousStage, $stage->id, $request));
 
         return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
     }

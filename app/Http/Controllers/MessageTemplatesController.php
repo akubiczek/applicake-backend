@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use App\Http\Requests\CandidatesListRequest;
-use App\Models\MessageTemplate;
+use App\Models\PredefinedMessage;
 use App\Repositories\RecruitmentsRepository;
 use App\Services\CandidateDeleter;
 use App\StageMessageTemplate;
@@ -21,13 +21,13 @@ class MessageTemplatesController extends Controller
         $appointmentDateString = $request->get('appointment_date');
         $appointmentDate = new \DateTime($appointmentDateString);
 
-        $template = MessageTemplate::where('recruitment_id', $candidate->recruitment->id)->where('stage_id', $stageId)->first();
+        $template = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('stage_id', $stageId)->first();
         if (empty($template)) {
             $template = StageMessageTemplate::where('stage_id', $stageId)->first();
         }
 
         if ($template) {
-            $parsedMessage = MessageService::parseTemplate($template, $candidate, $appointmentDate);
+            $parsedMessage = MessageService::parseContent($template, $candidate, $appointmentDate);
             return response()->json($parsedMessage);
         }
 

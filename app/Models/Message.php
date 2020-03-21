@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-
     protected $connection = 'tenant';
 
     const TYPE_EMAIL = 1;
@@ -17,4 +16,9 @@ class Message extends Model
         'updated_at',
         'scheduled_at'
     ];
+
+    public function candidate()
+    {
+        return $this->belongsTo('App\Candidate');
+    }
 }

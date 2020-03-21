@@ -1,42 +1,61 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kubik
- * Date: 18/10/2017
- * Time: 15:51
- */
 
 namespace App\Utils;
 
 use App\Models\Candidate;
-use App\Mail\MailMessage;
-use App\Mail\GeneralMessage;
+use App\Mail\NewCandidateNotification;
+use App\Mail\CandidateMailable;
+use App\Models\Message;
+use App\Models\PredefinedMessage;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class MessageService
 {
+    public static function sendConfirmationToCandidate($candidate)
+    {
+        $predefinedMessage = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('stage_id', $candidate->stage_id)->first();
+
+        if (!$predefinedMessage) {
+            return false;
+        }
+
+        $message = new Message();
+        $message->candidate_id = $candidate->id;
+        $message->to = $candidate->email;
+        $message->from = '';
+        $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate) . ' ' . UtilsService::hashSuffix($candidate->id);
+        $message->body = ContentParser::parse($predefinedMessage->body, $candidate);
+        $message->save();
+
+        Mail::to($message->to)->queue(new CandidateMailable($message));
+
+        //TODO: przenieść do eventu, żeby działało też dla delayed messages
+        $message->sent_at = now();
+        $message->save();
+
+        return true;
+    }
+
     public static function sendMessage(Candidate $candidate, $messageSubject, $messageBody, $delay = null, ?User $author = null)
     {
-        $generalMessage = new GeneralMessage($messageSubject, $messageBody, $author);
-//throw new \Exception($generalMessage);exit;
+        $generalMessage = new CandidateMailable($messageSubject, $messageBody, $author);
+
         if (!empty($delay)) {
 
             $delayUntil = Carbon::parse($delay);
 
-            //TODO odblokować
             Mail::to($candidate->email)->later($delayUntil, $generalMessage);
 
             $message = $generalMessage->toMessage();
             $message->candidate_id = $candidate->id;
-            $message->scheduled_at = $delayUntil;
+            $message->scheduled_for = $delayUntil;
             $message->save();
 
             return false;
         }
 
-        //TODO odblokować
         Mail::to($candidate->email)->queue($generalMessage);
 
         $message = $generalMessage->toMessage();
@@ -44,54 +63,16 @@ class MessageService
         $message->save();
     }
 
-    public static function parseTemplate($messageTemplate, Candidate $candidate, \DateTime $appointmentDate = null)
-    {
-        $messageTemplate->subject = str_replace('{NAZWA_STANOWISKA}',
-            $candidate->recruitment->name,
-            $messageTemplate->subject);
-        $messageTemplate->body = str_replace('{NAZWA_STANOWISKA}', $candidate->recruitment->name, $messageTemplate->body);
 
-        if ($appointmentDate) {
-            $messageTemplate->body = str_replace('{DATA_SPOTKANIA}', self::richDateFormat($appointmentDate), $messageTemplate->body);
-            $messageTemplate->body = str_replace('{GODZINA_SPOTKANIA}', $appointmentDate->format('G:i'), $messageTemplate->body);
-        }
-
-        return $messageTemplate;
-    }
-
-    protected static function richDateFormat($date)
-    {
-        $prefix = '';
-        $carbonDate = Carbon::instance($date)->locale('pl_PL');
-        $carbonDateYesterday = $carbonDate->copy();
-
-        if ($carbonDate->isTomorrow()) {
-            $prefix = 'jutro, tj. ';
-        } else if ($carbonDateYesterday->subDay(1)->isTomorrow()) {
-            $prefix = 'pojutrze, tj. ';
-        }
-
-        return $prefix . $carbonDate->isoFormat('dddd, D MMMM');
-    }
-
-    public static function sendNotificationEmail(Candidate $candidate)
+    public static function notifyObservers(Candidate $candidate)
     {
         $notificationEmail = $candidate->recruitment->notification_email;
-        if (!empty($notificationEmail)) {
-            $messageTemplate = (object)[
-                'subject' => $candidate->recruitment->name,
-                'body' => view('emails.newCandidate', [
-                    'candidate' => $candidate,
-                ])->render(),
-                'type' => 0,
-                'stage_id' => 1,
-                'recruitment_id' => $candidate->recruitment->id,
-            ];
-//            $generalMessage = new MailMessage($messageTemplate);
-            $generalMessage = new MailMessage($messageTemplate, $candidate);
 
-            //TODO odblokować
-            Mail::to($notificationEmail)->queue($generalMessage);
+        if (empty($notificationEmail)) {
+            return false;
         }
+
+        Mail::to($notificationEmail)->queue(new NewCandidateNotification($candidate));
+        return true;
     }
 }

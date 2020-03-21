@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Http\Requests\ChangeStageRequest;
 use App\Models\Candidate;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -12,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CandidateStageChanged
+class CandidateApplied
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -22,23 +21,13 @@ class CandidateStageChanged
     public $candidate;
 
     /**
-     * @var ChangeStageRequest
-     */
-    public $request;
-
-    public $previousStage, $newStage;
-
-    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Candidate $candidate, $previousStage, $newStage, ?ChangeStageRequest $request = null)
+    public function __construct(Candidate $candidate)
     {
         $this->candidate = $candidate;
-        $this->previousStage = $previousStage;
-        $this->newStage = $newStage;
-        $this->request = $request;
     }
 
     /**

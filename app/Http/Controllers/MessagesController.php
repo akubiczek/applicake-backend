@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use App\Models\Message;
-use App\Models\MessageTemplate;
+use App\Models\PredefinedMessage;
 use App\Services\UtilsService;
 use App\Models\StageMessageTemplate;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class MessagesController extends Controller
 
         $hashSuffix = UtilsService::hashSuffix($request->candidate_id);
 
-        $messageTemplate = MessageTemplate::where('recruitment_id', $candidate->recruitment_id)->where('stage_id', $request->stage_id)->first();
+        $messageTemplate = PredefinedMessage::where('recruitment_id', $candidate->recruitment_id)->where('stage_id', $request->stage_id)->first();
 
         if (!$messageTemplate)
         {
@@ -56,7 +56,7 @@ class MessagesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $messageTemplate = MessageTemplate::find($id);
+        $messageTemplate = PredefinedMessage::find($id);
         $messageTemplate->update($request->all());
 
         return 'OK';

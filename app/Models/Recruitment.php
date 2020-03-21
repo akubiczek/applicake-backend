@@ -27,7 +27,7 @@ class Recruitment extends Model
 
     public function templates()
     {
-        return $this->hasMany(MessageTemplate::class);
+        return $this->hasMany(PredefinedMessage::class);
     }
 
     protected $dispatchesEvents = [

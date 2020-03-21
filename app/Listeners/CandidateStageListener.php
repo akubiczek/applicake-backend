@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\CandidateStageChanged;
-use App\Models\MessageTemplate;
+use App\Models\PredefinedMessage;
 use App\Utils\MessageService;
 use App\Utils\UtilsService;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,14 +29,16 @@ class CandidateStageListener implements ShouldQueue
      */
     public function handle(CandidateStageChanged $event)
     {
-        $messageTemplate = MessageTemplate::where('recruitment_id', $event->candidate->recruitment->id)->where('stage_id', $event->candidate->stage_id)->first();
 
-        if ($messageTemplate) {
-            $hashSuffix = UtilsService::hashSuffix($event->candidate->id);
-            $messageTemplate->subject = "$messageTemplate->subject $hashSuffix";
-
-            MessageService::parseTemplate($messageTemplate, $event->candidate);
-            MessageService::sendMessage($event->candidate, $messageTemplate->subject, $messageTemplate->body);
-        }
+//        if ($event->request->send_message) {
+//
+//            $delay = null;
+//
+//            if ($event->request->delay_message_send) {
+//                $delay = $event->request->delayed_message_date;
+//            }
+//
+//            MessageService::sendMessage($event->candidate, $event->request->get('message_subject'), $event->request->get('message_body'), $delay, $event->request->user());
+//        }
     }
 }

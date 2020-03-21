@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-
     protected $connection = 'tenant';
 
-    public function source()
+    public function candidate()
     {
         return $this->belongsTo('App\Candidate');
     }
