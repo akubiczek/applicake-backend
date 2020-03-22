@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\CandidateApplied;
 use App\Events\CandidateMoved;
 use App\Events\CandidateRated;
-use App\Events\CandidateStageChanged;
+use App\Http\Requests\CandidateDeleteRequest;
 use App\Models\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
@@ -16,8 +16,8 @@ use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
 use App\Utils\CandidateDeleter;
 use App\Utils\Candidates\CandidateCreator;
+use App\Utils\Candidates\StageChanger;
 use App\Utils\MessageService;
-use App\Models\Stage;
 use Illuminate\Http\Request;
 use App\Http\Resources\CandidateResource;
 
@@ -92,18 +92,8 @@ class CandidatesController extends Controller
 
     public function delete($candidateId)
     {
-        $candidate = Candidate::find($candidateId);
-
-        if ($candidate) {
-            $messageSubject = 'Usunięcie kandydatury z bazy KISS digital';
-            $messageBody = 'Informuję, że Pana/Pani dane oraz plik CV zostały usunięte z bazy rekrutacyjnej firmy KISS digital. Dziękuję za zgłoszenie i zachęcam do kandydowania w przyszłości - aktualne oferty pracy można znaleźć na stronie https://kissdigital.com/jobs.';
-            MessageService::sendMessage($candidate, $messageSubject, $messageBody);
-            CandidateDeleter::delete($candidate);
-
-            return response()->json(null, 200);
-        }
-
-        return response()->json(null, 404);
+        CandidateDeleter::deleteCandidate($candidateId);
+        return response()->json(null, 200);
     }
 
     //TODO: route nie chroniony - docelowo zrobić zabezpieczenie z użyciem jednorazowych tokenów, a także nie przekazywać do klienta pola path_to_cv
@@ -121,24 +111,7 @@ class CandidatesController extends Controller
 
     public function changeStage(ChangeStageRequest $request)
     {
-        $candidate = Candidate::find($request->get('candidate_id'));
-
-        if (!$candidate) {
-            return response()->json(['error' => 'Candidate not found'], 404);
-        }
-
-        $stage = Stage::find($request->get('stage_id'));
-
-        if (!$stage) {
-            return response()->json(['error' => 'Stage not found'], 400);
-        }
-
-        $previousStage = $candidate->stage_id;
-        $candidate->stage_id = $stage->id;
-        $candidate->save();
-
-        event(new CandidateStageChanged($candidate, $previousStage, $stage->id, $request));
-
+        $candidate = StageChanger::changeStage($request);
         return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
     }
 }

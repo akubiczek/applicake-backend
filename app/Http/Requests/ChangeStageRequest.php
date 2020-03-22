@@ -36,6 +36,11 @@ class ChangeStageRequest extends FormRequest
                 'requiredIf:delay_message_send,1',
                 'date',
             ],
+            'candidate_id' => [
+                'required',
+                'integer',
+                'exists:tenant.candidates,id',
+            ],
             'stage_id' => [
                 'required',
                 'integer',

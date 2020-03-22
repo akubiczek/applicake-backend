@@ -2,14 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\CandidateStageChanged;
-use App\Models\PredefinedMessage;
+use App\Events\CandidateDeleted;
 use App\Utils\MessageService;
-use App\Utils\UtilsService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CandidateStageListener implements ShouldQueue
+class CandidateDeleteListener
 {
     /**
      * Create the event listener.
@@ -24,11 +22,11 @@ class CandidateStageListener implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param CandidateStageChanged $event
+     * @param CandidateDeleted $event
      * @return void
      */
-    public function handle(CandidateStageChanged $event)
+    public function handle(CandidateDeleted $event)
     {
-
+        MessageService::notifyDeletedCandidate($event->candidate);
     }
 }
