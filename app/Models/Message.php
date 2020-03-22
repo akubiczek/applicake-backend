@@ -19,6 +19,6 @@ class Message extends Model
 
     public function candidate()
     {
-        return $this->belongsTo('App\Candidate');
+        return $this->belongsTo('App\Models\Candidate');
     }
 }

@@ -10,11 +10,11 @@ class Note extends Model
 
     public function candidate()
     {
-        return $this->belongsTo('App\Candidate');
+        return $this->belongsTo('App\Models\Candidate');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 }

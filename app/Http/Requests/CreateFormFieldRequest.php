@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SourceCreateRequest extends FormRequest
+class CreateFormFieldRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,10 @@ class SourceCreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'type' => [
+                'required',
+                'int',
+            ],
             'name' => [
                 'required',
                 'string',

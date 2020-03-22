@@ -25,9 +25,14 @@ class Recruitment extends Model
         return $this->hasMany(Source::class);
     }
 
-    public function templates()
+    public function predefinedMessages()
     {
         return $this->hasMany(PredefinedMessage::class);
+    }
+
+    public function formFields()
+    {
+        return $this->hasMany(FormField::class);
     }
 
     protected $dispatchesEvents = [

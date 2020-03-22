@@ -26,6 +26,12 @@ Route::group([
     Route::get('/recruitments/{recruitmentId}', 'RecruitmentsController@get');
     Route::post('/recruitments', 'RecruitmentsController@create');
 
+    /* Form Fields */
+    Route::get('/form-fields', 'FormFieldsController@list');
+    Route::post('/form-fields', 'FormFieldsController@create');
+    Route::put('/form-fields', 'FormFieldsController@update');
+    Route::delete('/form-fields/{fieldId}', 'FormFieldsController@delete');
+
     /* Candidates */
     Route::get('/candidates', 'CandidatesController@list');
     Route::get('/candidates/names', 'CandidatesController@names');
