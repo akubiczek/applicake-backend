@@ -9,12 +9,12 @@ use App\Models\Source;
 
 class CandidateCreator
 {
-    public static function create(CandidatesCreateRequest $request)
+    public static function createCandidate(CandidatesCreateRequest $request)
     {
         $key = $request->get('key');
 
         if (!empty($key)) {
-            $source = Source::where('key', $key)->get()->first();
+            $source = Source::where('key', $key)->firstOrFail();
             if ($source) {
                 $recruitment = $source->recruitment;
             }

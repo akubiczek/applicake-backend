@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Class TruncatedCandidateResource
- * This is a lite version of CandidateResource using while returning collection (to speed things up).
+ * This is a lite version of CandidateResource using when returning collection (to speed things up).
  * @package App\Http\Resources
  */
 class TruncatedCandidateResource extends JsonResource

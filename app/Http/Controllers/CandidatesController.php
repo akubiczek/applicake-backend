@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CandidateApplied;
-use App\Events\CandidateMoved;
-use App\Events\CandidateRated;
 use App\Http\Requests\CandidateDeleteRequest;
+use App\Http\Requests\CandidateUpdateRequest;
 use App\Models\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
@@ -16,8 +14,8 @@ use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
 use App\Utils\CandidateDeleter;
 use App\Utils\Candidates\CandidateCreator;
+use App\Utils\Candidates\CandidateUpdater;
 use App\Utils\Candidates\StageChanger;
-use App\Utils\MessageService;
 use Illuminate\Http\Request;
 use App\Http\Resources\CandidateResource;
 
@@ -25,14 +23,8 @@ class CandidatesController extends Controller
 {
     public function create(CandidatesCreateRequest $request)
     {
-        $candidate = CandidateCreator::create($request);
-
-        if ($candidate) {
-            event(new CandidateApplied($candidate));
-            return response()->json($candidate, 201);
-        }
-
-        return response()->json(['status' => 'Recruitment not found'], 404);
+        $candidate = CandidateCreator::createCandidate($request);
+        return response()->json($candidate, 201);
     }
 
     public function list(CandidatesListRequest $request)
@@ -68,25 +60,9 @@ class CandidatesController extends Controller
         return new CandidateResource(Candidate::find($candidateId));
     }
 
-    public function update(Request $request, $candidateId)
+    public function update(CandidateUpdateRequest $request, $candidateId)
     {
-        $candidate = Candidate::find($candidateId);
-
-        if ($candidate) {
-
-            if (isset($request->recruitment_id)) {
-                event(new CandidateMoved($candidate, $candidate->recruitment_id, $request->recruitment_id));
-                $candidate->recruitment_id = $request->recruitment_id;
-            }
-
-            if (isset($request->rate)) {
-                event(new CandidateRated($candidate, $candidate->rate, $request->rate));
-                $candidate->rate = $request->rate;
-            }
-
-            $candidate->save();
-        }
-
+        $candidate = CandidateUpdater::updateCandidate($candidateId, $request);
         return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
     }
 
