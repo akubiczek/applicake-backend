@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateFormFieldRequest;
+use App\Http\Requests\FormFieldUpdateRequest;
 use App\Models\FormField;
 use App\Services\FormFieldsService;
 use Illuminate\Http\Request;
@@ -21,9 +22,9 @@ class FormFieldsController
         return response()->json($fields, 200);
     }
 
-    public function update(Request $request, $fieldId)
+    public function update(FormFieldUpdateRequest $request, $fieldId)
     {
-        $field = FormFieldsService::updateField($request);
+        $field = FormFieldsService::updateField($fieldId, $request);
         return response()->json($field, 200);
     }
 

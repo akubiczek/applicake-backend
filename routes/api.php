@@ -29,7 +29,7 @@ Route::group([
     /* Form Fields */
     Route::get('/form-fields', 'FormFieldsController@list');
     Route::post('/form-fields', 'FormFieldsController@create');
-    Route::put('/form-fields', 'FormFieldsController@update');
+    Route::patch('/form-fields/{fieldId}', 'FormFieldsController@update');
     Route::delete('/form-fields/{fieldId}', 'FormFieldsController@delete');
 
     /* Candidates */

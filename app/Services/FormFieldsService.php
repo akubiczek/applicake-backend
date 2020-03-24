@@ -3,31 +3,39 @@
 namespace App\Services;
 
 use App\Http\Requests\CreateFormFieldRequest;
+use App\Http\Requests\FormFieldUpdateRequest;
 use App\Models\FormField;
+use Illuminate\Support\Facades\DB;
 
 class FormFieldsService
 {
     public static function createField(CreateFormFieldRequest $request)
     {
-        $count = FormField::where('recruitment_id', $request->recruitment_id)->count();
+        $order = FormField::where('recruitment_id', $request->recruitment_id)->max('order');
 
         $field = FormField::make($request->validated());
-        $field->order = $count;
+        $field->order = $order + 1;
         $field->save();
 
         return $field;
     }
 
-    public static function updateField($request)
+    public static function updateField($fieldId, FormFieldUpdateRequest $request)
     {
+        $field = FormField::findOrFail($fieldId);
+        $input = $request->validated();
+        $field->fill($input)->save();
 
+        //TODO: if ($field->wasChanged('order')) reorder remaing fields
+
+        return $field;
     }
 
     public static function deleteField($fieldId)
     {
-        $fieldId = FormField::findOrFail($fieldId);
-        $fieldId->delete();
+        $field = FormField::findOrFail($fieldId);
+        $field->delete();
 
-        //TODO: reorder remaing fields
+        DB::connection('tenant')->table('form_fields')->where('recruitment_id', $field->recruitment_id)->where('order', '>', $field->order)->decrement('order');
     }
 }
