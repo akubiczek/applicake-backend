@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-use App\Source;
+use App\Models\Source;
 
 class SourceCreator
 {
