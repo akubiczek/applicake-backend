@@ -18,8 +18,9 @@ class CreateRecruitmentsTable extends Migration
             $table->softDeletes();
             $table->string('name', 191)->default('');
             $table->string('job_title', 191)->default('');
-            $table->integer('state')->default(0);
             $table->string('notification_email', 191)->nullable();
+            $table->boolean('is_draft')->default(true);
+            $table->integer('state')->default(0);
         });
     }
 

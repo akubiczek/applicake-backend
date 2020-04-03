@@ -33,6 +33,13 @@ class RecruitmentCreateRequest extends FormRequest
             'job_title' => [
                 'required',
                 'string',
+            ],
+            'notification_email' => [
+                'required',
+                'string',
+            ],
+            'is_draft' => [
+                'boolean',
             ]
         ];
     }

@@ -44,6 +44,7 @@ Route::group([
     Route::post('/notes', 'NotesController@create');
 
     /* Remaining endpoints */
+    Route::get('/sources', 'SourcesController@list');
     Route::post('/sources', 'SourcesController@create');
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
     Route::get('/messages', 'MessagesController@list');
