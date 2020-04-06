@@ -19,8 +19,8 @@ class SourcesController extends Controller
         } else {
             $sources = Source::orderBy('created_at', 'DESC')->get();
         }
-        
-        return response()->json($sources);
+
+        return SourceResource::collection($sources);
     }
 
     public function create(SourceCreateRequest $request)

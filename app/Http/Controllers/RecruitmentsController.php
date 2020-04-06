@@ -18,7 +18,7 @@ class RecruitmentsController extends Controller
 
     public function list()
     {
-        $recruitments = Recruitment::withCount(['candidates', 'candidates as new_candidates_count' => function ($query) {
+        $recruitments = Recruitment::where('is_draft', false)->withCount(['candidates', 'candidates as new_candidates_count' => function ($query) {
             $query->where('stage_id', 1);
         }])->get();
         return response()->json($recruitments);

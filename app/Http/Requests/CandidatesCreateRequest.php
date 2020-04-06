@@ -24,10 +24,10 @@ class CandidatesCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'key' => [
-                'required',
-                'exists:tenant.sources,key',
-            ],
+//            'key' => [
+//                'required',
+//                'exists:tenant.sources,key',
+//            ],
             'first_name' => [
                 'required',
                 'string',

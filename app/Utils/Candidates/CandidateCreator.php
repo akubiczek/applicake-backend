@@ -2,8 +2,8 @@
 
 namespace App\Utils\Candidates;
 
-use App\Models\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
+use App\Models\Candidate;
 use App\Models\Recruitment;
 use App\Models\Source;
 
@@ -28,7 +28,11 @@ class CandidateCreator
             return false; //TODO walidacja powinna być wyżej
         }
 
-        $path_to_cv = $request->file->store('cv');
+        if ($request->file) {
+            $path_to_cv = $request->file->store('cv');
+        } else {
+            $path_to_cv = '';
+        }
 
         $candidate = new Candidate();
         $candidate->first_name = $request->get('first_name');
