@@ -1,5 +1,5 @@
 <?php
-namespace App\Utils;
+namespace App\Utils\Candidates;
 
 use App\Events\CandidateDeleted;
 use App\Models\Candidate;

@@ -34,8 +34,14 @@ class RecruitmentsController extends Controller
         $source = Source::where('key', $key)->get()->first();
 
         if (empty($source))
-            return response()->json(['message'=>'Recruitment not found'], 404);
+            return response()->json(['message' => 'Recruitment not found'], 404);
 
         return response()->json(['job_title' => $source->recruitment->name]); //TODO return job_title instead of name
+    }
+
+    public function update(RecruitmentUpdateRequest $request, $recruitmentId)
+    {
+        $field = RecruitmentCreator::updateRecruitment($recruitmentId, $request);
+        return response()->json($field, 200);
     }
 }

@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
-use App\Http\Requests\CandidatesListRequest;
 use App\Models\PredefinedMessage;
-use App\Repositories\RecruitmentsRepository;
-use App\Services\CandidateDeleter;
-use App\StageMessageTemplate;
+use App\Models\StageMessageTemplate;
 use App\Utils\MessageService;
+use Illuminate\Http\Request;
 
 class MessageTemplatesController extends Controller
 {
-    public function get(CandidatesListRequest $request)
+    public function list(Request $request)
     {
+        $recruitment_id = $request->get('recruitment_id');
+        $messages = PredefinedMessage::where('recruitment_id', $recruitment_id)->get();
+        return response()->json($messages);
+    }
+
+    public function get(Request $request)
+    {
+        //TODO: ta metoda jest czasowo wyłączona
         $candidate_id = $request->get('candidate_id');
         $stageId = $request->get('stage_id');
 

@@ -25,6 +25,7 @@ Route::group([
     Route::get('/recruitments', 'RecruitmentsController@list');
     Route::get('/recruitments/{recruitmentId}', 'RecruitmentsController@get');
     Route::post('/recruitments', 'RecruitmentsController@create');
+    Route::patch('/recruitments/{recruitmentId}', 'RecruitmentsController@update');
 
     /* Form Fields */
     Route::get('/form-fields', 'FormFieldsController@list');
@@ -43,13 +44,16 @@ Route::group([
     Route::get('/notes', 'NotesController@get');
     Route::post('/notes', 'NotesController@create');
 
+    /* Predefined messages */
+    Route::get('/predefined_messages', 'MessageTemplatesController@list');
+    //Route::get('/message_templates', 'MessageTemplatesController@get');
+
     /* Remaining endpoints */
     Route::get('/sources', 'SourcesController@list');
     Route::post('/sources', 'SourcesController@create');
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
     Route::get('/messages', 'MessagesController@list');
     Route::get('/stages', 'StagesController@list');
-    Route::get('/message_templates', 'MessageTemplatesController@get');
 });
 
 Route::group([

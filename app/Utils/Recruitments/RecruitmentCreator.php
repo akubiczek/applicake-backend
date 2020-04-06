@@ -2,6 +2,7 @@
 
 namespace App\Utils\Recruitments;
 
+use App\Http\Requests\RecruitmentUpdateRequest;
 use App\Models\Recruitment;
 use App\Utils\SourceCreator;
 
@@ -26,5 +27,14 @@ class RecruitmentCreator
     public static function defaultSourceName()
     {
         return self::DEFAULT_SOURCE_NAME;
+    }
+
+    public static function updateRecruitment($recruitmentId, RecruitmentUpdateRequest $request)
+    {
+        $recruitment = Recruitment::findOrFail($recruitmentId);
+        $input = $request->validated();
+        $recruitment->fill($input)->save();
+
+        return $recruitment;
     }
 }

@@ -13,6 +13,7 @@ class Recruitment extends Model
         'name',
         'notification_email',
         'is_general',
+        'is_draft',
     ];
 
     public function candidates()
