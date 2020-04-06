@@ -15,6 +15,8 @@ class CreateStagesTable extends Migration {
 		Schema::create('stages', function(Blueprint $table)
 		{
             $table->id('id');
+            $table->timestamps();
+            $table->foreignId('recruitment_id')->constrained()->onDelete('cascade');
             $table->string('name', 191)->default('');
         });
 	}

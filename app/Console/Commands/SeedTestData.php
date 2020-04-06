@@ -57,6 +57,14 @@ class SeedTestData extends Command
             $seeder = new \ExampleCandidates();
             $seeder->setConnection('tenant');
             $seeder->run();
+
+            $seeder = new \ExampleStages();
+            $seeder->setConnection('tenant');
+            $seeder->run();
+
+            $seeder = new \ExamplePredefinedMessages();
+            $seeder->setConnection('tenant');
+            $seeder->run();
         } else {
             $this->error('Tenant not found');
         }

@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Nowy"
+    },
+    {
+        "id": 2,
+        "name": "Rozmowa telefoniczna"
+    },
+    {
+        "id": 3,
+        "name": "Spotkanie"
+    },
+    {
+        "id": 4,
+        "name": "Złożenie oferty"
+    },
+    {
+        "id": 5,
+        "name": "Zatrudnienie"
+    },
+    {
+        "id": 6,
+        "name": "Odrzucenie"
+    }
+]
