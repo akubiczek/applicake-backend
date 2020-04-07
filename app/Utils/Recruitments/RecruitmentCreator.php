@@ -19,9 +19,22 @@ class RecruitmentCreator
         $recruitment->is_draft = $data['is_draft'] ?? true;
         $recruitment->save();
 
+        self::seedData($recruitment);
+        return Recruitment::with('sources')->with('predefinedMessages')->where('id', $recruitment->id)->get()->first();
+    }
+
+    private static function seedData(Recruitment $recruitment)
+    {
         SourceCreator::create(['recruitment_id' => $recruitment->id, 'name' => self::defaultSourceName()]);
 
-        return Recruitment::find($recruitment->id);
+        //TODO na razie nie obsługujemy osobnych konfiguracji etapów per rekrutacja
+//        $stagesSeeder = new \StagesSeeder();
+//        $stagesSeeder->setConnection('tenant');
+//        $stagesSeeder->run($recruitment);
+
+        $predefinedMessagesSeeder = new \PredefinedMessagesSeeder();
+        $predefinedMessagesSeeder->setConnection('tenant');
+        $predefinedMessagesSeeder->run($recruitment);
     }
 
     public static function defaultSourceName()
