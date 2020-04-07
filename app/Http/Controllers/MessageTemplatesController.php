@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PredefinedMessageUpdateRequest;
 use App\Models\Candidate;
 use App\Models\PredefinedMessage;
 use App\Models\StageMessageTemplate;
+use App\Services\PredefinedMessageService;
 use App\Utils\MessageService;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,12 @@ class MessageTemplatesController extends Controller
         $recruitment_id = $request->get('recruitment_id');
         $messages = PredefinedMessage::where('recruitment_id', $recruitment_id)->get();
         return response()->json($messages);
+    }
+
+    public function update(PredefinedMessageUpdateRequest $request, $messageId)
+    {
+        $field = PredefinedMessageService::update($messageId, $request);
+        return response()->json($field, 200);
     }
 
     public function get(Request $request)
