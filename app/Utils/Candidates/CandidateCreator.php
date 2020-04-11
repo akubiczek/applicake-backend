@@ -54,4 +54,18 @@ class CandidateCreator
 
         return $candidate;
     }
+
+    public static function fakeCandidate($recruitment)
+    {
+        $candidate = new Candidate();
+        $candidate->first_name = 'Jan';
+        $candidate->last_name = 'Nowak';
+        $candidate->email = 'jan.nowak@example.com';
+        $candidate->phone_number = '+48 600 600 600';
+        $candidate->additional_info = '';
+        $candidate->future_agreement = false;
+        $candidate->recruitment_id = $recruitment->id;
+
+        return $candidate;
+    }
 }

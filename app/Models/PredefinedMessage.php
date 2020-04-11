@@ -18,4 +18,9 @@ class PredefinedMessage extends Model
         'stage_id',
         'recruitment_id',
     ];
+
+    public function recruitment()
+    {
+        return $this->belongsTo(Recruitment::class);
+    }
 }

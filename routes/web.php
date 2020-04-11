@@ -12,3 +12,10 @@
 */
 
 Route::get('/apply/{key}')->name('recruitment.apply');
+
+Route::group([
+    'middleware' => ['tenant.identify'],
+], function () {
+    //TODO: route nie zabezpieczony!
+    Route::get('/message_preview/{messageId}', 'MessagePreview@render')->name('message_preview.render');
+});

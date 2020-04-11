@@ -3,19 +3,19 @@
         "from_stage_id": null,
         "to_stage_id": 1,
         "subject": "RE: Twoja aplikacja na stanowisko %%JOB_TITLE%%",
-        "body": "<h2>Potwierdzenie aplikacji na stanowisko</h2>\\n<h1>%%JOB_TITLE%%</h1><p>Dzień dobry,<br /><br />Dziękujemy za złożenie swojej aplikacji na stanowisko %%JOB_TITLE%%. Staramy się na bieżąco zapoznawać z otrzymanymi ofertami, więc już niebawem wrócimy z informacją na temat wyniku pierwszego etapu rekrutacji. W przypadku pozytywnej weryfikacji będziemy się umawiać na rozmowę telefoniczną; jeżeli wynik będzie negatywny, także wyślemy stosowną informację.</p>"
+        "body": "<h2>Potwierdzenie aplikacji na stanowisko</h2>\n<h1>%%JOB_TITLE%%</h1><p>Dzień dobry,<br /><br />Dziękujemy za złożenie swojej aplikacji na stanowisko %%JOB_TITLE%%. Staramy się na bieżąco zapoznawać z otrzymanymi ofertami, więc już niebawem wrócimy z informacją na temat wyniku pierwszego etapu rekrutacji. W przypadku pozytywnej weryfikacji będziemy się umawiać na rozmowę telefoniczną; jeżeli wynik będzie negatywny, także wyślemy stosowną informację.</p>"
     },
     {
         "from_stage_id": null,
         "to_stage_id": 2,
         "subject": "RE: Twoja aplikacja na stanowisko %%JOB_TITLE%%",
-        "body": "Dzień dobry,\n\nDziękuję za przesłanie swojej oferty. Chciałbym się umówić na rozmowę telefoniczną w czasie której poruszymy ogólnie kwestie związane z prowadzeniem projektów i problemów jakie trapią branżę IT. Rozmowa powinna potrwać nie więcej niż 30 minut. Czy możemy się umówić na {DATA_SPOTKANIA} o godzinie {GODZINA_SPOTKANIA}?\n\nJeżeli ten termin nie jest dogodny, proszę o zaproponowanie innej godziny."
+        "body": "Dzień dobry,\n\nDziękuję za przesłanie swojej oferty. Chciałbym się umówić na rozmowę telefoniczną w czasie której poruszymy ogólnie kwestie związane z prowadzeniem projektów i problemów jakie trapią branżę IT. Rozmowa powinna potrwać nie więcej niż 30 minut. Czy możemy się umówić na %%APPOINTMENT_DATE%% o godzinie %%APPOINTMENT_TIME%%?\n\nJeżeli ten termin nie jest dogodny, proszę o zaproponowanie innej godziny."
     },
     {
         "from_stage_id": null,
         "to_stage_id": 3,
         "subject": "RE: Twoja aplikacja na stanowisko %%JOB_TITLE%%",
-        "body": "Dzień dobry,\n\nDziękuję za poświęcony czas i rozwiązanie testu telefonicznego. Jego wynik był na tyle odpowiedni, aby zakwalifikować się do drugiego etapu. W związku z tym chciałbym zaprosić Pana na spotkanie u nas w biurze, w trakcie którego będziemy mieli okazję się poznać osobiście i porozmawiać na tematy „miękkie” jak również rozwiązać kilka zadań praktycznych. Spotkanie powinno potrwać nie dłużej niż 75 minut - czy możliwe jest ono {DATA_SPOTKANIA} o godzinie {GODZINA_SPOTKANIA}?"
+        "body": "Dzień dobry,\n\nDziękuję za poświęcony czas i rozwiązanie testu telefonicznego. Jego wynik był na tyle odpowiedni, aby zakwalifikować się do drugiego etapu. W związku z tym chciałbym zaprosić Pana na spotkanie u nas w biurze, w trakcie którego będziemy mieli okazję się poznać osobiście i porozmawiać na tematy „miękkie” jak również rozwiązać kilka zadań praktycznych. Spotkanie powinno potrwać nie dłużej niż 75 minut - czy możliwe jest ono %%APPOINTMENT_DATE%% o godzinie %%APPOINTMENT_TIME%%?"
     },
     {
         "from_stage_id": 1,
