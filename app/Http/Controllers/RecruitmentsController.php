@@ -6,6 +6,7 @@ use App\Http\Requests\RecruitmentCreateRequest;
 use App\Http\Requests\RecruitmentUpdateRequest;
 use App\Models\Recruitment;
 use App\Models\Source;
+use App\Models\Stage;
 use App\Utils\Recruitments\RecruitmentCreator;
 
 class RecruitmentsController extends Controller
@@ -26,7 +27,11 @@ class RecruitmentsController extends Controller
 
     public function get($recruitmentId)
     {
-        return response()->json(Recruitment::find($recruitmentId));
+        $recruitment = Recruitment::findOrFail($recruitmentId);
+        //TODO: nie obsługujemy jeszcze osobnych etapów dla różnych rekrutacji
+        $recruitment->stages = Stage::orderBy('id', 'ASC')->get();
+
+        return response()->json($recruitment);
     }
 
     public function getByKey($key)

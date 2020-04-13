@@ -21,6 +21,7 @@ class NotesController extends Controller
         $note->user_id = \Auth::id();
         $note->save();
 
+        $note = Note::with('user')->find($note->id);
         return response()->json($note, 201, ['Location'=>'/notes/'.$note->id]);
     }
 }

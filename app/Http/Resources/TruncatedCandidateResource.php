@@ -20,20 +20,29 @@ class TruncatedCandidateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $array = [
             'id' => $this->id,
+            'created_at' => $this->created_at,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
             'phone_number' => PhoneFormatter::format($this->phone_number),
-            'future_agreement' => $this->future_agreement,
-            'path_to_cv' => $this->path_to_cv,
-            'source_id' => $this->source_id,
             'recruitment_id' => $this->recruitment_id,
-            'source_recruitment_id' => $this->source_recruitment_id,
             'stage_id' => $this->stage_id,
             'rate' => $this->rate,
             'recruitment' => $this->recruitment,
+            'stage' => $this->stage,
         ];
+
+        unset($array['stage']['created_at']);
+        unset($array['stage']['updated_at']);
+        unset($array['stage']['recruitment_id']);
+        unset($array['recruitment']['created_at']);
+        unset($array['recruitment']['updated_at']);
+        unset($array['recruitment']['deleted_at']);
+        unset($array['recruitment']['is_draft']);
+        unset($array['recruitment']['notification_email']);
+
+        return $array;
     }
 }

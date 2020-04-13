@@ -35,6 +35,7 @@ class CandidateResource extends JsonResource
             'otherApplications' => CandidatesRepository::getOtherApplications($this->resource),
             'source' => $this->source,
             'recruitment' => $this->recruitment,
+            'stage' => $this->stage
         ];
     }
 }

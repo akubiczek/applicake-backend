@@ -22,6 +22,8 @@ class StagesSeeder extends \App\Services\TenantSeeder
             DB::connection($this->connection)->table('stages')->insert([
                 'id' => $stage['id'],
                 'name' => $stage['name'],
+                'action_name' => $stage['action_name'],
+                'has_appointment' => $stage['has_appointment'],
                 'recruitment_id' => $recruitment->id,
                 'created_at' => $now,
                 'updated_at' => $now,

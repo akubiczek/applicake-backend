@@ -10,10 +10,10 @@ From command line run:
 ```composer install
 cp .env.example .env
 php artisan migrate
-php artisan db:seed
 php artisan key:generate
 php artisan passport:keys
 php artisan passport:client --password
+php artisan tenants:migrate
 ```
 
 ## Scripts / helpers
@@ -29,7 +29,7 @@ php artisan passport:client --password
 ## API ##
 
 ## Test data ##
-You can seed database with test recruitments and candiates using `php artisan db:seedtestdata` command.
+You can seed database with test recruitments and candiates using `php artisan tenant:seedtestdata` command.
 
 ## Tips and tricks ##
 

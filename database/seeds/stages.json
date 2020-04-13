@@ -1,26 +1,44 @@
 [
     {
         "id": 1,
-        "name": "Nowy"
+        "name": "Nowy",
+        "action_name": "Zmień etap",
+        "has_appointment": false,
+        "is_quick_link": false
     },
     {
         "id": 2,
-        "name": "Rozmowa telefoniczna"
+        "name": "Rozmowa telefoniczna",
+        "action_name": "Zmień etap",
+        "has_appointment": true,
+        "is_quick_link": true
     },
     {
         "id": 3,
-        "name": "Spotkanie"
+        "name": "Spotkanie",
+        "action_name": "Zmień etap",
+        "has_appointment": true,
+        "is_quick_link": false
     },
     {
         "id": 4,
-        "name": "Złożenie oferty"
+        "name": "Złożenie oferty",
+        "action_name": "Zmień etap",
+        "has_appointment": false,
+        "is_quick_link": false
     },
     {
         "id": 5,
-        "name": "Zatrudnienie"
+        "name": "Zatrudnienie",
+        "action_name": "Zmień etap",
+        "has_appointment": false,
+        "is_quick_link": false
     },
     {
         "id": 6,
-        "name": "Odrzucenie"
+        "name": "Odrzucenie",
+        "action_name": "Odrzuć",
+        "has_appointment": false,
+        "is_quick_link": true
     }
 ]
