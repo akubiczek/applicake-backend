@@ -2,6 +2,7 @@
 
 namespace App\Utils\Recruitments;
 
+use App\Http\Requests\RecruitmentCloseRequest;
 use App\Http\Requests\RecruitmentUpdateRequest;
 use App\Models\Recruitment;
 use App\Utils\SourceCreator;
@@ -47,6 +48,15 @@ class RecruitmentCreator
         $recruitment = Recruitment::findOrFail($recruitmentId);
         $input = $request->validated();
         $recruitment->fill($input)->save();
+
+        return $recruitment;
+    }
+
+    public static function close($recruitmentId, RecruitmentCloseRequest $request)
+    {
+        $recruitment = Recruitment::findOrFail($recruitmentId);
+        $recruitment->state = $request->get('keep_form_open') ? Recruitment::STATE_FINISHED : Recruitment::STATE_CLOSED;
+        $recruitment->save();
 
         return $recruitment;
     }

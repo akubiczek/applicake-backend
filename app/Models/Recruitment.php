@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recruitment extends Model
 {
+    const STATE_PUBLISHED = 0;
+    const STATE_FINISHED = 1;
+    const STATE_CLOSED = 2;
 
     protected $connection = 'tenant';
 

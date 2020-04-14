@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RecruitmentCloseRequest;
 use App\Http\Requests\RecruitmentCreateRequest;
 use App\Http\Requests\RecruitmentUpdateRequest;
 use App\Models\Recruitment;
@@ -47,6 +48,12 @@ class RecruitmentsController extends Controller
     public function update(RecruitmentUpdateRequest $request, $recruitmentId)
     {
         $field = RecruitmentCreator::updateRecruitment($recruitmentId, $request);
+        return response()->json($field, 200);
+    }
+
+    public function close(RecruitmentCloseRequest $request, $recruitmentId)
+    {
+        $field = RecruitmentCreator::close($recruitmentId, $request);
         return response()->json($field, 200);
     }
 }
