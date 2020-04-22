@@ -19,7 +19,10 @@
         body, html {
             height: 100%;
             background: #da0050;
-            font-family: Roboto, sans-serif
+            font-family: Roboto, sans-serif;
+            color: #5d6162;
+            font-weight: 300;
+            line-height: 1.5em;
         }
 
         .form-container {
@@ -74,10 +77,6 @@
         }
 
         p, label {
-            color: #5d6162;
-            font-weight: 300;
-            font-size: 1.15em;
-            line-height: 1.5em;
             margin-bottom: 1em
         }
 

@@ -48,9 +48,9 @@ class CandidatesCreateRequest extends FormRequest
                 'nullable',
                 'string',
             ],
-            'future_agreement' => [
-                'boolean',
-            ]
+//            'future_agreement' => [
+//                'boolean',
+//            ]
         ];
     }
 }

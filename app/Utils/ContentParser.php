@@ -9,13 +9,18 @@ use Carbon\Carbon;
 
 class ContentParser
 {
-    public static function parse(string $content, Candidate $candidate, \DateTime $appointmentDate = null)
+    public static function parse(string $content, Candidate $candidate, \DateTime $appointmentDate = null, $user = null)
     {
+        $content = nl2br($content);
+
         $mapping = [
             '%%JOB_TITLE%%' => $candidate->recruitment->name,
             '%%CANDIDATE_FIRST_NAME%%' => $candidate->first_name,
             '%%CANDIDATE_LAST_NAME%%' => $candidate->last_name,
-            '%%APPOINTMENT_DATE%%' => $appointmentDate ? self::richDateFormat($appointmentDate) : '',
+            '%%USER_FIRST_NAME%%' => $user ? $user->name : '',
+            '%%USER_LAST_NAME%%' => '',
+            '%%APPOINTMENT_NATURAL_DATE%%' => $appointmentDate ? self::naturalDate($appointmentDate) : '',
+            '%%APPOINTMENT_DATE%%' => $appointmentDate ? self::formattedDate($appointmentDate) : '',
             '%%APPOINTMENT_TIME%%' => $appointmentDate ? $appointmentDate->format('G:i') : '',
         ];
 
@@ -26,7 +31,7 @@ class ContentParser
         return $content;
     }
 
-    protected static function richDateFormat($date)
+    protected static function naturalDate($date)
     {
         $prefix = '';
         $carbonDate = Carbon::instance($date)->locale('pl_PL');
@@ -39,5 +44,11 @@ class ContentParser
         }
 
         return $prefix . $carbonDate->isoFormat('dddd, D MMMM');
+    }
+
+    protected static function formattedDate($date)
+    {
+        $carbonDate = Carbon::instance($date)->locale('pl_PL');
+        return $carbonDate->isoFormat('dddd, D MMMM');
     }
 }

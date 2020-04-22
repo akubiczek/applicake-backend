@@ -6,7 +6,6 @@ use App\Http\Requests\RecruitmentCloseRequest;
 use App\Http\Requests\RecruitmentCreateRequest;
 use App\Http\Requests\RecruitmentUpdateRequest;
 use App\Models\Recruitment;
-use App\Models\Source;
 use App\Models\Stage;
 use App\Utils\Recruitments\RecruitmentCreator;
 
@@ -33,16 +32,6 @@ class RecruitmentsController extends Controller
         $recruitment->stages = Stage::orderBy('id', 'ASC')->get();
 
         return response()->json($recruitment);
-    }
-
-    public function getByKey($key)
-    {
-        $source = Source::where('key', $key)->get()->first();
-
-        if (empty($source))
-            return response()->json(['message' => 'Recruitment not found'], 404);
-
-        return response()->json(['job_title' => $source->recruitment->name]); //TODO return job_title instead of name
     }
 
     public function update(RecruitmentUpdateRequest $request, $recruitmentId)

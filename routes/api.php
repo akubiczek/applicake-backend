@@ -39,6 +39,7 @@ Route::group([
     Route::get('/candidates/names', 'CandidatesController@names');
     Route::get('/candidates/{candidateId}', 'CandidatesController@get');
     Route::put('/candidates/{candidateId}', 'CandidatesController@update');
+    Route::post('/candidates', 'CandidatesController@create');
     Route::delete('/candidates/{candidateId}', 'CandidatesController@delete');
 
     /* Notes */
@@ -48,6 +49,7 @@ Route::group([
     /* Predefined messages */
     Route::get('/predefined_messages', 'MessageTemplatesController@list');
     Route::patch('/predefined_messages/{messageId}', 'MessageTemplatesController@update');
+    Route::get('/message_preview/{messageId}', 'MessagePreview@render')->name('message_preview.render');
     //Route::get('/message_templates', 'MessageTemplatesController@get');
 
     /* Remaining endpoints */
@@ -62,6 +64,6 @@ Route::group([
     'middleware' => [\App\Http\Middleware\IdentifyTenant::class],
 ], function () {
     Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
-    Route::get('/recruitments/key/{key}', 'RecruitmentsController@getByKey');
-    Route::post('/candidates', 'CandidatesController@create'); //TODO: to jest dziura bo dodawac kandydatow bez autoryzacji mozna tylko z formularza zgloszeniowego
+    Route::post('/apply', 'ApplyController@apply');
+    Route::get('/apply/form/{sourceKey}', 'ApplyController@applyForm');
 });
