@@ -6,6 +6,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApplyFormResource extends JsonResource
 {
+    var $field0 = [
+        'type' => 'html',
+        'content' => '<img src="https://jobs.kissdigital.com/kiss/images/kiss.png" alt="KISS digital logo" style="display:block;margin:0 auto;margin-bottom:40px;">'
+    ];
+
     var $field0a = [
         'type' => 'text',
         'component' => 'h2',
@@ -80,6 +85,16 @@ class ApplyFormResource extends JsonResource
         'required' => false
     ];
 
+    var $field11 = [
+        'type' => 'html',
+        'content' => '<small style="display:block;text-align: center;"><br /><br /><br /><a href="https://kissdigital.com/jobs">Powrót do ofert pracy</a> | <a href="mailto:jobs@kissdigital.com">jobs@kissdigital.com</a></small>',
+    ];
+
+    var $field12 = [
+        'type' => 'button',
+        'label' => 'WYŚLIJ ZGŁOSZENIE'
+    ];
+
     /**
      * Transform the resource into an array.
      *
@@ -89,6 +104,7 @@ class ApplyFormResource extends JsonResource
     public function toArray($request)
     {
         $fields = [
+            $this->field0,
             $this->field0a,
             [
                 'type' => 'text',
@@ -105,6 +121,8 @@ class ApplyFormResource extends JsonResource
             $this->field9,
             $this->field10,
             $this->field2,
+            $this->field12,
+            $this->field11,
         ];
 
         return [
