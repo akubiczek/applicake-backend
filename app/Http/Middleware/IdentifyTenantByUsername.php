@@ -6,7 +6,7 @@ use App\Services\TenantManager;
 use Closure;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class IdentifyTenant
+class IdentifyTenantByUsername
 {
     /**
      * @var App\Services\TenantManager
@@ -27,8 +27,7 @@ class IdentifyTenant
      */
     public function handle($request, Closure $next)
     {
-        if ($this->tenantManager->loadTenant($request->route('tenant'))) {
-            $request->route()->forgetParameter('tenant');
+        if ($this->tenantManager->loadTenantByUsername($request->get('username'))) {
             return $next($request);
         }
 

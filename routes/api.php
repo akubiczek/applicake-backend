@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,12 +11,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group([
+    'prefix' => '/{tenant}',
     'middleware' => ['tenant.identify', 'auth:api'],
+    'as' => 'tenant:',
 ], function () {
 
     /* Recruitments */
@@ -61,7 +57,9 @@ Route::group([
 });
 
 Route::group([
+    'prefix' => '/{tenant}',
     'middleware' => [\App\Http\Middleware\IdentifyTenant::class],
+    'as' => 'tenant:',
 ], function () {
     Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
     Route::post('/apply', 'ApplyController@apply');

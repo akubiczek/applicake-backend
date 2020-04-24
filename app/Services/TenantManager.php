@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Tenant;
+use App\TenantUser;
 
 class TenantManager
 {
@@ -28,6 +29,18 @@ class TenantManager
 
         if ($tenant) {
             $this->setTenant($tenant);
+            return true;
+        }
+
+        return false;
+    }
+
+    public function loadTenantByUsername($username): bool
+    {
+        $user = TenantUser::query()->where('username', '=', $username)->first();
+
+        if ($user) {
+            $this->setTenant($user->tenant);
             return true;
         }
 
