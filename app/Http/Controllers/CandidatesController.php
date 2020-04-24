@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CandidateDeleteRequest;
-use App\Http\Requests\CandidateUpdateRequest;
-use App\Models\Candidate;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
+use App\Http\Requests\CandidateUpdateRequest;
 use App\Http\Requests\ChangeStageRequest;
 use App\Http\Resources\CandidateCollection;
+use App\Http\Resources\CandidateResource;
 use App\Http\Resources\TruncatedCandidateResource;
+use App\Models\Candidate;
 use App\Repositories\CandidatesRepository;
 use App\Repositories\RecruitmentsRepository;
 use App\Utils\CandidateDeleter;
@@ -17,7 +18,7 @@ use App\Utils\Candidates\CandidateCreator;
 use App\Utils\Candidates\CandidateUpdater;
 use App\Utils\Candidates\StageChanger;
 use Illuminate\Http\Request;
-use App\Http\Resources\CandidateResource;
+use Illuminate\Support\Facades\Storage;
 
 class CandidatesController extends Controller
 {
@@ -78,10 +79,16 @@ class CandidatesController extends Controller
         $download = $request->get('download');
         $candidate = Candidate::find($candidateId);
 
+        if (!Storage::disk('s3')->exists($candidate->path_to_cv)) {
+            return response('File not found', 404);
+        }
+
+        $fileName = $candidate->first_name . '_' . $candidate->last_name . '-CV.pdf';
+
         if ($download) {
-            return response()->download(storage_path('app/' . $candidate->path_to_cv), $candidate->first_name . '_' . $candidate->last_name . '-CV.pdf');
+            return Storage::disk('s3')->download($candidate->path_to_cv, $fileName);
         } else {
-            return response()->file(storage_path('app/' . $candidate->path_to_cv));
+            return Storage::disk('s3')->response($candidate->path_to_cv, $fileName);
         }
     }
 

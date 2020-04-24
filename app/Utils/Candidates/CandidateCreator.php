@@ -6,10 +6,11 @@ use App\Http\Requests\CandidatesCreateRequest;
 use App\Models\Candidate;
 use App\Models\Recruitment;
 use App\Models\Source;
+use App\Services\TenantManager;
 
 class CandidateCreator
 {
-    public static function createCandidate(CandidatesCreateRequest $request)
+    public static function createCandidate(CandidatesCreateRequest $request, TenantManager $tenantManager)
     {
         $key = $request->get('key');
 
@@ -25,11 +26,11 @@ class CandidateCreator
         }
 
         if (empty($recruitment)) {
-            return false; //TODO walidacja powinna być wyżej
+            return false; //TODO walidacja powinna być wyżej (chyba chodzilo mi o to, ze gdzies na poziomie requestu albo controllera)
         }
 
         if ($request->file) {
-            $path_to_cv = $request->file->store('cv');
+            $path_to_cv = $request->file->store($tenantManager->getTenant()->subdomain . '/' . $recruitment->id, 's3');
         } else {
             $path_to_cv = '';
         }

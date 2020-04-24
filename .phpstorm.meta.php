@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
     /**
      * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-     * Generated on 2020-03-22 08:20:50.
+     * Generated on 2020-04-24 09:33:40.
      *
      * @author Barry vd. Heuvel <barryvdh@gmail.com>
      * @see https://github.com/barryvdh/laravel-ide-helper
@@ -135,6 +135,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
@@ -291,6 +292,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
@@ -447,6 +449,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
@@ -603,6 +606,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
@@ -759,6 +763,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
@@ -915,6 +920,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
@@ -1071,6 +1077,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
@@ -1227,6 +1234,7 @@ namespace PHPSTORM_META {
         'events' => \Illuminate\Events\Dispatcher::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
         'filesystem' => \Illuminate\Filesystem\FilesystemManager::class,
+        'filesystem.cloud' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'filesystem.disk' => \Illuminate\Filesystem\FilesystemAdapter::class,
         'flare.client' => \Facade\FlareClient\Flare::class,
         'flare.http' => \Facade\FlareClient\Http\Client::class,
