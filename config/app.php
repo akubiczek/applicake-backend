@@ -56,7 +56,7 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
-    'tenant_domain' => env('TENANT_DOMAIN', 'localhost'),
+    'apply_url' => env('APPLY_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------

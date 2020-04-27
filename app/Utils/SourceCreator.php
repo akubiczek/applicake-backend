@@ -3,10 +3,11 @@
 namespace App\Utils;
 
 use App\Models\Source;
+use Illuminate\Support\Str;
 
 class SourceCreator
 {
-    const SOURCE_KEY_MAXLENGTH = 8;
+    const SOURCE_KEY_MAXLENGTH = 6;
 
     public static function create(array $data): Source
     {
@@ -22,7 +23,7 @@ class SourceCreator
     private static function generateKey()
     {
         do {
-            $key = strtoupper(substr(md5(uniqid()), 0, self::SOURCE_KEY_MAXLENGTH));
+            $key = strtoupper(Str::random(self::SOURCE_KEY_MAXLENGTH));
             $sources = Source::where('key', $key)->count();
         } while ($sources > 0);
 

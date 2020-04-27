@@ -63,5 +63,5 @@ Route::group([
 ], function () {
     Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
     Route::post('/apply', 'ApplyController@apply');
-    Route::get('/apply/form/{sourceKey}', 'ApplyController@applyForm');
+    Route::get('/apply-form/{sourceKey}', 'ApplyController@applyForm');
 });
