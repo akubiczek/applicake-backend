@@ -45,7 +45,6 @@ Route::group([
     /* Predefined messages */
     Route::get('/predefined_messages', 'MessageTemplatesController@list');
     Route::patch('/predefined_messages/{messageId}', 'MessageTemplatesController@update');
-    Route::get('/message_preview/{messageId}', 'MessagePreview@render')->name('message_preview.render');
     //Route::get('/message_templates', 'MessageTemplatesController@get');
 
     /* Remaining endpoints */
@@ -64,4 +63,12 @@ Route::group([
     Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
     Route::post('/apply', 'ApplyController@apply');
     Route::get('/apply-form/{sourceKey}', 'ApplyController@applyForm');
+});
+
+Route::group([
+    'prefix' => '/{tenant}',
+    'middleware' => ['api.addAccessToken', 'tenant.identify', 'auth:api'],
+    'as' => 'tenant:',
+], function () {
+    Route::get('/message_preview/{messageId}', 'MessagePreview@render')->name('message_preview.render');
 });
