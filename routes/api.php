@@ -17,6 +17,9 @@ Route::group([
     'as' => 'tenant:',
 ], function () {
 
+    /* Users */
+    Route::get('/me', 'UsersController@me');
+
     /* Recruitments */
     Route::get('/recruitments', 'RecruitmentsController@list');
     Route::get('/recruitments/{recruitmentId}', 'RecruitmentsController@get');

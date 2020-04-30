@@ -21,7 +21,7 @@ class RecruitmentsController extends Controller
     {
         $recruitments = Recruitment::where('is_draft', false)->withCount(['candidates', 'candidates as new_candidates_count' => function ($query) {
             $query->where('stage_id', 1);
-        }])->get();
+        }])->orderByDesc('created_at')->get();
         return response()->json($recruitments);
     }
 
