@@ -40,4 +40,10 @@ class SourcesController extends Controller
         $source = SourceCreator::create($request->validated());
         return new SourceResource($source);
     }
+
+    public function delete($sourceId)
+    {
+        Source::find($sourceId)->delete();
+        return response()->json(null, 200);
+    }
 }

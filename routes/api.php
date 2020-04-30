@@ -50,9 +50,12 @@ Route::group([
     Route::patch('/predefined_messages/{messageId}', 'MessageTemplatesController@update');
     //Route::get('/message_templates', 'MessageTemplatesController@get');
 
-    /* Remaining endpoints */
+    /* Sources */
     Route::get('/sources', 'SourcesController@list');
     Route::post('/sources', 'SourcesController@create');
+    Route::delete('/sources/{sourceId}', 'SourcesController@delete');
+
+    /* Remaining endpoints */
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
     Route::get('/messages', 'MessagesController@list');
     Route::get('/stages', 'StagesController@list');
