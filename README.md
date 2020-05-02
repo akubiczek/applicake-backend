@@ -7,16 +7,21 @@ System do obsługi rekrutacji w KISS digital - backend.
 ## How to install ##
 From command line run:
 
-```composer install
+```
+composer install
 cp .env.example .env
 php artisan migrate
 php artisan key:generate
 php artisan passport:keys
 php artisan passport:client --password
-php artisan tenants:migrate
 ```
 
 ## Scripts / helpers
+
+`php artisan tenant:create` - creates new tenant and its database
+`php artisan tenant:migrate` - runs migrations for provided tenant or all registered tenants
+`php artisan tenant:seeddemodata` - seeds tenant's database with demo data
+`php artisan user:create` - creates new admin user for provided tenant
 
 ## Running tests ##
 
@@ -29,7 +34,7 @@ php artisan tenants:migrate
 ## API ##
 
 ## Test data ##
-You can seed database with test recruitments and candiates using `php artisan tenant:seedtestdata` command.
+You can seed database with test recruitments and candidates using `php artisan tenant:seeddemodata` command.
 
 ## Tips and tricks ##
 

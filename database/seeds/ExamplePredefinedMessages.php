@@ -11,6 +11,7 @@ class ExamplePredefinedMessages extends \App\Services\TenantSeeder
     public function run()
     {
         $predefinedMessagesSeeder = new PredefinedMessagesSeeder();
+        $predefinedMessagesSeeder->setConnection($this->connection);
         $recruitments = \App\Models\Recruitment::get();
 
         foreach ($recruitments as $recruitment) {

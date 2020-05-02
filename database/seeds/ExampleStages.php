@@ -11,6 +11,7 @@ class ExampleStages extends \App\Services\TenantSeeder
     public function run()
     {
         $stagesSeeder = new StagesSeeder();
+        $stagesSeeder->setConnection($this->connection);
         $recruitments = \App\Models\Recruitment::get();
 
         foreach ($recruitments as $recruitment) {
