@@ -26,7 +26,7 @@ class IdentifyTenantByUsername
      */
     public function handle($request, Closure $next)
     {
-        if ($this->tenantManager->loadTenantByUsername($request->get('username'))) {
+        if ($request->get('grant_type') == 'social' || $this->tenantManager->loadTenantByUsername($request->get('username'))) {
             return $next($request);
         }
 

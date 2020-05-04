@@ -114,4 +114,6 @@ return [
 
     'password_timeout' => 10800,
 
+    'google_oauth_client_id' => env('GOOGLE_OAUTH_CLIENT_ID', ''),
+
 ];

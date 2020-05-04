@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 
 use App\Services\TenantManager;
 use Closure;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AppendTenantURL
 {
@@ -33,13 +32,8 @@ class AppendTenantURL
 
         //if this is an oauth request then append API dedicated tenant URL
         if (!empty($content['access_token'])) {
-            //TODO nie podoba mi się, że tutaj znowu ładujemy tenanta, choć załadowaliśmy go już we wcześniejszym middleware: IdentifyTenantByUsername
-            if ($this->tenantManager->loadTenantByUsername($request->get('username'))) {
-                $content['api_url'] = url($this->tenantManager->getTenant()->subdomain);
-                $response->setContent($content);
-            } else {
-                throw new NotFoundHttpException('Tenant not found');
-            }
+            $content['api_url'] = url($this->tenantManager->getTenant()->subdomain);
+            $response->setContent($content);
         }
 
         return $response;
