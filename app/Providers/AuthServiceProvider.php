@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Http\Middleware\AppendTenantURL;
+use App\Http\Middleware\IdentifyTenantByUsername;
+use App\Http\Middleware\TranslateOAuthException;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -25,6 +27,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Passport::routes(null, ['middleware' => [\App\Http\Middleware\IdentifyTenantByUsername::class, AppendTenantURL::class]]);
+        Passport::routes(null, ['middleware' => [IdentifyTenantByUsername::class, AppendTenantURL::class, TranslateOAuthException::class]]);
     }
 }
