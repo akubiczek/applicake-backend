@@ -92,10 +92,6 @@ class MessageService
             Mail::to($message->to)->queue(new CandidateMailable($message));
         }
 
-        //TODO: przenieść do eventu, żeby działało też dla delayed messages
-        $message->sent_at = now();
-        $message->save();
-
         return true;
     }
 }

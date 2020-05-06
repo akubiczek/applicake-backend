@@ -2,14 +2,9 @@
 
 namespace App\Mail;
 
-use App\Models\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\View;
-use App\Models\PredefinedMessage;
 use App\Models\Message;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
 
 class CandidateMailable extends Mailable
 {
@@ -18,7 +13,19 @@ class CandidateMailable extends Mailable
     /**
      * @var Message
      */
-    public $messageToSend; //the name cannot be just $message bacause it interferes with sth
+    private $messageToSend; //the name cannot be just $message bacause it interferes with sth
+
+    /**
+     * Using in event listener
+     * @var int
+     */
+    public $messageId;
+
+    /**
+     * We need Tenant to use in MessageSentListener
+     * @var string
+     */
+    public $tenantIdentifier;
 
     /**
      * Create a new message instance.
@@ -28,6 +35,10 @@ class CandidateMailable extends Mailable
     public function __construct(Message $messageToSend)
     {
         $this->messageToSend = $messageToSend;
+        $this->messageId = $messageToSend->id;
+
+        $tenantManager = resolve('App\Services\TenantManager');
+        $this->tenantIdentifier = $tenantManager->getTenant()->subdomain;
     }
 
     /**
@@ -45,6 +56,6 @@ class CandidateMailable extends Mailable
             $this->cc($this->messageToSend->cc);
         }
 
-        return $this->subject($this->messageToSend->subject)->view('emails.candidate');
+        return $this->subject($this->messageToSend->subject)->view('emails.candidate', ['messageToSend' => $this->messageToSend]);
     }
 }
