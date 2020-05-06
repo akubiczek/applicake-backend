@@ -7,10 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
-        a, button {
-            cursor: pointer
-        }
-
         * {
             margin: 0;
             font-family: Roboto, sans-serif
@@ -18,10 +14,7 @@
 
         body, html {
             height: 100%;
-            background: #da0050;
-            font-family: Roboto, sans-serif;
-            color: #5d6162;
-            font-weight: 300;
+            background: #ffffff;
             line-height: 1.5em;
         }
 
@@ -29,7 +22,10 @@
             background: #fff;
             max-width: 740px;
             padding: 40px;
-            margin: 0 auto;
+            font-family: Roboto, sans-serif;
+            color: #5d6162;
+            font-size: 14px;
+            font-weight: 300;
         }
 
         h1 {
@@ -50,23 +46,15 @@
             -webkit-font-smoothing: subpixel-antialiased
         }
 
-        em {
-            font-style: italic
-        }
-
-        code {
-            font-family: Monospace, Monospaced
-        }
-
         strong {
             font-weight: 400
         }
 
         small {
-            font-size: .7em
+            font-size: 11px;
         }
 
-        a, a:visited {
+        a:link, a:visited {
             color: #da0050;
             transition-property: color;
             transition-duration: .1s
@@ -76,52 +64,6 @@
             color: #00bed3
         }
 
-        p, label {
-            margin-bottom: 1em
-        }
-
-        a.button, a.button:visited, button {
-            display: inline-block;
-            color: #da0050;
-            text-transform: uppercase;
-            font-size: 1.1em;
-            line-height: 1.5em;
-            padding: 8px 26px;
-            background: 0 0;
-            border: 2px solid #da0050;
-            transform: skewX(-45deg);
-            transition-property: background, color;
-            transition-duration: .1s;
-            -webkit-font-smoothing: subpixel-antialiased
-        }
-
-        a.button-white, a.button-white:visited {
-            color: #fff;
-            border-color: #fff
-        }
-
-        a.button.color-green, a.button.color-green:visited {
-            color: #7ec665;
-            border-color: #7ec665
-        }
-
-        .button span, button span {
-            font-size: 19px;
-            display: inline-block;
-            transform: skewX(45deg)
-        }
-
-        a.button:hover, button:hover {
-            background: #da0050;
-            color: #fff
-        }
-
-        .center {
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center
-        }
-
     </style>
 </head>
 <body>
@@ -129,12 +71,11 @@
 <div class="form-container">
 
     <img src="https://jobs.kissdigital.com/kiss/images/kiss.png" alt="KISS digital logo"
-         style="display:block;margin:0 auto;margin-bottom:40px;"/>
+         style="display:block;margin:0 auto;margin-bottom:60px;max-width: 200px;" />
 
     {!! $messageToSend->body !!}
 
-    <div class="center" style="padding-top:30px;">
-        <br/><br/><br/><br/>
+    <div style="display:block;margin:0 auto;padding-top:60px;text-align:center;">
         <small>
             <a href="https://kissdigital.com/jobs">Aktualne oferty pracy</a>
             |

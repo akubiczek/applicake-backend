@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PredefinedMessageUpdateRequest;
 use App\Models\Candidate;
 use App\Models\PredefinedMessage;
-use App\Models\StageMessageTemplate;
 use App\Services\PredefinedMessageService;
-use App\Utils\MessageService;
+use App\Utils\ContentParser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageTemplatesController extends Controller
 {
@@ -25,26 +25,27 @@ class MessageTemplatesController extends Controller
         return response()->json($field, 200);
     }
 
-    public function get(Request $request)
+    public function getParsed(Request $request)
     {
-        //TODO: ta metoda jest czasowo wyłączona
-        $candidate_id = $request->get('candidate_id');
-        $stageId = $request->get('stage_id');
-
-        $candidate = Candidate::find($candidate_id);
+        $candidateId = $request->get('candidate_id');
+        $fromStageId = $request->get('from_stage_id');;
+        $toStageId = $request->get('to_stage_id');;
+        $candidate = Candidate::findOrFail($candidateId);
         $appointmentDateString = $request->get('appointment_date');
         $appointmentDate = new \DateTime($appointmentDateString);
 
-        $template = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('stage_id', $stageId)->first();
-        if (empty($template)) {
-            $template = StageMessageTemplate::where('stage_id', $stageId)->first();
+        $predefinedMessage = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('from_stage_id', $fromStageId)->where('to_stage_id', $toStageId)->first();
+
+        if (empty($predefinedMessage)) {
+            $predefinedMessage = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('from_stage_id', null)->where('to_stage_id', $toStageId)->first();
         }
 
-        if ($template) {
-            $parsedMessage = MessageService::parseContent($template, $candidate, $appointmentDate);
-            return response()->json($parsedMessage);
+        if (empty($predefinedMessage)) {
+            return response()->json(null, 404);
         }
 
-        return response()->json(null, 404);
+        $predefinedMessage->body = ContentParser::parse($predefinedMessage->body, $candidate, $appointmentDate, Auth::user());
+        $predefinedMessage->subject = ContentParser::parse($predefinedMessage->subject, $candidate, $appointmentDate, Auth::user());
+        return response()->json($predefinedMessage);
     }
 }

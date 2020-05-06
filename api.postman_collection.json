@@ -1,0 +1,1619 @@
+{
+    "info": {
+        "_postman_id": "7e65689f-1bb7-4ab1-8c39-415cc56542b9",
+        "name": "MissPiggyHR",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "/oauth/token",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "08764d05-0213-4c82-bc51-ec6d1eaf89b8",
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);",
+                            "postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+                            "postman.setEnvironmentVariable(\"base_url\", jsonData.api_url);"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "grant_type",
+                            "value": "password",
+                            "type": "text"
+                        },
+                        {
+                            "key": "client_id",
+                            "value": "{{client_id}}",
+                            "type": "text"
+                        },
+                        {
+                            "key": "client_secret",
+                            "value": "{{client_secret}}",
+                            "type": "text"
+                        },
+                        {
+                            "key": "username",
+                            "value": "test@example.com",
+                            "type": "text"
+                        },
+                        {
+                            "key": "password",
+                            "value": "qwerty123",
+                            "type": "text"
+                        },
+                        {
+                            "key": "scope",
+                            "value": "",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{oauth_url}}/oauth/token",
+                    "host": [
+                        "{{oauth_url}}"
+                    ],
+                    "path": [
+                        "oauth",
+                        "token"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/oauth/token SOCIAL",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "08764d05-0213-4c82-bc51-ec6d1eaf89b8",
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);",
+                            "postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+                            "postman.setEnvironmentVariable(\"base_url\", jsonData.api_url);"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "grant_type",
+                            "value": "social",
+                            "type": "text"
+                        },
+                        {
+                            "key": "client_id",
+                            "value": "{{client_id}}",
+                            "type": "text"
+                        },
+                        {
+                            "key": "client_secret",
+                            "value": "{{client_secret}}",
+                            "type": "text"
+                        },
+                        {
+                            "key": "provider",
+                            "value": "google",
+                            "type": "text"
+                        },
+                        {
+                            "key": "access_token",
+                            "value": "qwerty123",
+                            "type": "text"
+                        },
+                        {
+                            "key": "scope",
+                            "value": "",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{oauth_url}}/oauth/token",
+                    "host": [
+                        "{{oauth_url}}"
+                    ],
+                    "path": [
+                        "oauth",
+                        "token"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/me",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/me",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "me"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/recruitments",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/recruitments",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "recruitments"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/recruitments",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "name",
+                            "value": "Testowa rekrutacja",
+                            "type": "text"
+                        },
+                        {
+                            "key": "job_title",
+                            "value": "Tester rekrutacyjny",
+                            "type": "text"
+                        },
+                        {
+                            "key": "notification_email",
+                            "value": "rewrew@rewrwrew.com",
+                            "type": "text"
+                        }
+                    ],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/recruitments",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "recruitments"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/recruitments",
+            "request": {
+                "method": "PATCH",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "name",
+                            "value": "Testowa rekrutacja",
+                            "type": "text"
+                        },
+                        {
+                            "key": "job_title",
+                            "value": "Tester rekrutacyjny",
+                            "type": "text",
+                            "disabled": true
+                        },
+                        {
+                            "key": "notification_email",
+                            "value": "rewrew@rewrwrew.com",
+                            "type": "text",
+                            "disabled": true
+                        },
+                        {
+                            "key": "is_draft",
+                            "value": "0",
+                            "type": "text"
+                        }
+                    ],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/recruitments/2",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "recruitments",
+                        "2"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/recruitments/2",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/recruitments/2",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "recruitments",
+                        "2"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/apply/form/XXXYYZ1",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}",
+                        "disabled": true
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/apply/form/XXXYYZ1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "apply",
+                        "form",
+                        "XXXYYZ1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates Copy",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/x-www-form-urlencoded",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "src": "/Users/kubik/Documents/skan.pdf"
+                        },
+                        {
+                            "key": "first_name",
+                            "value": "Adam",
+                            "type": "text"
+                        },
+                        {
+                            "key": "last_name",
+                            "value": "Testowy",
+                            "type": "text"
+                        },
+                        {
+                            "key": "email",
+                            "value": "adam@kubiczek.eu",
+                            "type": "text"
+                        },
+                        {
+                            "key": "phone_number",
+                            "value": "+48600600600",
+                            "type": "text"
+                        },
+                        {
+                            "key": "additional_info",
+                            "value": "Bierzcie mnie i nikogo innego!",
+                            "type": "text"
+                        },
+                        {
+                            "key": "recruitment_id",
+                            "value": "1",
+                            "type": "text",
+                            "disabled": true
+                        },
+                        {
+                            "key": "key",
+                            "value": "XXXYYZ1",
+                            "type": "text"
+                        },
+                        {
+                            "key": "source_recruitment_id",
+                            "value": "2",
+                            "type": "text",
+                            "disabled": true
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/tenant1/apply",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "tenant1",
+                        "apply"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/commands/recruitment-close/1",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "keep_form_open",
+                            "value": "1",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/commands/recruitment-close/1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "commands",
+                        "recruitment-close",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/candidates",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "candidates"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates/names",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/candidates/names",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "candidates",
+                        "names"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates/names?search=Tremb",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/candidates/names?search=Tremb",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "candidates",
+                        "names"
+                    ],
+                    "query": [
+                        {
+                            "key": "search",
+                            "value": "Tremb"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/candidates?recruitmentId=2",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/candidates?recruitmentId=2",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "candidates"
+                    ],
+                    "query": [
+                        {
+                            "key": "recruitmentId",
+                            "value": "2"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates?search=zawa",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/candidates?search=Tremb",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "candidates"
+                    ],
+                    "query": [
+                        {
+                            "key": "search",
+                            "value": "Tremb"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/candidates/9",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/candidates/9",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "candidates",
+                        "9"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates/9",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/candidates/9",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "candidates",
+                        "9"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates/9 - rate",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/x-www-form-urlencoded",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "rate",
+                            "value": "2",
+                            "type": "text"
+                        },
+                        {
+                            "key": "recruitment_id",
+                            "value": "10",
+                            "type": "text",
+                            "disabled": true
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/candidates/9",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "candidates",
+                        "9"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/change-stage-commands/1",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/x-www-form-urlencoded",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "stage_id",
+                            "value": "5",
+                            "type": "text"
+                        },
+                        {
+                            "key": "delay_message_send",
+                            "value": "1",
+                            "type": "text"
+                        },
+                        {
+                            "key": "delayed_message_date",
+                            "value": "2019-12-31T08:28:23Z",
+                            "type": "text"
+                        },
+                        {
+                            "key": "appointment_date",
+                            "value": "2019-12-31T08:28:23Z",
+                            "type": "text"
+                        },
+                        {
+                            "key": "send_message",
+                            "value": "1",
+                            "type": "text"
+                        },
+                        {
+                            "key": "message_subject",
+                            "value": "RE: Oferta",
+                            "type": "text"
+                        },
+                        {
+                            "key": "message_body",
+                            "value": "Blablabla bla bla bla!",
+                            "type": "text"
+                        },
+                        {
+                            "key": "candidate_id",
+                            "value": "9",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/change-stage-commands/1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "change-stage-commands",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/candidates",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/x-www-form-urlencoded",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "src": "/Users/kubik/Documents/skan.pdf"
+                        },
+                        {
+                            "key": "first_name",
+                            "value": "Adam",
+                            "type": "text"
+                        },
+                        {
+                            "key": "last_name",
+                            "value": "Testowy",
+                            "type": "text"
+                        },
+                        {
+                            "key": "email",
+                            "value": "adam@kubiczek.eu",
+                            "type": "text"
+                        },
+                        {
+                            "key": "phone_number",
+                            "value": "+48600600600",
+                            "type": "text"
+                        },
+                        {
+                            "key": "additional_info",
+                            "value": "Bierzcie mnie i nikogo innego!",
+                            "type": "text"
+                        },
+                        {
+                            "key": "recruitment_id",
+                            "value": "1",
+                            "type": "text",
+                            "disabled": true
+                        },
+                        {
+                            "key": "key",
+                            "value": "XXXYYZ1",
+                            "type": "text"
+                        },
+                        {
+                            "key": "source_recruitment_id",
+                            "value": "2",
+                            "type": "text",
+                            "disabled": true
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/candidates",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "candidates"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/notes?candidateId=9",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/notes?candidateId=2582",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "notes"
+                    ],
+                    "query": [
+                        {
+                            "key": "candidateId",
+                            "value": "2582"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/notes - new note",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{access_token}}",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "candidate_id",
+                            "value": "2582",
+                            "type": "text"
+                        },
+                        {
+                            "key": "body",
+                            "value": "Nowa notatka!",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/notes",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "notes"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/stages? recruitment_id =1",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "candidate_id",
+                            "value": "2582",
+                            "type": "text"
+                        },
+                        {
+                            "key": "body",
+                            "value": "Nowa notatka!",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/stages?recruitment_id=2",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "stages"
+                    ],
+                    "query": [
+                        {
+                            "key": "recruitment_id",
+                            "value": "2"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/message_templates/?candidate_id=10&stage_id=3&appointment_date=2019-12-31T08:28:23Z",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "candidate_id",
+                            "value": "2582",
+                            "type": "text"
+                        },
+                        {
+                            "key": "body",
+                            "value": "Nowa notatka!",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/message_templates/?candidate_id=230&stage_id=3&appointment_date=2020-01-03T08:28:23Z",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "message_templates",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "candidate_id",
+                            "value": "230"
+                        },
+                        {
+                            "key": "stage_id",
+                            "value": "3"
+                        },
+                        {
+                            "key": "appointment_date",
+                            "value": "2020-01-03T08:28:23Z"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/predefined_messages/?recruitment_id=2",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "candidate_id",
+                            "value": "2582",
+                            "type": "text"
+                        },
+                        {
+                            "key": "body",
+                            "value": "Nowa notatka!",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/predefined_messages/?recruitment_id=2",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "predefined_messages",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "recruitment_id",
+                            "value": "2"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/predefined_messages/1",
+            "request": {
+                "method": "PATCH",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "subject",
+                            "value": "Agaaaa",
+                            "type": "text"
+                        },
+                        {
+                            "key": "body",
+                            "value": "hiuguyguyguyguy",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/predefined_messages/1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "predefined_messages",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/messages/?candidate_id=10",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "candidate_id",
+                            "value": "2582",
+                            "type": "text"
+                        },
+                        {
+                            "key": "body",
+                            "value": "Nowa notatka!",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/messages/?candidate_id=1705",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "messages",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "candidate_id",
+                            "value": "1705"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/sources",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "name",
+                            "value": "Linkedin",
+                            "type": "text"
+                        },
+                        {
+                            "key": "recruitment_id",
+                            "value": "1",
+                            "type": "text"
+                        }
+                    ],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/sources",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "sources"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/sources",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/sources?recruitment_id=1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "sources"
+                    ],
+                    "query": [
+                        {
+                            "key": "recruitment_id",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/sources/1",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/sources/1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "sources",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/form-fields?recruitmentId=1",
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "candidate_id",
+                            "value": "2582",
+                            "type": "text"
+                        },
+                        {
+                            "key": "body",
+                            "value": "Nowa notatka!",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/form-fields?recruitmentId=1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "form-fields"
+                    ],
+                    "query": [
+                        {
+                            "key": "recruitmentId",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/form-fields",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "recruitment_id",
+                            "value": "6777",
+                            "type": "text"
+                        },
+                        {
+                            "key": "name",
+                            "value": "Rozmiar koszulki",
+                            "type": "text"
+                        },
+                        {
+                            "key": "type",
+                            "value": "1",
+                            "type": "text"
+                        },
+                        {
+                            "key": "required",
+                            "value": "0",
+                            "type": "text"
+                        }
+                    ],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/form-fields",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "form-fields"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/form-fields/4",
+            "request": {
+                "method": "PATCH",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "required",
+                            "value": "1",
+                            "type": "text"
+                        }
+                    ],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/form-fields/4",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "form-fields",
+                        "4"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "/api/form-fields/1",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "type": "text",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "type": "text",
+                        "value": "Bearer {{access_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [],
+                    "options": {
+                        "formdata": {}
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/form-fields/1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "form-fields",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "protocolProfileBehavior": {}
+}

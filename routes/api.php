@@ -48,7 +48,7 @@ Route::group([
     /* Predefined messages */
     Route::get('/predefined_messages', 'MessageTemplatesController@list');
     Route::patch('/predefined_messages/{messageId}', 'MessageTemplatesController@update');
-    //Route::get('/message_templates', 'MessageTemplatesController@get');
+    Route::get('/predefined_messages/parsed/', 'MessageTemplatesController@getParsed');
 
     /* Sources */
     Route::get('/sources', 'SourcesController@list');

@@ -14,7 +14,7 @@ class ContentParser
         $content = nl2br($content);
 
         $mapping = [
-            '%%JOB_TITLE%%' => $candidate->recruitment->name,
+            '%%JOB_TITLE%%' => $candidate->recruitment->job_title,
             '%%CANDIDATE_FIRST_NAME%%' => $candidate->first_name,
             '%%CANDIDATE_LAST_NAME%%' => $candidate->last_name,
             '%%USER_FIRST_NAME%%' => $user ? $user->name : '',

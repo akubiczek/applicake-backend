@@ -3,12 +3,11 @@
 namespace App\Utils;
 
 use App\Http\Requests\ChangeStageRequest;
-use App\Models\Candidate;
-use App\Mail\NewCandidateNotification;
 use App\Mail\CandidateMailable;
+use App\Mail\NewCandidateNotification;
+use App\Models\Candidate;
 use App\Models\Message;
 use App\Models\PredefinedMessage;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
@@ -25,7 +24,7 @@ class MessageService
         $message = new Message();
         $message->candidate_id = $candidate->id;
         $message->to = $candidate->email;
-        $message->from = '';
+        //$message->from = '';
         $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate) . ' ' . UtilsService::hashSuffix($candidate->id);
         $message->body = ContentParser::parse($predefinedMessage->body, $candidate);
         $message->save();
@@ -39,7 +38,7 @@ class MessageService
         $message = new Message();
         $message->candidate_id = $candidate->id;
         $message->to = $candidate->email;
-        $message->from = '';
+//        $message->from = '';
         $message->subject = $request->get('message_subject');
         $message->body = $request->get('message_body');
 
@@ -76,7 +75,7 @@ class MessageService
         $message = new Message();
         $message->candidate_id = $candidate->id;
         $message->to = $candidate->email;
-        $message->from = '';
+        //$message->from = '';
         $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate) . ' ' . UtilsService::hashSuffix($candidate->id);
         $message->body = ContentParser::parse($predefinedMessage->body, $candidate);
         $message->save();
