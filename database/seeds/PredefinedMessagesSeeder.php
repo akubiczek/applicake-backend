@@ -21,6 +21,7 @@ class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
                 'body' => $message['body'],
                 'from_stage_id' => $message['from_stage_id'],
                 'to_stage_id' => $message['to_stage_id'],
+                'type' => $message['type'],
                 'recruitment_id' => $recruitment->id,
                 'created_at' => $now,
                 'updated_at' => $now,

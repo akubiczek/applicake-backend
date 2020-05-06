@@ -7,14 +7,12 @@ use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
 use App\Http\Requests\CandidateUpdateRequest;
 use App\Http\Requests\ChangeStageRequest;
-use App\Http\Resources\CandidateCollection;
 use App\Http\Resources\CandidateResource;
 use App\Http\Resources\TruncatedCandidateResource;
 use App\Models\Candidate;
 use App\Repositories\CandidatesRepository;
-use App\Repositories\RecruitmentsRepository;
-use App\Utils\CandidateDeleter;
 use App\Utils\Candidates\CandidateCreator;
+use App\Utils\Candidates\CandidateDeleter;
 use App\Utils\Candidates\CandidateUpdater;
 use App\Utils\Candidates\StageChanger;
 use Illuminate\Http\Request;
@@ -67,9 +65,9 @@ class CandidatesController extends Controller
         return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
     }
 
-    public function delete($candidateId)
+    public function delete(CandidateDeleteRequest $request, $candidateId)
     {
-        CandidateDeleter::deleteCandidate($candidateId);
+        CandidateDeleter::deleteCandidate($request, $candidateId);
         return response()->json(null, 200);
     }
 

@@ -2,14 +2,20 @@
 namespace App\Utils\Candidates;
 
 use App\Events\CandidateDeleted;
+use App\Http\Requests\CandidateDeleteRequest;
 use App\Models\Candidate;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateDeleter
 {
-    public static function deleteCandidate($candidateId)
+    public static function deleteCandidate(CandidateDeleteRequest $request, $candidateId)
     {
         $candidate = Candidate::findOrFail($candidateId);
+
+        $notificationEmailAddress = null;
+        if ($request->get('notify_candidate')) {
+            $notificationEmailAddress = $candidate->email;
+        }
 
         Storage::delete(storage_path('app/' . $candidate->path_to_cv));
         $candidate->path_to_cv = '';
@@ -19,7 +25,7 @@ class CandidateDeleter
 
         $candidate->delete(); //safe since we use softdeletes
 
-        event(new CandidateDeleted($candidate));
+        event(new CandidateDeleted($candidate, $notificationEmailAddress));
     }
 
     protected static function hashData(Candidate $candidate)

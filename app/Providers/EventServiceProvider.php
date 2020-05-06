@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Events\CandidateApplied;
+use App\Events\CandidateDeleted;
 use App\Events\CandidateStageChanged;
 use App\Listeners\CandidateApplyListener;
+use App\Listeners\CandidateDeleteListener;
 use App\Listeners\CandidateEventSubscriber;
 use App\Listeners\CandidateStageListener;
 use Illuminate\Auth\Events\Registered;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CandidateStageChanged::class => [
             CandidateStageListener::class
+        ],
+        CandidateDeleted::class => [
+            CandidateDeleteListener::class
         ]
     ];
 

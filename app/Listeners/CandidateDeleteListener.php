@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\CandidateDeleted;
 use App\Utils\MessageService;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class CandidateDeleteListener
 {
@@ -27,6 +25,8 @@ class CandidateDeleteListener
      */
     public function handle(CandidateDeleted $event)
     {
-        MessageService::notifyDeletedCandidate($event->candidate);
+        if ($event->emailAddress) {
+            MessageService::notifyDeletedCandidate($event->candidate, $event->emailAddress);
+        }
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Candidate;
 use App\Models\Message;
 use App\Models\PredefinedMessage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MessageService
@@ -64,7 +65,7 @@ class MessageService
         return true;
     }
 
-    public static function notifyDeletedCandidate(Candidate $candidate)
+    public static function notifyDeletedCandidate(Candidate $candidate, $emailAddress)
     {
         $predefinedMessage = PredefinedMessage::where('type', PredefinedMessage::TYPE_DELETENOTIFICATION)->first();
 
@@ -74,10 +75,10 @@ class MessageService
 
         $message = new Message();
         $message->candidate_id = $candidate->id;
-        $message->to = $candidate->email;
+        $message->to = $emailAddress;
         //$message->from = '';
-        $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate) . ' ' . UtilsService::hashSuffix($candidate->id);
-        $message->body = ContentParser::parse($predefinedMessage->body, $candidate);
+        $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate, null, Auth::user());// . ' ' . UtilsService::hashSuffix($candidate->id);
+        $message->body = ContentParser::parse($predefinedMessage->body, $candidate, null, Auth::user());
         $message->save();
 
         return self::send($message);
