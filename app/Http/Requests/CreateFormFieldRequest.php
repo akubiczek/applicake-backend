@@ -26,9 +26,10 @@ class CreateFormFieldRequest extends FormRequest
         return [
             'type' => [
                 'required',
-                'int',
+                'string',
+                'max:8'
             ],
-            'name' => [
+            'label' => [
                 'required',
                 'string',
                 'max:191',

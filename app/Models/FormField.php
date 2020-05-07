@@ -18,7 +18,7 @@ class FormField extends Model
      *
      * @var array
      */
-    protected $fillable = ['recruitment_id', 'name', 'type', 'required'];
+    protected $fillable = ['recruitment_id', 'label', 'type', 'required'];
 
     public function recruitment()
     {

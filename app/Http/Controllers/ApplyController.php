@@ -25,7 +25,7 @@ class ApplyController extends Controller
 
     public function applyForm($sourceKey)
     {
-        $source = Source::where('key', $sourceKey)->get()->first();
+        $source = Source::where('key', $sourceKey)->with('recruitment.formFields')->get()->first();
 
         if (empty($source))
             return response()->json(['message' => 'Recruitment not found'], 404);

@@ -33,9 +33,8 @@ class RecruitmentCreator
 //        $stagesSeeder->setConnection('tenant');
 //        $stagesSeeder->run($recruitment);
 
-        $predefinedMessagesSeeder = new \PredefinedMessagesSeeder();
-        $predefinedMessagesSeeder->setConnection('tenant');
-        $predefinedMessagesSeeder->run($recruitment);
+        \PredefinedMessagesSeeder::connection('tenant')->run($recruitment);
+        \FormFieldsSeeder::connection('tenant')->run($recruitment);
     }
 
     public static function defaultSourceName()

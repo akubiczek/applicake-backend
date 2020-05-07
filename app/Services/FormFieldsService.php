@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\CreateFormFieldRequest;
 use App\Http\Requests\FormFieldUpdateRequest;
 use App\Models\FormField;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class FormFieldsService
@@ -14,7 +15,11 @@ class FormFieldsService
         $order = FormField::where('recruitment_id', $request->recruitment_id)->max('order');
 
         $field = FormField::make($request->validated());
+        $field->user_id = Auth::user()->id;
         $field->order = $order + 1;
+        $field->save();
+
+        $field->name = 'custom_field_' . $field->id;
         $field->save();
 
         return $field;

@@ -1,0 +1,66 @@
+[
+    {
+        "name": "first_name",
+        "label": "Imię",
+        "system": true,
+        "type": "input",
+        "required": true,
+        "order": 1
+    },
+    {
+        "name": "last_name",
+        "label": "Nazwisko",
+        "system": true,
+        "type": "input",
+        "required": true,
+        "order": 2
+    },
+    {
+        "name": "email",
+        "label": "E-mail",
+        "system": true,
+        "type": "email",
+        "required": true,
+        "order": 3
+    },
+    {
+        "name": "phone_number",
+        "label": "Telefon",
+        "system": true,
+        "type": "phone",
+        "required": true,
+        "order": 4
+    },
+    {
+        "name": "file",
+        "label": "Wczytaj plik zawierający CV (PDF)",
+        "system": true,
+        "type": "file",
+        "required": true,
+        "order": 5
+    },
+    {
+        "name": "additional_data",
+        "label": "Informacje dodatkowe",
+        "system": true,
+        "type": "input",
+        "required": false,
+        "order": 6
+    },
+    {
+        "name": "agreement",
+        "label": "Wyrażam zgodę na przetwarzanie przez KISS digital sp. z o.o. moich danych osobowych na potrzeby tej rekrutacji, w tym także zgadzam się na kontaktowanie ze mną za pomocą telefonu, SMS oraz email w zakresie niezbędnym do przeprowadzanie rekrutacji.*",
+        "system": true,
+        "type": "checkbox",
+        "required": true,
+        "order": 7
+    },
+    {
+        "name": "future_agreement",
+        "label": "Wyrażam zgodę na przetwarzanie przez KISS digital sp. z o.o. moich danych osobowych na potrzeby przyszłych rekrutacji.",
+        "system": true,
+        "type": "checkbox",
+        "required": false,
+        "order": 8
+    }
+]

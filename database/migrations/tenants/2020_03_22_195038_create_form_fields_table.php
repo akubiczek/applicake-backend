@@ -18,8 +18,11 @@ class CreateFormFieldsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('recruitment_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict');
             $table->string('name', 191);
-            $table->integer('type')->unsigned();
+            $table->string('label', 191);
+            $table->boolean('system');
+            $table->char('type', 8);
             $table->boolean('required');
             $table->integer('order')->unsigned();
         });
