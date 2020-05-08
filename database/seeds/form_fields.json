@@ -42,7 +42,7 @@
     {
         "name": "additional_data",
         "label": "Informacje dodatkowe",
-        "system": true,
+        "system": false,
         "type": "input",
         "required": false,
         "order": 6

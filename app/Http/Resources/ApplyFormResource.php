@@ -47,7 +47,6 @@ class ApplyFormResource extends JsonResource
     public function toArray($request)
     {
         $fields = [
-            'data' => $this->form,
             $this->field0,
             $this->field0a,
             [
