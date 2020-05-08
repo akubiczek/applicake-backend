@@ -18,7 +18,7 @@ class CreateNotesTable extends Migration {
             $table->timestamps();
             $table->softDeletes();
             $table->text('body', 65535);
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('user_id')->constrained()->onDelete('restrict');
             $table->foreignId('candidate_id')->constrained()->onDelete('cascade');
         });
 	}

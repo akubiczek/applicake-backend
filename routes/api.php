@@ -59,6 +59,7 @@ Route::group([
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
     Route::get('/messages', 'MessagesController@list');
     Route::get('/stages', 'StagesController@list');
+    Route::get('/activities', 'ActivitiesController@list');
 });
 
 Route::group([
