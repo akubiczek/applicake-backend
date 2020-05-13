@@ -53,18 +53,14 @@ class PasswordsController extends Controller
         $passwordReset = PasswordReset::where('token', $request->get('token'))->first();
 
         if (!$passwordReset) {
-            return response()->json([
-                'message' => 'This password reset token is invalid.'
-            ]);
+            return response()->json(['message' => 'This password reset token is invalid.'], 404);
         }
 
         if ($this->tenantManager->loadTenantByUsername($passwordReset->email)) {
             $user = User::where('email', $passwordReset->email)->first();
 
             if (!$user) {
-                return response()->json([
-                    'message' => 'We can\'t find a user with that e-mail address.'
-                ], 404);
+                return response()->json(['message' => 'We can\'t find a user with that e-mail address.'], 404);
             }
 
             $user->password = bcrypt($request->get('password'));
