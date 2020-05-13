@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Applicake'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'b_url' => env('B_URL', 'http://localhost:3000'),
     'asset_url' => env('ASSET_URL', null),
     'apply_url' => env('APPLY_URL', 'http://localhost'),
 

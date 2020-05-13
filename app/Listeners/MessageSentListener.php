@@ -29,10 +29,12 @@ class MessageSentListener
      */
     public function handle(MessageSent $event)
     {
-        $this->tenantManager->loadTenant($event->data['tenantIdentifier']);
+        if (isset($event->data['tenantIdentifier'])) {
+            $this->tenantManager->loadTenant($event->data['tenantIdentifier']);
 
-        $message = Message::findOrFail($event->data['messageId']);
-        $message->sent_at = now();
-        $message->save();
+            $message = Message::findOrFail($event->data['messageId']);
+            $message->sent_at = now();
+            $message->save();
+        }
     }
 }
