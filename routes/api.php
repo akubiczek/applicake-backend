@@ -80,8 +80,5 @@ Route::group([
     Route::get('/message_preview/{messageId}', 'MessagePreview@render')->name('message_preview.render');
 });
 
-Route::group([
-    'middleware' => [\App\Http\Middleware\SilentlyIdentifyTenant::class]
-], function () {
-    Route::post('/password-forgot', 'PasswordsController@forgotten');
-});
+Route::post('/password-token', 'PasswordsController@token');
+Route::post('/password-reset', 'PasswordsController@reset');

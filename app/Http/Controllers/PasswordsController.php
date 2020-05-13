@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordTokenRequest;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Notifications\PasswordResetRequest;
+use App\Notifications\PasswordResetSuccess;
 use App\Services\TenantManager;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PasswordsController extends Controller
@@ -24,33 +25,56 @@ class PasswordsController extends Controller
         $this->tenantManager = $tenantManager;
     }
 
-    public function forgotten(Request $request)
+    public function token(PasswordTokenRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-        ]);
+        if ($this->tenantManager->loadTenantByUsername($request->email)) {
 
-        $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            //we pretend everything went fine
-            //TODO: this case should be logged
-            return response();
+            if ($user) {
+                $passwordReset = PasswordReset::updateOrCreate(
+                    ['email' => $user->email],
+                    ['email' => $user->email, 'token' => Str::random(60)]
+                );
+
+                if ($passwordReset) {
+                    $user->notify(new PasswordResetRequest($passwordReset->token));
+                }
+            }
         }
 
-        $passwordReset = PasswordReset::updateOrCreate(
-            ['email' => $user->email],
-            [
-                'email' => $user->email,
-                'token' => Str::random(60)
-            ]
-        );
-
-        if ($user && $passwordReset) {
-            $user->notify(new PasswordResetRequest($passwordReset->token));
-        }
-
+        //always empty response regardless of actual result (for security reasons)
         return response()->json();
+    }
+
+
+    public function reset(\App\Http\Requests\PasswordResetRequest $request)
+    {
+        $passwordReset = PasswordReset::where('token', $request->get('token'))->first();
+
+        if (!$passwordReset) {
+            return response()->json([
+                'message' => 'This password reset token is invalid.'
+            ]);
+        }
+
+        if ($this->tenantManager->loadTenantByUsername($passwordReset->email)) {
+            $user = User::where('email', $passwordReset->email)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'We can\'t find a user with that e-mail address.'
+                ], 404);
+            }
+
+            $user->password = bcrypt($request->get('password'));
+            $user->save();
+            $passwordReset->delete();
+
+            $user->notify(new PasswordResetSuccess());
+        }
+
+        return response()->json(['message' => 'Password has been changed.']);
     }
 }
 
