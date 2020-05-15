@@ -40,6 +40,7 @@ Route::group([
     Route::put('/candidates/{candidateId}', 'CandidatesController@update');
     Route::post('/candidates', 'CandidatesController@create');
     Route::delete('/candidates/{candidateId}', 'CandidatesController@delete');
+    Route::put('/candidates/hasbeenseen/{candidateId}', 'CandidatesController@hasBeenSeen');
 
     /* Notes */
     Route::get('/notes', 'NotesController@get');

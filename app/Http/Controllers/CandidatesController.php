@@ -71,6 +71,17 @@ class CandidatesController extends Controller
         return response()->json(null, 200);
     }
 
+    public function hasBeenSeen($candidateId)
+    {
+        $candidate = Candidate::findOrFail($candidateId);
+        if (!$candidate->seen_at) {
+            $candidate->seen_at = new \DateTime();
+            $candidate->save();
+        }
+
+        return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
+    }
+
     //TODO: route nie chroniony - docelowo zrobić zabezpieczenie z użyciem jednorazowych tokenów, a także nie przekazywać do klienta pola path_to_cv
     public function cv(Request $request, $candidateId)
     {

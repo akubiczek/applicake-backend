@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Candidate;
+use App\Models\Stage;
 use App\Services\TenantManager;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -29,6 +31,17 @@ class RecruitmentResource extends JsonResource
 
         unset($array['deleted_at']);
         unset($array['is_draft']);
+
+        //TODO ten kawałek do optymalizacji wydajnościowej
+        //TODO na razie nie obsługujemy stages per recruitment
+        //$stages = Stage::where('recruitment_id', $recruitment->id)->get();
+        $stages = Stage::select(['id', 'name'])->get();
+
+        foreach ($stages as $stage) {
+            $count = Candidate::where('recruitment_id', $array['id'])->where('stage_id', $stage->id)->count();
+            $stage->count = $count;
+            $array['stages'][] = $stage;
+        }
 
         foreach ($array['sources'] as $key => $source) {
 

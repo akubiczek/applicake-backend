@@ -29,6 +29,7 @@ class TruncatedCandidateResource extends JsonResource
             'phone_number' => PhoneFormatter::format($this->phone_number),
             'recruitment_id' => $this->recruitment_id,
             'stage_id' => $this->stage_id,
+            'seen_at' => $this->seen_at,
             'rate' => $this->rate,
             'recruitment' => $this->recruitment,
             'stage' => $this->stage,

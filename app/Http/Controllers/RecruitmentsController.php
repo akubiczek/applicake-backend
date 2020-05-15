@@ -32,9 +32,10 @@ class RecruitmentsController extends Controller
 
     public function list()
     {
-        $recruitments = Recruitment::where('is_draft', false)->with('sources')->withCount(['candidates', 'candidates as new_candidates_count' => function ($query) {
-            $query->where('stage_id', 1);
+        $recruitments = Recruitment::where('is_draft', false)->with('sources')->withCount(['candidates as new_candidates_count' => function ($query) {
+            $query->whereNull('seen_at');
         }])->orderByDesc('created_at')->get();
+
         return RecruitmentResource::collection($recruitments);
     }
 
