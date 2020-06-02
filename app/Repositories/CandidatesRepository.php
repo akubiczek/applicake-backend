@@ -24,12 +24,11 @@ class CandidatesRepository
     public static function getTypeaheadCandidatesNameCollection()
     {
         return Candidate::query()
-            ->get(['first_name', 'last_name'])
+            ->get(['name'])
             ->map(function ($candidate) {
                 return trim(
                     join(' ', [
-                        htmlspecialchars(data_get($candidate, 'first_name')),
-                        htmlspecialchars(data_get($candidate, 'last_name')),
+                        htmlspecialchars(data_get($candidate, 'name')),
                     ])
                 );
             })
@@ -48,20 +47,14 @@ class CandidatesRepository
 
             if (count($array) === 2) {
                 $query = $query
-                    ->where('first_name', 'like', $array[0] . '%')
-                    ->where('last_name', 'like', $array[1] . '%');
+                    ->where('name', 'like', '%' . $array[0] . '%');
             } else {
                 $query = $query
                     ->where(function (Builder $query) use ($array) {
                         $query
                             ->where(function (Builder $query) use ($array) {
                                 foreach ($array as $item) {
-                                    $query->orWhere('first_name', 'like', "$item%");
-                                }
-                            })
-                            ->orWhere(function ($query) use ($array) {
-                                foreach ($array as $item) {
-                                    $query->orWhere('last_name', 'like', "$item%");
+                                    $query->orWhere('name', 'like', "%{$item}%");
                                 }
                             });
                     });

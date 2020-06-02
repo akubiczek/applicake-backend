@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Events\CandidateStageChanged;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +18,6 @@ class CandidateTest extends TestCase
         'last_name' => 'Testowy',
         'email' => 'adam@kubiczek.eu',
         'phone_number' => '+48600600600',
-        'additional_info' => 'Bierzcie mnie i nikogo innego!',
         'key' => 'XXXYYZ1',
     ];
 

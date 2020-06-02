@@ -32,6 +32,7 @@ Route::group([
     Route::post('/form-fields', 'FormFieldsController@create');
     Route::patch('/form-fields/{fieldId}', 'FormFieldsController@update');
     Route::delete('/form-fields/{fieldId}', 'FormFieldsController@delete');
+    Route::patch('/form-fields/reorder/{dragId}/{dropId}', 'FormFieldsController@reorder');
 
     /* Candidates */
     Route::get('/candidates', 'CandidatesController@list');

@@ -23,8 +23,7 @@ class TruncatedCandidateResource extends JsonResource
         $array = [
             'id' => $this->id,
             'created_at' => $this->created_at,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
+            'name' => $this->name,
             'email' => $this->email,
             'phone_number' => PhoneFormatter::format($this->phone_number),
             'recruitment_id' => $this->recruitment_id,

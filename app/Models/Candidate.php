@@ -19,12 +19,9 @@ class Candidate extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'phone_number',
-        'position_info',
-        'additional_info',
         'recruitment_id',
     ];
 

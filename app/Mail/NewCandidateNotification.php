@@ -5,10 +5,7 @@ namespace App\Mail;
 use App\Models\Candidate;
 use App\Utils\UtilsService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\View;
 
 class NewCandidateNotification extends Mailable
 {
@@ -45,7 +42,7 @@ class NewCandidateNotification extends Mailable
     protected function getSubject()
     {
         $position = $this->candidate->recruitment->name;
-        $candidate = $this->candidate->first_name . ' ' . $this->candidate->last_name;
+        $candidate = $this->candidate->name;
         $hashSuffix = UtilsService::hashSuffix($this->candidate->id);
 
         return "[HR] $position - $candidate $hashSuffix";

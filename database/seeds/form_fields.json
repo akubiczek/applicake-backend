@@ -1,19 +1,11 @@
 [
     {
-        "name": "first_name",
-        "label": "Imię",
+        "name": "name",
+        "label": "Imię i nazwisko",
         "system": true,
         "type": "input",
         "required": true,
         "order": 1
-    },
-    {
-        "name": "last_name",
-        "label": "Nazwisko",
-        "system": true,
-        "type": "input",
-        "required": true,
-        "order": 2
     },
     {
         "name": "email",
@@ -21,7 +13,7 @@
         "system": true,
         "type": "email",
         "required": true,
-        "order": 3
+        "order": 2
     },
     {
         "name": "phone_number",
@@ -29,7 +21,7 @@
         "system": true,
         "type": "phone",
         "required": true,
-        "order": 4
+        "order": 3
     },
     {
         "name": "file",
@@ -37,7 +29,7 @@
         "system": true,
         "type": "file",
         "required": true,
-        "order": 5
+        "order": 4
     },
     {
         "name": "additional_data",
@@ -45,7 +37,7 @@
         "system": false,
         "type": "input",
         "required": false,
-        "order": 6
+        "order": 5
     },
     {
         "name": "agreement",
@@ -53,7 +45,7 @@
         "system": true,
         "type": "checkbox",
         "required": true,
-        "order": 7
+        "order": 6
     },
     {
         "name": "future_agreement",
@@ -61,6 +53,6 @@
         "system": true,
         "type": "checkbox",
         "required": false,
-        "order": 8
+        "order": 7
     }
 ]

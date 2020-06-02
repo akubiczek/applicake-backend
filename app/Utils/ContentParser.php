@@ -15,8 +15,7 @@ class ContentParser
 
         $mapping = [
             '%%JOB_TITLE%%' => $candidate->recruitment->job_title,
-            '%%CANDIDATE_FIRST_NAME%%' => $candidate->first_name,
-            '%%CANDIDATE_LAST_NAME%%' => $candidate->last_name,
+            '%%CANDIDATE_NAME%%' => $candidate->name,
             '%%USER_FIRST_NAME%%' => $user ? $user->name : '',
             '%%USER_LAST_NAME%%' => '',
             '%%APPOINTMENT_NATURAL_DATE%%' => $appointmentDate ? self::naturalDate($appointmentDate) : '',

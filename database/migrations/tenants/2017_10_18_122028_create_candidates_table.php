@@ -17,12 +17,10 @@ class CreateCandidatesTable extends Migration {
             $table->id('id');
             $table->timestamps();
             $table->softDeletes();
-            $table->string('first_name', 191)->default('');
-            $table->string('last_name', 191)->default('');
+            $table->string('name', 191)->default('');
             $table->string('email', 191)->nullable();
             $table->string('phone_number', 40)->nullable();
             $table->boolean('future_agreement')->default(0);
-            $table->text('additional_info', 65535)->nullable();
             $table->string('path_to_cv', 191);
             $table->integer('source_id')->unsigned()->nullable();
             $table->foreignId('recruitment_id')->constrained()->onDelete('cascade')->index('recruitment_id');

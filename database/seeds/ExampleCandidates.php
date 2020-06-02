@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 class ExampleCandidates extends \App\Services\TenantSeeder
 {
     const JSON_PATH = './database/seeds/candidates.json';
@@ -21,8 +19,7 @@ class ExampleCandidates extends \App\Services\TenantSeeder
         foreach ($candidates['results'] as $candidate)
         {
             DB::connection($this->connection)->table('candidates')->insert([
-                'first_name' => $candidate['name']['first'],
-                'last_name' => $candidate['name']['last'],
+                'name' => $candidate['name']['first'] . ' ' . $candidate['name']['last'],
                 'email' => $candidate['email'],
                 'phone_number' => $candidate['cell'],
                 'future_agreement' => random_int(0, 1),

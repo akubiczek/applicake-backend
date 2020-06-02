@@ -44,7 +44,7 @@ class CandidatesController extends Controller
     public function names(Request $request)
     {
         $search = $request->get('search');
-        $columns = ['id', 'first_name', 'last_name'];
+        $columns = ['id', 'name'];
 
         if ($search) {
             $candidates = CandidatesRepository::search(['search' => $search], $columns);
@@ -92,7 +92,7 @@ class CandidatesController extends Controller
             return response('File not found', 404);
         }
 
-        $fileName = $candidate->first_name . '_' . $candidate->last_name . '-CV.pdf';
+        $fileName = str_replace(' ', '_', $candidate->name) . '-CV.pdf'; //TODO sanitize
 
         if ($download) {
             return Storage::disk('s3')->download($candidate->path_to_cv, $fileName);

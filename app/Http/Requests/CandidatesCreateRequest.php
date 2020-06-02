@@ -28,11 +28,7 @@ class CandidatesCreateRequest extends FormRequest
 //                'required',
 //                'exists:tenant.sources,key',
 //            ],
-            'first_name' => [
-                'required',
-                'string',
-            ],
-            'last_name' => [
+            'name' => [
                 'required',
                 'string',
             ],
@@ -42,10 +38,6 @@ class CandidatesCreateRequest extends FormRequest
             ],
             'phone_number' => [
                 'required',
-                'string',
-            ],
-            'additional_info' => [
-                'nullable',
                 'string',
             ],
 //            'future_agreement' => [

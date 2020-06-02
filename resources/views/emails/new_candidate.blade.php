@@ -133,7 +133,6 @@
          style="display:block;margin:0 auto;margin-bottom:40px;"/>
 
     Nowy kandydat zgłosił swoją aplikację na stanowisko {{ $candidate->recruitment->name }}.<br/><br/>
-    Dodatkowe informacje: {{ $candidate->additional_info }}
 
     <div class="center" style="padding-top:30px;">
         <br/><br/><br/><br/>

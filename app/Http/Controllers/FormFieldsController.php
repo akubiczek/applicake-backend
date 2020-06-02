@@ -18,7 +18,7 @@ class FormFieldsController
 
     public function list(Request $request)
     {
-        $fields = FormField::where('recruitment_id', $request->get('recruitment_id'))->get();
+        $fields = FormField::where('recruitment_id', $request->get('recruitment_id'))->orderBy('order')->get();
         return response()->json($fields, 200);
     }
 
@@ -32,5 +32,11 @@ class FormFieldsController
     {
         FormFieldsService::deleteField($fieldId);
         return response()->json(null, 200);
+    }
+
+    public function reorder($dragId, $dropId)
+    {
+        $response = FormFieldsService::reorder($dragId, $dropId);
+        return response()->json($response, 200);
     }
 }
