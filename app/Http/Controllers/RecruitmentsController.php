@@ -10,6 +10,7 @@ use App\Models\Recruitment;
 use App\Models\Stage;
 use App\Services\TenantManager;
 use App\Utils\Recruitments\RecruitmentCreator;
+use App\Utils\Recruitments\RecruitmentReplicator;
 
 class RecruitmentsController extends Controller
 {
@@ -63,6 +64,12 @@ class RecruitmentsController extends Controller
     public function reopen($recruitmentId)
     {
         $recruitment = RecruitmentCreator::reopen($recruitmentId);
+        return response()->json($recruitment, 200);
+    }
+
+    public function duplicate($recruitmentId)
+    {
+        $recruitment = RecruitmentReplicator::duplicate($recruitmentId);
         return response()->json($recruitment, 200);
     }
 }
