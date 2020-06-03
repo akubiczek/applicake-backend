@@ -25,7 +25,8 @@ Route::group([
     Route::get('/recruitments/{recruitmentId}', 'RecruitmentsController@get');
     Route::post('/recruitments', 'RecruitmentsController@create');
     Route::patch('/recruitments/{recruitmentId}', 'RecruitmentsController@update');
-    Route::put('/commands/recruitment-close/{recruitmentId}', 'RecruitmentsController@close');
+    Route::post('/commands/recruitment-close/{recruitmentId}', 'RecruitmentsController@close');
+    Route::post('/commands/recruitment-reopen/{recruitmentId}', 'RecruitmentsController@reopen');
 
     /* Form Fields */
     Route::get('/form-fields', 'FormFieldsController@list');

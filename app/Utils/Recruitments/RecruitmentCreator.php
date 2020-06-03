@@ -59,4 +59,13 @@ class RecruitmentCreator
 
         return $recruitment;
     }
+
+    public static function reopen($recruitmentId)
+    {
+        $recruitment = Recruitment::findOrFail($recruitmentId);
+        $recruitment->state = Recruitment::STATE_PUBLISHED;
+        $recruitment->save();
+
+        return $recruitment;
+    }
 }

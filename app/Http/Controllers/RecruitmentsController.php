@@ -50,13 +50,19 @@ class RecruitmentsController extends Controller
 
     public function update(RecruitmentUpdateRequest $request, $recruitmentId)
     {
-        $field = RecruitmentCreator::updateRecruitment($recruitmentId, $request);
-        return response()->json($field, 200);
+        $recruitment = RecruitmentCreator::updateRecruitment($recruitmentId, $request);
+        return response()->json($recruitment, 200);
     }
 
     public function close(RecruitmentCloseRequest $request, $recruitmentId)
     {
-        $field = RecruitmentCreator::close($recruitmentId, $request);
-        return response()->json($field, 200);
+        $recruitment = RecruitmentCreator::close($recruitmentId, $request);
+        return response()->json($recruitment, 200);
+    }
+
+    public function reopen($recruitmentId)
+    {
+        $recruitment = RecruitmentCreator::reopen($recruitmentId);
+        return response()->json($recruitment, 200);
     }
 }
