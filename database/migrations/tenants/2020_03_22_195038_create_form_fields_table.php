@@ -20,7 +20,7 @@ class CreateFormFieldsTable extends Migration
             $table->foreignId('recruitment_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict');
             $table->string('name', 191);
-            $table->string('label', 191);
+            $table->text('label');
             $table->boolean('system');
             $table->char('type', 8);
             $table->boolean('required');

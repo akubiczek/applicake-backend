@@ -21,6 +21,7 @@ class CreateStagesTable extends Migration
             $table->string('action_name', 191)->default('');
             $table->boolean('has_appointment')->default(false);
             $table->boolean('is_quick_link')->default(false);
+            $table->integer('order')->unsigned();
         });
     }
 

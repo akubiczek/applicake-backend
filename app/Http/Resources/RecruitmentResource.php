@@ -33,9 +33,7 @@ class RecruitmentResource extends JsonResource
         unset($array['is_draft']);
 
         //TODO ten kawałek do optymalizacji wydajnościowej
-        //TODO na razie nie obsługujemy stages per recruitment
-        //$stages = Stage::where('recruitment_id', $recruitment->id)->get();
-        $stages = Stage::select(['id', 'name'])->get();
+        $stages = Stage::where('recruitment_id', $array['id'])->orderBy('order', 'asc')->get();
 
         foreach ($stages as $stage) {
             $count = Candidate::where('recruitment_id', $array['id'])->where('stage_id', $stage->id)->count();

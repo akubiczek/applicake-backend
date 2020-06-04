@@ -28,6 +28,7 @@ class CreateCandidatesTable extends Migration {
             $table->dateTime('seen_at')->nullable();
             $table->integer('stage_id')->unsigned()->default(1);
             $table->integer('rate')->nullable();
+            $table->json('custom_fields')->nullable();
         });
 	}
 

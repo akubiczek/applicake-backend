@@ -16,10 +16,7 @@ class StagesController extends Controller
         $recruitmentId = $request->get('recruitment_id');
 
         if ($recruitmentId) {
-            //TODO: nie obsługujemy jeszcze osobnych etapów dla różnych rekrutacji
-            //$stages = Stage::where('recruitment_id', $recruitmentId)->orderBy('id', 'ASC')->get();
-
-            $stages = Stage::orderBy('id', 'ASC')->get();
+            $stages = Stage::where('recruitment_id', $recruitmentId)->orderBy('order', 'ASC')->get();
             foreach ($stages as $stage) {
                 $stage->recruitment_id = intval($recruitmentId);
             }

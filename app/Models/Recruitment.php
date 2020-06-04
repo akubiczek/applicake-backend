@@ -39,6 +39,11 @@ class Recruitment extends Model
         return $this->hasMany(FormField::class)->orderBy('order');
     }
 
+    public function stages()
+    {
+        return $this->hasMany(Stage::class)->orderBy('order');
+    }
+
     protected $dispatchesEvents = [
 //        'created' => \App\Events\RecruitmentWasStored::class,
     ];

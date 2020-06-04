@@ -17,7 +17,7 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('candidate_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('set null');
+            $table->foreignId('user_id')->constrained()->onDelete('restrict');
             $table->string('type');
             $table->string('prev_value')->nullable();
             $table->string('new_value')->nullable();

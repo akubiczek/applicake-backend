@@ -7,7 +7,6 @@ use App\Http\Requests\RecruitmentCreateRequest;
 use App\Http\Requests\RecruitmentUpdateRequest;
 use App\Http\Resources\RecruitmentResource;
 use App\Models\Recruitment;
-use App\Models\Stage;
 use App\Services\TenantManager;
 use App\Utils\Recruitments\RecruitmentCreator;
 use App\Utils\Recruitments\RecruitmentReplicator;
@@ -42,10 +41,7 @@ class RecruitmentsController extends Controller
 
     public function get($recruitmentId)
     {
-        $recruitment = Recruitment::findOrFail($recruitmentId);
-        //TODO: nie obsługujemy jeszcze osobnych etapów dla różnych rekrutacji
-        $recruitment->stages = Stage::orderBy('id', 'ASC')->get();
-
+        $recruitment = Recruitment::with('stages')->findOrFail($recruitmentId);
         return response()->json($recruitment);
     }
 

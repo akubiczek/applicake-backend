@@ -35,7 +35,4 @@ abstract class TenantSeeder extends Seeder
     }
 
     public abstract function run(\App\Models\Recruitment $recruitment);
-//    {
-//        throw new \Exception('Method `run` has not been implemented in delivered class');
-//    }
 }

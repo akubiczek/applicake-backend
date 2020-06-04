@@ -28,11 +28,7 @@ class RecruitmentCreator
     {
         SourceCreator::create(['recruitment_id' => $recruitment->id, 'name' => self::defaultSourceName()]);
 
-        //TODO na razie nie obsługujemy osobnych konfiguracji etapów per rekrutacja
-//        $stagesSeeder = new \StagesSeeder();
-//        $stagesSeeder->setConnection('tenant');
-//        $stagesSeeder->run($recruitment);
-
+        \StagesSeeder::connection('tenant')->run($recruitment);
         \PredefinedMessagesSeeder::connection('tenant')->run($recruitment);
         \FormFieldsSeeder::connection('tenant')->run($recruitment);
     }

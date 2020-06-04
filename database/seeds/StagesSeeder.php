@@ -20,10 +20,11 @@ class StagesSeeder extends \App\Services\TenantSeeder
 
         foreach ($stages as $stage) {
             DB::connection($this->connection)->table('stages')->insert([
-                'id' => $stage['id'],
                 'name' => $stage['name'],
                 'action_name' => $stage['action_name'],
                 'has_appointment' => $stage['has_appointment'],
+                'is_quick_link' => $stage['is_quick_link'],
+                'order' => $stage['order'],
                 'recruitment_id' => $recruitment->id,
                 'created_at' => $now,
                 'updated_at' => $now,

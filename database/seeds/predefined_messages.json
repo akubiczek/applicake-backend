@@ -18,7 +18,7 @@
         "from_stage_id": null,
         "to_stage_id": 3,
         "subject": "RE: Twoja aplikacja na stanowisko %%JOB_TITLE%%",
-        "body": "Dzień dobry,\n\nDziękuję za poświęcony czas i rozwiązanie testu telefonicznego. Jego wynik był na tyle odpowiedni, aby zakwalifikować się do drugiego etapu. W związku z tym chciałbym zaprosić Ciebie na spotkanie u nas w biurze, w trakcie którego będziemy mieli okazję się poznać osobiście i porozmawiać na tematy „miękkie”, jak również rozwiązać kilka zadań praktycznych. Spotkanie powinno potrwać nie dłużej niż 75 minut - czy możliwe jest ono %%APPOINTMENT_NATURAL_DATE%% o godzinie %%APPOINTMENT_TIME%%?\n\nz poważaniem\n%%USER_FIRST_NAME%% %%USER_LAST_NAME%%\nKISS digital sp. z o.o."
+        "body": "Dzień dobry,\n\nDziękuję za poświęcony czas i rozwiązanie testu telefonicznego. Jego wynik był na tyle odpowiedni, aby zakwalifikować Twoją kandydaturę do drugiego etapu. W związku z tym chciałbym zaprosić Cię na spotkanie u nas w biurze, w trakcie którego będziemy mieli okazję się poznać osobiście i porozmawiać na tematy „miękkie”, jak również rozwiązać kilka zadań praktycznych. Spotkanie powinno potrwać nie dłużej niż 75 minut - czy możliwe jest ono %%APPOINTMENT_NATURAL_DATE%% o godzinie %%APPOINTMENT_TIME%%?\n\nz poważaniem\n%%USER_FIRST_NAME%% %%USER_LAST_NAME%%\nKISS digital sp. z o.o."
     },
     {
         "type": 0,
@@ -39,13 +39,13 @@
         "from_stage_id": 3,
         "to_stage_id": 6,
         "subject": "RE: Twoja aplikacja na stanowisko %%JOB_TITLE%%",
-        "body": "Dzień dobry,\n\nPanie XXXXXXX, dziękuję za spotkanie i miłą rozmowę u nas w biurze. Niestety na chwilę obecną nie zdecyduję się na Pańską ofertę - wynika to z faktu, że wynik z testów praktycznych nie był odpowiednio wysoki. Zachęcam jednak do udziału w kolejnych rekrutacjach.\n\nz poważaniem\n%%USER_FIRST_NAME%% %%USER_LAST_NAME%%\nKISS digital sp. z o.o."
+        "body": "Dzień dobry,\n\nBardzo Ci dziękuję za spotkanie i interesującą rozmowę w trakcie spotkania. Niestety - na chwilę obecną nie zdecyduję się na Twoją ofertę - wynika to z faktu, że wynik z testów praktycznych nie był odpowiednio wysoki. Zachęcam jednak do śledzenia kolejnych naszych ofert i udziału w następnych rekrutacjach.\n\nz poważaniem\n%%USER_FIRST_NAME%% %%USER_LAST_NAME%%\nKISS digital sp. z o.o."
     },
     {
         "type": 1,
         "from_stage_id": null,
         "to_stage_id": null,
         "subject": "RE: Twoja aplikacja na stanowisko %%JOB_TITLE%%",
-        "body": "Dzień dobry,\n\nInformuję, że Twoje dane zostały usunięte z naszej bazy kandydatów i nie będą już dalej przetwarzane. Dziękuję za udział w procesie rekrutacji do naszej firmy.\n\nz poważaniem\n%%USER_FIRST_NAME%% %%USER_LAST_NAME%%\nKISS digital sp. z o.o."
+        "body": "Dzień dobry,\n\nInformujemy, że Twoje dane zostały usunięte z naszej bazy kandydatów i nie będą już dalej przetwarzane. Dziękujemy za udział w procesie rekrutacji do naszej firmy i zachęcamy do śledzenia kolejnych oferty."
     }
 ]
