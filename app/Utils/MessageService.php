@@ -16,7 +16,7 @@ class MessageService
 {
     public static function sendConfirmationToCandidate($candidate)
     {
-        $predefinedMessage = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('stage_id', $candidate->stage_id)->first();
+        $predefinedMessage = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('to_stage_id', 1)->whereNull('from_stage_id')->first();
 
         if (!$predefinedMessage) {
             return false;

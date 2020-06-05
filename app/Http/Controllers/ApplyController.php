@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CandidateApplied;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Resources\ApplyFormResource;
 use App\Models\Source;
@@ -40,6 +41,7 @@ class ApplyController extends Controller
             return response()->json(['message' => 'Recruitment not found'], 404);
 
         $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
+        event(new CandidateApplied($candidate));
         return response()->json($candidate, 201);
     }
 }

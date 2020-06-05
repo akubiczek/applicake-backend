@@ -35,8 +35,8 @@ class NewCandidateNotification extends Mailable
     {
         return $this
             ->subject($this->getSubject())
-            ->view('emails.new_candidate')
-            ->attach($this->getCvPath());
+            ->view('emails.new_candidate');
+        //->attach($this->getCvPath());
     }
 
     protected function getSubject()

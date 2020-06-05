@@ -4,7 +4,7 @@
         "from_stage_id": null,
         "to_stage_id": 1,
         "subject": "RE: Twoja aplikacja na stanowisko %%JOB_TITLE%%",
-        "body": "Dzień dobry,\n\nDziękujemy za złożenie swojej aplikacji na stanowisko %%JOB_TITLE%%. Staramy się na bieżąco zapoznawać z otrzymanymi ofertami, więc już niebawem wrócimy z informacją na temat wyniku pierwszego etapu rekrutacji. W przypadku pozytywnej weryfikacji będziemy się umawiać na rozmowę telefoniczną; jeżeli wynik będzie negatywny, także wyślemy stosowną informację.\n\nz poważaniem\n%%USER_FIRST_NAME%% %%USER_LAST_NAME%%\nKISS digital sp. z o.o."
+        "body": "Dzień dobry,\n\nDziękujemy za złożenie swojej aplikacji na stanowisko %%JOB_TITLE%%. Staramy się na bieżąco zapoznawać z otrzymanymi ofertami, więc już niebawem wrócimy z informacją na temat wyniku pierwszego etapu rekrutacji. W przypadku pozytywnej weryfikacji będziemy się umawiać na rozmowę telefoniczną; jeżeli wynik będzie negatywny, także wyślemy stosowną informację.\n\nzespół\nKISS digital sp. z o.o."
     },
     {
         "type": 0,
