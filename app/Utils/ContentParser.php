@@ -11,8 +11,6 @@ class ContentParser
 {
     public static function parse(string $content, Candidate $candidate, \DateTime $appointmentDate = null, $user = null)
     {
-        $content = nl2br($content);
-
         $mapping = [
             '%%JOB_TITLE%%' => $candidate->recruitment->job_title,
             '%%CANDIDATE_NAME%%' => $candidate->name,

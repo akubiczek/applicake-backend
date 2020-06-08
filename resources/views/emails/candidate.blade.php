@@ -73,7 +73,7 @@
     <img src="https://jobs.kissdigital.com/kiss/images/kiss.png" alt="KISS digital logo"
          style="display:block;margin:0 auto;margin-bottom:60px;max-width: 200px;" />
 
-    {!! $messageToSend->body !!}
+    {!! nl2br(e($messageToSend->body)) !!}
 
     <div style="display:block;margin:0 auto;padding-top:60px;text-align:center;">
         <small>
