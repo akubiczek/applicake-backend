@@ -15,8 +15,8 @@ class ExampleStages extends \App\Services\TenantSeeder
         $recruitments = \App\Models\Recruitment::get();
 
         foreach ($recruitments as $recruitment) {
-            $stagesSeeder->run($recruitment);
-            break; //TODO na razie nie obsługujemy osobnych konfiguracji etapów per rekrutacja
+            $stagesSeeder->setRecruitment($recruitment);
+            $stagesSeeder->run();
         }
     }
 }

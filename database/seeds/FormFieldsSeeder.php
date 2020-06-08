@@ -5,15 +5,16 @@
  */
 class FormFieldsSeeder extends \App\Services\TenantSeeder
 {
+    use \App\Services\WithRecruitment;
+
     const JSON_PATH = '/database/seeds/form_fields.json';
 
     /**
      * Run the database seeds.
      *
-     * @param \App\Models\Recruitment $recruitment
      * @return void
      */
-    public function run(\App\Models\Recruitment $recruitment)
+    public function run()
     {
         $fields = json_decode(file_get_contents(base_path() . self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
@@ -26,7 +27,7 @@ class FormFieldsSeeder extends \App\Services\TenantSeeder
                 'type' => $field['type'],
                 'required' => $field['required'],
                 'order' => $field['order'],
-                'recruitment_id' => $recruitment->id,
+                'recruitment_id' => $this->recruitment->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);

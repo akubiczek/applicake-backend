@@ -28,9 +28,9 @@ class RecruitmentCreator
     {
         SourceCreator::create(['recruitment_id' => $recruitment->id, 'name' => self::defaultSourceName()]);
 
-        \StagesSeeder::connection('tenant')->run($recruitment);
-        \PredefinedMessagesSeeder::connection('tenant')->run($recruitment);
-        \FormFieldsSeeder::connection('tenant')->run($recruitment);
+        \StagesSeeder::connection('tenant')->setRecruitment($recruitment)->run();
+        \PredefinedMessagesSeeder::connection('tenant')->setRecruitment($recruitment)->run();
+        \FormFieldsSeeder::connection('tenant')->setRecruitment($recruitment)->run();
     }
 
     public static function defaultSourceName()

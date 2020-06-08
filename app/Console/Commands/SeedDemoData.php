@@ -62,6 +62,10 @@ class SeedDemoData extends Command
         $seeder->setConnection('tenant');
         $seeder->run();
 
+        $seeder = new \ExampleFormFields();
+        $seeder->setConnection('tenant');
+        $seeder->run();
+
         $seeder = new \ExampleStages();
         $seeder->setConnection('tenant');
         $seeder->run();
@@ -70,6 +74,6 @@ class SeedDemoData extends Command
         $seeder->setConnection('tenant');
         $seeder->run();
 
-        $this->info('Demo data have been seeded for tenant with subdomain \''.$tenant->subdomain.'\'.');
+        $this->info('Demo data have been seeded for tenant with subdomain \'' . $tenant->subdomain . '\'.');
     }
 }

@@ -4,6 +4,22 @@ namespace App\Services;
 
 use Illuminate\Database\Seeder;
 
+trait WithRecruitment
+{
+    /**
+     * The name of the default connection.
+     *
+     * @var \App\Models\Recruitment
+     */
+    protected $recruitment;
+
+    public function setRecruitment(\App\Models\Recruitment $recruitment)
+    {
+        $this->recruitment = $recruitment;
+        return $this;
+    }
+}
+
 abstract class TenantSeeder extends Seeder
 {
     /**
@@ -13,7 +29,7 @@ abstract class TenantSeeder extends Seeder
      */
     protected $connection;
 
-    public function __construct($connection)
+    public function __construct($connection = null)
     {
         $this->connection = $connection;
     }
@@ -34,5 +50,5 @@ abstract class TenantSeeder extends Seeder
         $this->connection = $connection;
     }
 
-    public abstract function run(\App\Models\Recruitment $recruitment);
+    public abstract function run();
 }

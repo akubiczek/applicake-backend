@@ -15,7 +15,8 @@ class ExamplePredefinedMessages extends \App\Services\TenantSeeder
         $recruitments = \App\Models\Recruitment::get();
 
         foreach ($recruitments as $recruitment) {
-            $predefinedMessagesSeeder->run($recruitment);
+            $predefinedMessagesSeeder->setRecruitment($recruitment);
+            $predefinedMessagesSeeder->run();
         }
     }
 }

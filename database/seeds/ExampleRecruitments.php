@@ -24,6 +24,7 @@ class ExampleRecruitments extends \App\Services\TenantSeeder
                 'notification_email' => $recruitment['notification_email'],
                 'created_at' => $now,
                 'updated_at' => $now,
+                'is_draft' => false,
             ]);
 
             DB::connection($this->connection)->table('sources')->insert([
@@ -32,6 +33,7 @@ class ExampleRecruitments extends \App\Services\TenantSeeder
                 'key' => 'XXXYYZ' . $id,
                 'created_at' => $now,
                 'updated_at' => $now,
+                'is_draft' => false,
             ]);
 
             $id++;

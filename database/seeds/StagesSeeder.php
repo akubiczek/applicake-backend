@@ -5,6 +5,8 @@
  */
 class StagesSeeder extends \App\Services\TenantSeeder
 {
+    use \App\Services\WithRecruitment;
+
     const JSON_PATH = '/database/seeds/stages.json';
 
     /**
@@ -13,7 +15,7 @@ class StagesSeeder extends \App\Services\TenantSeeder
      * @param \App\Models\Recruitment $recruitment
      * @return void
      */
-    public function run(\App\Models\Recruitment $recruitment)
+    public function run()
     {
         $stages = json_decode(file_get_contents(base_path() . self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
@@ -25,7 +27,7 @@ class StagesSeeder extends \App\Services\TenantSeeder
                 'has_appointment' => $stage['has_appointment'],
                 'is_quick_link' => $stage['is_quick_link'],
                 'order' => $stage['order'],
-                'recruitment_id' => $recruitment->id,
+                'recruitment_id' => $this->recruitment->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
