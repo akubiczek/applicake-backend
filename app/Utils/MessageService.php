@@ -16,7 +16,8 @@ class MessageService
 {
     public static function sendConfirmationToCandidate($candidate)
     {
-        $predefinedMessage = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)->where('to_stage_id', 1)->whereNull('from_stage_id')->first();
+        $predefinedMessage = PredefinedMessage::where('recruitment_id', $candidate->recruitment->id)
+            ->where('trigger', 'onApply')->first();
 
         if (!$predefinedMessage) {
             return false;
@@ -67,7 +68,7 @@ class MessageService
 
     public static function notifyDeletedCandidate(Candidate $candidate, $emailAddress)
     {
-        $predefinedMessage = PredefinedMessage::where('type', PredefinedMessage::TYPE_DELETENOTIFICATION)->first();
+        $predefinedMessage = PredefinedMessage::where('trigger', 'onDelete')->first();
 
         if (!$predefinedMessage) {
             return false;

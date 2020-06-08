@@ -7,6 +7,7 @@ use App\Models\Candidate;
 use App\Models\Recruitment;
 use App\Models\Source;
 use App\Services\TenantManager;
+use App\Utils\StageHelper;
 
 class CandidateCreator
 {
@@ -41,7 +42,7 @@ class CandidateCreator
         $candidate->phone_number = $request->get('phone_number');
         $candidate->future_agreement = (bool)data_get($request->validated(), 'future_agreement');
         $candidate->source_recruitment_id = $request->get('source_recruitment_id');
-        $candidate->stage_id = 1;
+        $candidate->stage_id = StageHelper::getFirstStage($recruitment->id)->id;
         $candidate->path_to_cv = $path_to_cv;
         $candidate->source_id = !empty($source) ? $source->id : null;
         $candidate->recruitment_id = $recruitment->id;
