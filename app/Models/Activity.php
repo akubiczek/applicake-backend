@@ -13,7 +13,7 @@ class Activity extends Model
      *
      * @var array
      */
-    protected $fillable = ['candidate_id', 'type', 'prev_value', 'new_value'];
+    protected $fillable = ['candidate_id', 'user_id', 'type', 'prev_value', 'new_value'];
 
     public function candidate()
     {

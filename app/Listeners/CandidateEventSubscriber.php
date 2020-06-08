@@ -15,6 +15,7 @@ class CandidateEventSubscriber
         Activity::create([
             'candidate_id' => $event->candidate->id,
             'type' => \App\Models\Recruitment::class,
+            'user_id' => $event->user->id,
             'prev_value' => $event->previousRecruitmentId,
             'new_value' => $event->newRecruitmentId
         ]);
@@ -25,6 +26,7 @@ class CandidateEventSubscriber
         Activity::create([
             'candidate_id' => $event->candidate->id,
             'type' => '\Rate',
+            'user_id' => $event->user->id,
             'prev_value' => $event->previousRate,
             'new_value' => $event->newRate
         ]);
@@ -35,6 +37,7 @@ class CandidateEventSubscriber
         Activity::create([
             'candidate_id' => $event->candidate->id,
             'type' => \App\Models\Stage::class,
+            'user_id' => $event->user->id,
             'prev_value' => $event->previousStage,
             'new_value' => $event->newStage
         ]);

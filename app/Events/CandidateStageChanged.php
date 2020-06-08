@@ -2,15 +2,13 @@
 
 namespace App\Events;
 
-use App\Http\Requests\ChangeStageRequest;
 use App\Models\Candidate;
-use Illuminate\Broadcasting\Channel;
+use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class CandidateStageChanged
 {
@@ -20,6 +18,11 @@ class CandidateStageChanged
      * @var Candidate
      */
     public $candidate;
+
+    /**
+     * @var User
+     */
+    public $user;
 
     public $previousStage, $newStage;
 
@@ -33,6 +36,7 @@ class CandidateStageChanged
         $this->candidate = $candidate;
         $this->previousStage = $previousStage;
         $this->newStage = $newStage;
+        $this->user = Auth::user();
     }
 
     /**
