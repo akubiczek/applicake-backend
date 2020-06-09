@@ -58,7 +58,7 @@ class SeedDemoData extends Command
         $seeder->setConnection('tenant');
         $seeder->run();
 
-        $seeder = new \ExampleCandidates();
+        $seeder = new \ExampleSources();
         $seeder->setConnection('tenant');
         $seeder->run();
 
@@ -71,6 +71,10 @@ class SeedDemoData extends Command
         $seeder->run();
 
         $seeder = new \ExamplePredefinedMessages();
+        $seeder->setConnection('tenant');
+        $seeder->run();
+
+        $seeder = new \ExampleCandidates();
         $seeder->setConnection('tenant');
         $seeder->run();
 

@@ -27,17 +27,7 @@ class ExampleRecruitments extends \App\Services\TenantSeeder
                 'is_draft' => false,
             ]);
 
-            DB::connection($this->connection)->table('sources')->insert([
-                'name' => 'KISSdigital.com',
-                'recruitment_id' => $id,
-                'key' => 'XXXYYZ' . $id,
-                'created_at' => $now,
-                'updated_at' => $now,
-                'is_draft' => false,
-            ]);
-
             $id++;
         }
-
     }
 }
