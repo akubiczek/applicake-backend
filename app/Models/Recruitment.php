@@ -15,7 +15,7 @@ class Recruitment extends Model
     protected $fillable = [
         'name',
         'notification_email',
-        'is_general',
+        'job_title',
         'is_draft',
     ];
 

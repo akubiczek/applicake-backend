@@ -19,6 +19,8 @@ Route::group([
 
     /* Users */
     Route::get('/me', 'UsersController@me');
+    Route::get('/users', 'UsersController@list');
+    Route::post('/invites', 'UsersController@invite');
 
     /* Recruitments */
     Route::get('/recruitments', 'RecruitmentsController@list');
@@ -74,6 +76,7 @@ Route::group([
     Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
     Route::post('/apply', 'ApplyController@apply');
     Route::get('/apply-form/{sourceKey}', 'ApplyController@applyForm');
+    Route::put('/invites/{token}', 'UsersController@finishInvitation');
 });
 
 Route::group([
