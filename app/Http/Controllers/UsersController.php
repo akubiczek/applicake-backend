@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\InvitationService;
 use App\Services\TenantManager;
+use App\TenantUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UsersController
 {
@@ -36,6 +38,33 @@ class UsersController
 
     public function create(Request $request)
     {
+    }
+
+    public function delete($userId)
+    {
+        if ($userId != Auth::user()->id) {
+            $user = User::findOrFail($userId);
+
+            $tenantUser = TenantUser::where('username', $user->email)->where('tenant_id', $this->tenantManager->getTenant()->id)->first();
+
+            if (!$tenantUser) {
+                throw new \Exception('inconsistency detected');
+            }
+
+            DB::transaction(function () use ($tenantUser, $user) {
+                $tenantUser->delete();
+
+                if ($user->pending_invitation) {
+                    $user->forceDelete();
+                } else {
+                    $user->delete();
+                }
+            });
+
+            return response(200);
+        }
+
+        return response('Cannot delete yourself', 403);
     }
 
     public function invite(Request $request)

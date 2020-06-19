@@ -262,7 +262,7 @@ class ImportOldData extends Command
         $candidates = DB::connection('legacy')->select('SELECT * FROM candidates');
         foreach ($candidates as $candidate) {
 
-            $customFields = '[{"id": 0, "label": "Informacje dodatkowe", "value": "' . $candidate->additional_info . '"}]';
+            $customFields = '[{"id": 0, "label": "Informacje dodatkowe", "value": ' . json_encode($candidate->additional_info) . '}]';
             $seenAt = $candidate->stage_id != 1 ? $candidate->created_at : null;
 
             $pathToCV = 'kissdigital/' . $candidate->path_to_cv;

@@ -20,6 +20,7 @@ Route::group([
     /* Users */
     Route::get('/me', 'UsersController@me');
     Route::get('/users', 'UsersController@list');
+    Route::delete('/users/{userId}', 'UsersController@delete');
     Route::post('/invites', 'UsersController@invite');
 
     /* Recruitments */
