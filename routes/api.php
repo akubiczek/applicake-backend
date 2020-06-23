@@ -74,7 +74,6 @@ Route::group([
     'middleware' => [\App\Http\Middleware\IdentifyTenant::class],
     'as' => 'tenant:',
 ], function () {
-    Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
     Route::post('/apply', 'ApplyController@apply');
     Route::get('/apply-form/{sourceKey}', 'ApplyController@applyForm');
     Route::put('/invites/{token}', 'UsersController@finishInvitation');
@@ -86,6 +85,7 @@ Route::group([
     'as' => 'tenant:',
 ], function () {
     Route::get('/message_preview/{messageId}', 'MessagePreview@render')->name('message_preview.render');
+    Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');
 });
 
 Route::post('/password-token', 'PasswordsController@token');
