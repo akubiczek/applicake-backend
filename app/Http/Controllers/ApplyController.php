@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\CandidateApplied;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Resources\ApplyFormResource;
+use App\Jobs\ProcessResume;
 use App\Models\Source;
 use App\Services\TenantManager;
 use App\Utils\Candidates\CandidateCreator;
@@ -43,7 +44,7 @@ class ApplyController extends Controller
         $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
 
         //TODO problem z wyborem bazy danych w Jobie - nie wybiera bazy dla połączenia
-//        ProcessResume::dispatch($candidate, $this->tenantManager->getTenant()->id);
+        ProcessResume::dispatch($candidate);
         event(new CandidateApplied($candidate));
         return response()->json($candidate, 201);
     }

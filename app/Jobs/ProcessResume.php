@@ -19,8 +19,6 @@ class ProcessResume implements ShouldQueue
      */
     protected $candidate;
 
-    protected $tenantId;
-
     /**
      * Create a new job instance.
      *
@@ -30,7 +28,6 @@ class ProcessResume implements ShouldQueue
     public function __construct(Candidate $candidate)
     {
         $this->candidate = $candidate;
-//        $this->tenantId = $tenantId;
     }
 
     /**
@@ -41,11 +38,6 @@ class ProcessResume implements ShouldQueue
      */
     public function handle()
     {
-        //TODO gdzieś do wspólnego kodu to przenieść ten wybór bazy danych
-//i tak nie działa
-//       Config::set('database.connections.tenant.database', 'tenant_' . $this->tenantId);
-//       DB::purge('tenant');
-
         if (substr($this->candidate->path_to_cv, -4) == '.pdf') {
             $outputFile = str_replace('.pdf', '_avatar.jpg', $this->candidate->path_to_cv);
             $this->candidate->photo_extraction = new \DateTime();
