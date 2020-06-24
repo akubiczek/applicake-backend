@@ -26,6 +26,7 @@ class TruncatedCandidateResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone_number' => PhoneFormatter::format($this->phone_number),
+            'photo_path' => $this->photo_path ? env('AVATARS_URL') . '/' . $this->photo_path : null,
             'recruitment_id' => $this->recruitment_id,
             'stage_id' => $this->stage_id,
             'seen_at' => $this->seen_at,

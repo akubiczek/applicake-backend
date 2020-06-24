@@ -3,6 +3,11 @@ Miss Piggy HR - API
 System do obsługi rekrutacji w KISS digital - backend.
 
 ## Requirements ##
+```
+imagick ext
+ghostscript (gs command)
+```
+
 
 ## How to install ##
 From command line run:
