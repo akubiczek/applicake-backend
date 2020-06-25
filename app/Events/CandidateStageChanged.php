@@ -29,7 +29,9 @@ class CandidateStageChanged
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Candidate $candidate
+     * @param $previousStage
+     * @param $newStage
      */
     public function __construct(Candidate $candidate, $previousStage, $newStage)
     {

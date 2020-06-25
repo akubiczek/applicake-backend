@@ -17,23 +17,24 @@ class CandidateMoved
      */
     public $candidate;
 
-    /**
-     * @var User
-     */
-    public $user;
+    public $userId;
 
     public $previousRecruitmentId, $newRecruitmentId;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Candidate $candidate
+     * @param $previousRecruitmentId
+     * @param $newRecruitmentId
+     * @param $userId
      */
-    public function __construct(Candidate $candidate, $previousRecruitmentId, $newRecruitmentId)
+    public function __construct(Candidate $candidate, $previousRecruitmentId, $newRecruitmentId, $userId)
     {
         $this->candidate = $candidate;
         $this->previousRecruitmentId = $previousRecruitmentId;
         $this->newRecruitmentId = $newRecruitmentId;
+        $this->userId = $userId;
     }
 
     /**

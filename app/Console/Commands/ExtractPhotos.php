@@ -61,6 +61,7 @@ class ExtractPhotos extends Command
         foreach ($candidates as $candidate) {
             $this->info('Parsing candidate id ' . $candidate->id);
             ProcessResume::dispatchNow($candidate);
+            gc_collect_cycles();
         }
     }
 }

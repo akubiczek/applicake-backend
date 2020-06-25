@@ -143,7 +143,7 @@ class PdfToImage
         }, range(1, $numberOfPages));
     }
 
-    public function getImageData(string $format = 'jpg'): Imagick
+    public function getImageData(string $format = 'jpg'): ?Imagick
     {
         /*
          * Reinitialize imagick because the target resolution must be set

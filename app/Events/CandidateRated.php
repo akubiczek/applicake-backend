@@ -17,23 +17,22 @@ class CandidateRated
      */
     public $candidate;
 
-    /**
-     * @var User
-     */
-    public $user;
-
-    public $previousRate, $newRate;
+    public $userId, $previousRate, $newRate;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Candidate $candidate
+     * @param $previousRate
+     * @param $newRate
+     * @param $userId
      */
-    public function __construct(Candidate $candidate, $previousRate, $newRate)
+    public function __construct(Candidate $candidate, $previousRate, $newRate, $userId)
     {
         $this->candidate = $candidate;
         $this->previousRate = $previousRate;
         $this->newRate = $newRate;
+        $this->userId = $userId;
     }
 
     /**

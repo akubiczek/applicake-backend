@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class ProcessResume implements ShouldQueue
 {
@@ -19,15 +20,18 @@ class ProcessResume implements ShouldQueue
      */
     protected $candidate;
 
+    protected $override;
+
     /**
      * Create a new job instance.
      *
      * @param Candidate $candidate
-     * @param $tenantId
+     * @param bool $override
      */
-    public function __construct(Candidate $candidate)
+    public function __construct(Candidate $candidate, $override = false)
     {
         $this->candidate = $candidate;
+        $this->override = $override;
     }
 
     /**
@@ -40,11 +44,15 @@ class ProcessResume implements ShouldQueue
     {
         if (substr($this->candidate->path_to_cv, -4) == '.pdf') {
             $outputFile = str_replace('.pdf', '_avatar.jpg', $this->candidate->path_to_cv);
-            $this->candidate->photo_extraction = new \DateTime();
-            if (ResumeParser::extractPhoto($this->candidate->path_to_cv, $outputFile)) {
-                $this->candidate->photo_path = $outputFile;
+
+            if ($this->override || Storage::disk('s3')->missing($outputFile)) {
+                if (ResumeParser::extractPhoto($this->candidate->path_to_cv, $outputFile)) {
+                    $this->candidate->photo_path = $outputFile;
+                }
+
+                $this->candidate->photo_extraction = new \DateTime();
+                $this->candidate->save();
             }
-            $this->candidate->save();
         }
     }
 }
