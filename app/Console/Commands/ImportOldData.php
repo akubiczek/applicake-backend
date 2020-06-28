@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use App\Services\TenantManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Exception\RuntimeException;
 
 class ImportOldData extends Command
@@ -299,9 +300,17 @@ class ImportOldData extends Command
                     break;
             }
 
+            $photoExtraction = \Carbon\Carbon::now()->toDateTimeString();
+            $photoPath = str_replace('.pdf', '_avatar.jpg', $candidate->path_to_cv);
+
+            if (Storage::disk('s3-avatars')->missing($photoPath)) {
+                $photoPath = null;
+                $photoExtraction = null;
+            }
+
             DB::connection('tenant')->insert('INSERT INTO candidates (id, created_at, updated_at, `name`, email,
-                `phone_number`, future_agreement, path_to_cv, source_id, recruitment_id, seen_at, stage_id, rate, custom_fields)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                `phone_number`, future_agreement, path_to_cv, source_id, recruitment_id, seen_at, stage_id, rate, custom_fields, photo_path, photo_extraction)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [
                     $candidate->id,
                     $candidate->created_at,
@@ -317,6 +326,8 @@ class ImportOldData extends Command
                     $stageId,
                     $candidate->rate,
                     $customFields,
+                    $photoPath,
+                    $photoExtraction
                 ]);
         }
 

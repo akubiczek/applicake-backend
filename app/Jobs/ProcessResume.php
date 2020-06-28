@@ -45,7 +45,7 @@ class ProcessResume implements ShouldQueue
         if (substr($this->candidate->path_to_cv, -4) == '.pdf') {
             $outputFile = str_replace('.pdf', '_avatar.jpg', $this->candidate->path_to_cv);
 
-            if ($this->override || Storage::disk('s3')->missing($outputFile)) {
+            if ($this->override || Storage::disk('s3-avatars')->missing($outputFile)) {
                 if (ResumeParser::extractPhoto($this->candidate->path_to_cv, $outputFile)) {
                     $this->candidate->photo_path = $outputFile;
                 }
