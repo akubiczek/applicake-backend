@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use App\Services\TenantManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Exception\RuntimeException;
 
 class ImportOldData extends Command
@@ -15,14 +16,14 @@ class ImportOldData extends Command
      *
      * @var string
      */
-    protected $signature = 'tenant:importlegacydata {tenantId}';
+    protected $signature = 'legacydata:import {tenantId}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Imports data from legacy database (the first version of HR system)';
 
     protected $tenantManager;
 
@@ -214,7 +215,6 @@ class ImportOldData extends Command
 
 
             $messages = json_decode(file_get_contents(base_path() . '/database/seeds/predefined_messages.json'), true);
-            $now = \Carbon\Carbon::now()->toDateTimeString();
 
             foreach ($messages as $message) {
                 $from_stage_id = null;
@@ -299,8 +299,16 @@ class ImportOldData extends Command
                     break;
             }
 
+            $photoPath = str_replace('.pdf', '_avatar.jpg', $candidate->path_to_cv);
+            $photoExtraction = \Carbon\Carbon::now()->toDateTimeString();
+
+            if (Storage::disk('s3')->missing($photoPath)) {
+                $photoPath = null;
+                $photoExtraction = null;
+            }
+
             DB::connection('tenant')->insert('INSERT INTO candidates (id, created_at, updated_at, `name`, email,
-                `phone_number`, future_agreement, path_to_cv, source_id, recruitment_id, seen_at, stage_id, rate, custom_fields)
+                `phone_number`, future_agreement, path_to_cv, source_id, recruitment_id, seen_at, stage_id, rate, custom_fields, photo_path, photo_extraction)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [
                     $candidate->id,
@@ -317,6 +325,8 @@ class ImportOldData extends Command
                     $stageId,
                     $candidate->rate,
                     $customFields,
+                    $photoPath,
+                    $photoExtraction
                 ]);
         }
 
