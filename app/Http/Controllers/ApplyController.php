@@ -12,6 +12,9 @@ use App\Utils\Candidates\CandidateCreator;
 
 class ApplyController extends Controller
 {
+    /**
+     * @var TenantManager
+     */
     protected $tenantManager;
 
     /**
@@ -43,7 +46,6 @@ class ApplyController extends Controller
 
         $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
 
-        //TODO problem z wyborem bazy danych w Jobie - nie wybiera bazy dla połączenia
         ProcessResume::dispatch($candidate);
         event(new CandidateApplied($candidate));
         return response()->json($candidate, 201);

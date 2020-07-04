@@ -11,6 +11,7 @@ use App\Http\Resources\CandidateResource;
 use App\Http\Resources\TruncatedCandidateResource;
 use App\Models\Candidate;
 use App\Repositories\CandidatesRepository;
+use App\Services\TenantManager;
 use App\Utils\Candidates\CandidateCreator;
 use App\Utils\Candidates\CandidateDeleter;
 use App\Utils\Candidates\CandidateUpdater;
@@ -20,9 +21,25 @@ use Illuminate\Support\Facades\Storage;
 
 class CandidatesController extends Controller
 {
+    /**
+     * @var TenantManager
+     */
+    protected $tenantManager;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param TenantManager $tenantManager
+     * @return void
+     */
+    public function __construct(TenantManager $tenantManager)
+    {
+        $this->tenantManager = $tenantManager;
+    }
+
     public function create(CandidatesCreateRequest $request)
     {
-        $candidate = CandidateCreator::createCandidate($request);
+        $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
         return response()->json($candidate, 201);
     }
 
