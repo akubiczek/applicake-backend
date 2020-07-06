@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 7.1.0 on 2020-06-24 11:13:12.
+ * Generated for Laravel 7.1.0 on 2020-07-05 18:29:26.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -8171,7 +8171,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function release($queue, $job, $delay)
         {
-            /** @var \Illuminate\Queue\DatabaseQueue $instance */
+            //Method inherited from \Illuminate\Queue\DatabaseQueue
+            /** @var \App\Queue\DatabaseQueue $instance */
             return $instance->release($queue, $job, $delay);
         }
 
@@ -8186,7 +8187,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function deleteReserved($queue, $id)
         {
-            /** @var \Illuminate\Queue\DatabaseQueue $instance */
+            //Method inherited from \Illuminate\Queue\DatabaseQueue
+            /** @var \App\Queue\DatabaseQueue $instance */
             $instance->deleteReserved($queue, $id);
         }
 
@@ -8199,7 +8201,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getQueue($queue)
         {
-            /** @var \Illuminate\Queue\DatabaseQueue $instance */
+            //Method inherited from \Illuminate\Queue\DatabaseQueue
+            /** @var \App\Queue\DatabaseQueue $instance */
             return $instance->getQueue($queue);
         }
 
@@ -8211,7 +8214,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function getDatabase()
         {
-            /** @var \Illuminate\Queue\DatabaseQueue $instance */
+            //Method inherited from \Illuminate\Queue\DatabaseQueue
+            /** @var \App\Queue\DatabaseQueue $instance */
             return $instance->getDatabase();
         }
 
@@ -8225,7 +8229,7 @@ namespace Illuminate\Support\Facades {
         public static function getJobRetryDelay($job)
         {
             //Method inherited from \Illuminate\Queue\Queue
-            /** @var \Illuminate\Queue\DatabaseQueue $instance */
+            /** @var \App\Queue\DatabaseQueue $instance */
             return $instance->getJobRetryDelay($job);
         }
 
@@ -8239,7 +8243,7 @@ namespace Illuminate\Support\Facades {
         public static function getJobExpiration($job)
         {
             //Method inherited from \Illuminate\Queue\Queue
-            /** @var \Illuminate\Queue\DatabaseQueue $instance */
+            /** @var \App\Queue\DatabaseQueue $instance */
             return $instance->getJobExpiration($job);
         }
 
@@ -8253,7 +8257,7 @@ namespace Illuminate\Support\Facades {
         public static function createPayloadUsing($callback)
         {
             //Method inherited from \Illuminate\Queue\Queue
-            \Illuminate\Queue\DatabaseQueue::createPayloadUsing($callback);
+            \App\Queue\DatabaseQueue::createPayloadUsing($callback);
         }
 
         /**
@@ -8266,7 +8270,7 @@ namespace Illuminate\Support\Facades {
         public static function setContainer($container)
         {
             //Method inherited from \Illuminate\Queue\Queue
-            /** @var \Illuminate\Queue\DatabaseQueue $instance */
+            /** @var \App\Queue\DatabaseQueue $instance */
             $instance->setContainer($container);
         }
 
