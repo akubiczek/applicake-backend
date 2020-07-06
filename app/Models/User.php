@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return $this->where('email', $username)->where('pending_invitation', 0)->first();
     }
+
+    /**
+     * Used to determine access rights if a user has limited role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function recruitments()
+    {
+        return $this->belongsToMany(Recruitment::class);
+    }
 }

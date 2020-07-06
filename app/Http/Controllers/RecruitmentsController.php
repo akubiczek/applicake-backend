@@ -10,6 +10,7 @@ use App\Models\Recruitment;
 use App\Services\TenantManager;
 use App\Utils\Recruitments\RecruitmentCreator;
 use App\Utils\Recruitments\RecruitmentReplicator;
+use Illuminate\Support\Facades\Auth;
 
 class RecruitmentsController extends Controller
 {
@@ -26,46 +27,57 @@ class RecruitmentsController extends Controller
 
     public function create(RecruitmentCreateRequest $request)
     {
-        $recruitment = RecruitmentCreator::create($request->validated());
-        return response()->json($recruitment);
+        $user = Auth::user();
+        if ($user->can('create recruitments')) {
+            $recruitment = RecruitmentCreator::create($request->validated());
+            return response()->json($recruitment);
+        }
+
+        return response('Unauthorized', 401);
     }
 
     public function list()
     {
-        $recruitments = Recruitment::where('is_draft', false)->with('sources')->withCount(['candidates as new_candidates_count' => function ($query) {
-            $query->whereNull('seen_at');
-        }])->orderByDesc('created_at')->get();
+        $user = Auth::user();
+        if ($user->can('read all recruitments')) {
+            $recruitments = Recruitment::where('is_draft', false)->with('sources')->withCount(['candidates as new_candidates_count' => function ($query) {
+                $query->whereNull('seen_at');
+            }])->orderByDesc('created_at')->get();
+        } else {
+            $recruitments = $user->recruitments()->where('is_draft', false)->with('sources')->withCount(['candidates as new_candidates_count' => function ($query) {
+                $query->whereNull('seen_at');
+            }])->orderByDesc('created_at')->get();
+        }
 
         return RecruitmentResource::collection($recruitments);
     }
 
-    public function get($recruitmentId)
+    public function get(Recruitment $recruitment)
     {
-        $recruitment = Recruitment::with('stages')->findOrFail($recruitmentId);
-        return response()->json($recruitment);
+        return response()->json($recruitment->load('stages'));
     }
 
-    public function update(RecruitmentUpdateRequest $request, $recruitmentId)
+    public function update(RecruitmentUpdateRequest $request, Recruitment $recruitment)
     {
-        $recruitment = RecruitmentCreator::updateRecruitment($recruitmentId, $request);
+        $recruitment = RecruitmentCreator::updateRecruitment($recruitment->id, $request);
         return response()->json($recruitment, 200);
     }
 
-    public function close(RecruitmentCloseRequest $request, $recruitmentId)
+    public function close(RecruitmentCloseRequest $request, Recruitment $recruitment)
     {
-        $recruitment = RecruitmentCreator::close($recruitmentId, $request);
+        $recruitment = RecruitmentCreator::close($recruitment->id, $request);
         return response()->json($recruitment, 200);
     }
 
-    public function reopen($recruitmentId)
+    public function reopen(Recruitment $recruitment)
     {
-        $recruitment = RecruitmentCreator::reopen($recruitmentId);
+        $recruitment = RecruitmentCreator::reopen($recruitment->id);
         return response()->json($recruitment, 200);
     }
 
-    public function duplicate($recruitmentId)
+    public function duplicate(Recruitment $recruitment)
     {
-        $recruitment = RecruitmentReplicator::duplicate($recruitmentId);
+        $recruitment = RecruitmentReplicator::duplicate($recruitment->id);
         return response()->json($recruitment, 200);
     }
 }
