@@ -5,6 +5,10 @@ namespace App\Providers;
 use App\Http\Middleware\AppendTenantURL;
 use App\Http\Middleware\IdentifyTenantByUsername;
 use App\Http\Middleware\TranslateOAuthException;
+use App\Models\Candidate;
+use App\Models\Recruitment;
+use App\Policies\CandidatePolicy;
+use App\Policies\RecruitmentPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -16,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Recruitment::class => RecruitmentPolicy::class,
+        Candidate::class => CandidatePolicy::class,
     ];
 
     /**

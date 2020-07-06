@@ -88,11 +88,13 @@ class CreateTenantUser extends Command
         $user->name = $name;
         $user->password = bcrypt($password);
 
-        DB::transaction(function() use ($tenantUser, $user) {
+        $user->assignRole('super-admin');
+
+        DB::transaction(function () use ($tenantUser, $user) {
             $tenantUser->save();
             $user->save();
         });
 
-        $this->comment('Created user with username \''.$user->email.'\'.');
+        $this->comment('Created user with username \'' . $user->email . '\'.');
     }
 }
