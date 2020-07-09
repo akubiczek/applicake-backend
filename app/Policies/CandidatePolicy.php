@@ -10,7 +10,7 @@ class CandidatePolicy
 {
     use HandlesAuthorization;
 
-    public function view(?User $user, Candidate $candidate)
+    public function view(User $user, Candidate $candidate)
     {
         if ($user->can('read all recruitments')) {
             return true;
@@ -23,7 +23,7 @@ class CandidatePolicy
         return false;
     }
 
-    public function delete(?User $user, Candidate $candidate)
+    public function delete(User $user, Candidate $candidate)
     {
         if ($user->can('update any recruitment')) {
             return true;
@@ -32,7 +32,7 @@ class CandidatePolicy
         return false;
     }
 
-    public function create(?User $user)
+    public function create(User $user)
     {
         if ($user->can('create candidates')) {
             return true;
@@ -41,7 +41,7 @@ class CandidatePolicy
         return false;
     }
 
-    public function update(?User $user, Candidate $candidate)
+    public function update(User $user, Candidate $candidate)
     {
         if ($user->can('update any recruitment')) {
             return true;
@@ -54,7 +54,7 @@ class CandidatePolicy
         return false;
     }
 
-    public function changeStage(?User $user)
+    public function changeStage(User $user)
     {
         if ($user->can('update any recruitment')) {
             return true;

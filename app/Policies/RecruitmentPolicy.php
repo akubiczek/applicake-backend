@@ -10,7 +10,7 @@ class RecruitmentPolicy
 {
     use HandlesAuthorization;
 
-    public function view(?User $user, Recruitment $recruitment)
+    public function view(User $user, Recruitment $recruitment)
     {
         if ($user->can('read all recruitments')) {
             return true;
@@ -23,7 +23,7 @@ class RecruitmentPolicy
         return false;
     }
 
-    public function update(?User $user, Recruitment $recruitment)
+    public function update(User $user, Recruitment $recruitment)
     {
         if ($user->can('update any recruitment')) {
             return true;
@@ -32,7 +32,7 @@ class RecruitmentPolicy
         return false;
     }
 
-    public function close(?User $user, Recruitment $recruitment)
+    public function close(User $user, Recruitment $recruitment)
     {
         if ($user->can('update any recruitment')) {
             return true;
@@ -41,7 +41,7 @@ class RecruitmentPolicy
         return false;
     }
 
-    public function reopen(?User $user, Recruitment $recruitment)
+    public function reopen(User $user, Recruitment $recruitment)
     {
         if ($user->can('update any recruitment')) {
             return true;
@@ -50,7 +50,7 @@ class RecruitmentPolicy
         return false;
     }
 
-    public function create(?User $user)
+    public function create(User $user)
     {
         if ($user->can('create recruitments')) {
             return true;
@@ -59,7 +59,7 @@ class RecruitmentPolicy
         return false;
     }
 
-    public function duplicate(?User $user, Recruitment $recruitment)
+    public function duplicate(User $user, Recruitment $recruitment)
     {
         if ($user->can('view', $recruitment) && $user->can('create recruitments')) {
             return true;

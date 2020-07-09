@@ -9,7 +9,7 @@ class NotesController extends Controller
 {
     public function get(Request $request)
     {
-        $notes = Note::where('candidate_id', $request->candidateId)->with('user')->orderBy('created_at', 'ASC')->get();
+        $notes = Note::where('candidate_id', $request->get('candidate_id'))->with('user')->orderBy('created_at', 'ASC')->get();
         return response()->json($notes);
     }
 

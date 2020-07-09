@@ -32,6 +32,9 @@ Route::group([
     Route::post('/commands/recruitment-reopen/{recruitment}', 'RecruitmentsController@reopen')->middleware(['can:reopen,recruitment']);
     Route::post('/commands/recruitment-duplicate/{recruitment}', 'RecruitmentsController@duplicate')->middleware(['can:duplicate,recruitment']);
 
+    Route::post('/recruitment_user', 'RecruitmentUserController@create')->middleware(['can:update,recruitment']);
+    Route::delete('/recruitment_user/{recruitment}', 'RecruitmentUserController@delete')->middleware(['can:update,recruitment']);
+
     /* Form Fields */
     Route::get('/form-fields', 'FormFieldsController@list');
     Route::post('/form-fields', 'FormFieldsController@create');
@@ -49,8 +52,8 @@ Route::group([
     Route::put('/candidates/hasbeenseen/{candidate}', 'CandidatesController@hasBeenSeen')->middleware(['can:update,candidate']);
 
     /* Notes */
-    Route::get('/notes', 'NotesController@get');
-    Route::post('/notes', 'NotesController@create');
+    Route::get('/notes', 'NotesController@get')->middleware(['can:list,App\Models\Note']);
+    Route::post('/notes', 'NotesController@create')->middleware(['can:create,App\Models\Note']);
 
     /* Predefined messages */
     Route::get('/predefined_messages', 'MessageTemplatesController@list');
@@ -64,9 +67,9 @@ Route::group([
 
     /* Remaining endpoints */
     Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage')->middleware(['can:changeStage,App\Models\Candidate']);
-    Route::get('/messages', 'MessagesController@list');
+    Route::get('/messages', 'MessagesController@list')->middleware(['can:list,App\Models\Message']);
     Route::get('/stages', 'StagesController@list');
-    Route::get('/activities', 'ActivitiesController@list');
+    Route::get('/activities', 'ActivitiesController@list')->middleware(['can:list,App\Models\Activity']);
 });
 
 Route::group([
