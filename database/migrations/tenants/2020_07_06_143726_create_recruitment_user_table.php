@@ -14,6 +14,8 @@ class CreateRecruitmentUserTable extends Migration
     public function up()
     {
         Schema::create('recruitment_user', function (Blueprint $table) {
+            $table->timestamps();
+            $table->foreignId('creator_id')->constrained('users')->onDelete('restrict');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('recruitment_id')->constrained('recruitments')->onDelete('cascade');
         });

@@ -52,6 +52,8 @@ class UsersController
             }
 
             DB::transaction(function () use ($tenantUser, $user) {
+
+                $user->grantedRecruitments()->detach();
                 $tenantUser->delete();
 
                 if ($user->pending_invitation) {

@@ -8,9 +8,11 @@ use App\Http\Middleware\TranslateOAuthException;
 use App\Models\Candidate;
 use App\Models\Note;
 use App\Models\Recruitment;
+use App\Models\RecruitmentUser;
 use App\Policies\CandidatePolicy;
 use App\Policies\NotePolicy;
 use App\Policies\RecruitmentPolicy;
+use App\Policies\RecruitmentUserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         Recruitment::class => RecruitmentPolicy::class,
         Candidate::class => CandidatePolicy::class,
         Note::class => NotePolicy::class,
+        RecruitmentUser::class => RecruitmentUserPolicy::class,
     ];
 
     /**
