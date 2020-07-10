@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RecruitmentCloseRequest;
-use App\Http\Requests\RecruitmentCreateRequest;
-use App\Http\Requests\RecruitmentUpdateRequest;
+use App\Http\Requests\RecruitmentUserCreateRequest;
 use App\Http\Resources\RecruitmentResource;
 use App\Models\Recruitment;
+use App\Models\RecruitmentUser;
 use App\Services\TenantManager;
-use App\Utils\Recruitments\RecruitmentCreator;
-use App\Utils\Recruitments\RecruitmentReplicator;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RecruitmentUserController extends Controller
@@ -26,11 +22,22 @@ class RecruitmentUserController extends Controller
         RecruitmentResource::setTenantManager($tenantManager); //workaround - not the best but it works well
     }
 
-    public function create(Request $request)
+    public function list(Recruitment $recruitment)
     {
+        return response()->json($recruitment->grantedUsers);
     }
 
-    public function delete(Request $request)
+    public function create(RecruitmentUserCreateRequest $request, Recruitment $recruitment)
     {
+        //TODO logować kto kiedy dał komu dostęp bo relacje znikają z pivota
+        $userId = $request->get('user_id');
+        $recruitment->grantedUsers()->attach($userId, ['creator_id' => Auth::user()->id]);
+        return response()->json(RecruitmentUser::where('user_id', $userId)->where('recruitment_id', $recruitment->id)->first(), 201);
+    }
+
+    public function delete(Recruitment $recruitment, $userId)
+    {
+        $recruitment->grantedUsers()->detach($userId);
+        return response()->json(null, 200);
     }
 }

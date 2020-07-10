@@ -32,8 +32,10 @@ Route::group([
     Route::post('/commands/recruitment-reopen/{recruitment}', 'RecruitmentsController@reopen')->middleware(['can:reopen,recruitment']);
     Route::post('/commands/recruitment-duplicate/{recruitment}', 'RecruitmentsController@duplicate')->middleware(['can:duplicate,recruitment']);
 
-    Route::post('/recruitment_user', 'RecruitmentUserController@create')->middleware(['can:update,recruitment']);
-    Route::delete('/recruitment_user/{recruitment}', 'RecruitmentUserController@delete')->middleware(['can:update,recruitment']);
+    /* Granted users to specific recruitments */
+    Route::get('/recruitments/{recruitment}/granted_users', 'RecruitmentUserController@list')->middleware(['can:list,App\Models\RecruitmentUser']);
+    Route::post('/recruitments/{recruitment}/granted_users', 'RecruitmentUserController@create')->middleware(['can:create,App\Models\RecruitmentUser']);
+    Route::delete('/recruitments/{recruitment}/granted_users/{userId}', 'RecruitmentUserController@delete')->middleware(['can:delete,App\Models\RecruitmentUser']);
 
     /* Form Fields */
     Route::get('/form-fields', 'FormFieldsController@list');
