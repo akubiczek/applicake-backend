@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\InvitationService;
 use App\Services\TenantManager;
@@ -27,8 +29,8 @@ class UsersController
 
     public function list()
     {
-        $users = User::all();
-        return response()->json($users);
+        $users = User::with('roles')->get();
+        return UserResource::collection($users);
     }
 
     public function me()
@@ -38,6 +40,18 @@ class UsersController
 
     public function create(Request $request)
     {
+    }
+
+    public function update(UserUpdateRequest $request, User $user)
+    {
+        $user->update($request->validated());
+        $user->save();
+
+        if ($request->get('role')) {
+            $user->syncRoles($request->get('role'));
+        }
+
+        return response()->json($user, 200);
     }
 
     public function delete($userId)

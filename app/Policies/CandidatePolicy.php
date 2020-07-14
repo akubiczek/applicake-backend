@@ -16,7 +16,7 @@ class CandidatePolicy
             return true;
         }
 
-        if ($user->recruitments->contains($candidate->recruitment->id)) {
+        if ($user->grantedRecruitments->contains($candidate->recruitment->id)) {
             return true;
         }
 
@@ -47,7 +47,7 @@ class CandidatePolicy
             return true;
         }
 
-        if ($user->recruitments->contains($candidate->recruitment->id)) {
+        if ($user->grantedRecruitments->contains($candidate->recruitment->id)) {
             return true;
         }
 
@@ -61,7 +61,7 @@ class CandidatePolicy
         }
 
         $candidate = Candidate::findOrFail(request()->get('candidate_id'));
-        if ($user->recruitments->contains($candidate->recruitment->id)) {
+        if ($user->grantedRecruitments->contains($candidate->recruitment->id)) {
             return true;
         }
 

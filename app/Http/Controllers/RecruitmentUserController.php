@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RecruitmentUserCreateRequest;
 use App\Http\Resources\RecruitmentResource;
 use App\Models\Recruitment;
-use App\Models\RecruitmentUser;
 use App\Services\TenantManager;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,12 +31,12 @@ class RecruitmentUserController extends Controller
         //TODO logować kto kiedy dał komu dostęp bo relacje znikają z pivota
         $userId = $request->get('user_id');
         $recruitment->grantedUsers()->attach($userId, ['creator_id' => Auth::user()->id]);
-        return response()->json(RecruitmentUser::where('user_id', $userId)->where('recruitment_id', $recruitment->id)->first(), 201);
+        return response()->json($recruitment->grantedUsers);
     }
 
     public function delete(Recruitment $recruitment, $userId)
     {
         $recruitment->grantedUsers()->detach($userId);
-        return response()->json(null, 200);
+        return response()->json($recruitment->grantedUsers);
     }
 }

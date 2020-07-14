@@ -44,7 +44,7 @@ class RecruitmentsController extends Controller
                 $query->whereNull('seen_at');
             }])->orderByDesc('created_at')->get();
         } else {
-            $recruitments = $user->recruitments()->where('is_draft', false)->with('sources')->withCount(['candidates as new_candidates_count' => function ($query) {
+            $recruitments = $user->grantedRecruitments()->where('is_draft', false)->with('sources')->withCount(['candidates as new_candidates_count' => function ($query) {
                 $query->whereNull('seen_at');
             }])->orderByDesc('created_at')->get();
         }

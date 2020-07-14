@@ -20,6 +20,7 @@ Route::group([
     /* Users */
     Route::get('/me', 'UsersController@me');
     Route::get('/users', 'UsersController@list')->middleware(['can:read users']);
+    Route::patch('/users/{user}', 'UsersController@update')->middleware(['can:update users']);
     Route::delete('/users/{userId}', 'UsersController@delete')->middleware(['can:delete users']);
     Route::post('/invites', 'UsersController@invite')->middleware(['can:create users']);
 
@@ -33,9 +34,9 @@ Route::group([
     Route::post('/commands/recruitment-duplicate/{recruitment}', 'RecruitmentsController@duplicate')->middleware(['can:duplicate,recruitment']);
 
     /* Granted users to specific recruitments */
-    Route::get('/recruitments/{recruitment}/granted_users', 'RecruitmentUserController@list')->middleware(['can:list,App\Models\RecruitmentUser']);
-    Route::post('/recruitments/{recruitment}/granted_users', 'RecruitmentUserController@create')->middleware(['can:create,App\Models\RecruitmentUser']);
-    Route::delete('/recruitments/{recruitment}/granted_users/{userId}', 'RecruitmentUserController@delete')->middleware(['can:delete,App\Models\RecruitmentUser']);
+    Route::get('/recruitments/{recruitment}/granted-users', 'RecruitmentUserController@list')->middleware(['can:list,App\Models\RecruitmentUser']);
+    Route::post('/recruitments/{recruitment}/granted-users', 'RecruitmentUserController@create')->middleware(['can:create,App\Models\RecruitmentUser']);
+    Route::delete('/recruitments/{recruitment}/granted-users/{userId}', 'RecruitmentUserController@delete')->middleware(['can:delete,App\Models\RecruitmentUser']);
 
     /* Form Fields */
     Route::get('/form-fields', 'FormFieldsController@list');

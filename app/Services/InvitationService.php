@@ -40,6 +40,10 @@ class InvitationService
             $invitation->save();
         });
 
+        if ($request->get('role')) {
+            $user->assignRole($request->get('role'));
+        }
+
         $invitation->subdomain = $tenant->subdomain;
         Mail::to($user->email)->queue(new UserInvitation($invitation));
 
