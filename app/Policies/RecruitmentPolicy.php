@@ -16,7 +16,7 @@ class RecruitmentPolicy
             return true;
         }
 
-        if ($user->recruitments->contains($recruitment->id)) {
+        if ($user->grantedRecruitments->contains($recruitment->id)) {
             return true;
         }
 
