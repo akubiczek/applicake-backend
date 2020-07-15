@@ -16,14 +16,14 @@ class ImportOldData extends Command
      *
      * @var string
      */
-    protected $signature = 'tenant:importlegacydata {tenantId}';
+    protected $signature = 'legacydata:import {tenantId}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Imports data from legacy database (the first version of HR system)';
 
     protected $tenantManager;
 
@@ -215,7 +215,6 @@ class ImportOldData extends Command
 
 
             $messages = json_decode(file_get_contents(base_path() . '/database/seeds/predefined_messages.json'), true);
-            $now = \Carbon\Carbon::now()->toDateTimeString();
 
             foreach ($messages as $message) {
                 $from_stage_id = null;

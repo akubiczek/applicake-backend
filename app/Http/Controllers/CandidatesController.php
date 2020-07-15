@@ -11,24 +11,43 @@ use App\Http\Resources\CandidateResource;
 use App\Http\Resources\TruncatedCandidateResource;
 use App\Models\Candidate;
 use App\Repositories\CandidatesRepository;
+use App\Services\TenantManager;
 use App\Utils\Candidates\CandidateCreator;
 use App\Utils\Candidates\CandidateDeleter;
 use App\Utils\Candidates\CandidateUpdater;
 use App\Utils\Candidates\StageChanger;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CandidatesController extends Controller
 {
+    /**
+     * @var TenantManager
+     */
+    protected $tenantManager;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param TenantManager $tenantManager
+     * @return void
+     */
+    public function __construct(TenantManager $tenantManager)
+    {
+        $this->tenantManager = $tenantManager;
+    }
+
     public function create(CandidatesCreateRequest $request)
     {
-        $candidate = CandidateCreator::createCandidate($request);
+        $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
         return response()->json($candidate, 201);
     }
 
     public function list(CandidatesListRequest $request)
     {
         $recruitmentId = $request->get('recruitmentId');
+        $user = Auth::user();
 
         if ($request->get('search')) {
             $candidates = CandidatesRepository::search($request->validated());
@@ -38,42 +57,51 @@ class CandidatesController extends Controller
             $candidates = Candidate::with('recruitment')->orderBy('created_at', 'DESC')->get();
         }
 
+        if (!$user->can('read all recruitments')) {
+            $filtered = $candidates->filter(function ($candidate, $key) use ($user) {
+                return $user->can('view', $candidate);
+            }
+            );
+
+            $candidates = $filtered;
+        }
+
         return TruncatedCandidateResource::collection($candidates);
     }
 
-    public function names(Request $request)
-    {
-        $search = $request->get('search');
-        $columns = ['id', 'name'];
+//    DEPRECATED
+//    public function names(Request $request)
+//    {
+//        $search = $request->get('search');
+//        $columns = ['id', 'name'];
+//
+//        if ($search) {
+//            $candidates = CandidatesRepository::search(['search' => $search], $columns);
+//        } else {
+//            $candidates = Candidate::select($columns)->get();
+//        }
+//        return response()->json($candidates);
+//    }
 
-        if ($search) {
-            $candidates = CandidatesRepository::search(['search' => $search], $columns);
-        } else {
-            $candidates = Candidate::select($columns)->get();
-        }
-        return response()->json($candidates);
+    public function get(Candidate $candidate)
+    {
+        return new CandidateResource($candidate);
     }
 
-    public function get($candidateId)
+    public function update(CandidateUpdateRequest $request, Candidate $candidate)
     {
-        return new CandidateResource(Candidate::find($candidateId));
-    }
-
-    public function update(CandidateUpdateRequest $request, $candidateId)
-    {
-        $candidate = CandidateUpdater::updateCandidate($candidateId, $request);
+        $candidate = CandidateUpdater::updateCandidate($candidate->id, $request);
         return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
     }
 
-    public function delete(CandidateDeleteRequest $request, $candidateId)
+    public function delete(CandidateDeleteRequest $request, Candidate $candidate)
     {
-        CandidateDeleter::deleteCandidate($request, $candidateId);
+        CandidateDeleter::deleteCandidate($request, $candidate->id);
         return response()->json(null, 200);
     }
 
-    public function hasBeenSeen($candidateId)
+    public function hasBeenSeen(Candidate $candidate)
     {
-        $candidate = Candidate::findOrFail($candidateId);
         if (!$candidate->seen_at) {
             $candidate->seen_at = new \DateTime();
             $candidate->save();

@@ -29,6 +29,8 @@ class CreateCandidatesTable extends Migration {
             $table->integer('stage_id')->unsigned()->default(1);
             $table->integer('rate')->nullable();
             $table->json('custom_fields')->nullable();
+            $table->string('photo_path', 191)->nullable();
+            $table->dateTime('photo_extraction')->nullable();
         });
 	}
 

@@ -19,18 +19,24 @@ Route::group([
 
     /* Users */
     Route::get('/me', 'UsersController@me');
-    Route::get('/users', 'UsersController@list');
-    Route::delete('/users/{userId}', 'UsersController@delete');
-    Route::post('/invites', 'UsersController@invite');
+    Route::get('/users', 'UsersController@list')->middleware(['can:read users']);
+    Route::patch('/users/{user}', 'UsersController@update')->middleware(['can:update users']);
+    Route::delete('/users/{userId}', 'UsersController@delete')->middleware(['can:delete users']);
+    Route::post('/invites', 'UsersController@invite')->middleware(['can:create users']);
 
     /* Recruitments */
     Route::get('/recruitments', 'RecruitmentsController@list');
-    Route::get('/recruitments/{recruitmentId}', 'RecruitmentsController@get');
-    Route::post('/recruitments', 'RecruitmentsController@create');
-    Route::patch('/recruitments/{recruitmentId}', 'RecruitmentsController@update');
-    Route::post('/commands/recruitment-close/{recruitmentId}', 'RecruitmentsController@close');
-    Route::post('/commands/recruitment-reopen/{recruitmentId}', 'RecruitmentsController@reopen');
-    Route::post('/commands/recruitment-duplicate/{recruitmentId}', 'RecruitmentsController@duplicate');
+    Route::get('/recruitments/{recruitment}', 'RecruitmentsController@get')->middleware(['can:view,recruitment']);
+    Route::post('/recruitments', 'RecruitmentsController@create')->middleware(['can:create,App\Models\Recruitment']);
+    Route::patch('/recruitments/{recruitment}', 'RecruitmentsController@update')->middleware(['can:update,recruitment']);
+    Route::post('/commands/recruitment-close/{recruitment}', 'RecruitmentsController@close')->middleware(['can:close,recruitment']);
+    Route::post('/commands/recruitment-reopen/{recruitment}', 'RecruitmentsController@reopen')->middleware(['can:reopen,recruitment']);
+    Route::post('/commands/recruitment-duplicate/{recruitment}', 'RecruitmentsController@duplicate')->middleware(['can:duplicate,recruitment']);
+
+    /* Granted users to specific recruitments */
+    Route::get('/recruitments/{recruitment}/granted-users', 'RecruitmentUserController@list')->middleware(['can:list,App\Models\RecruitmentUser']);
+    Route::post('/recruitments/{recruitment}/granted-users', 'RecruitmentUserController@create')->middleware(['can:create,App\Models\RecruitmentUser']);
+    Route::delete('/recruitments/{recruitment}/granted-users/{userId}', 'RecruitmentUserController@delete')->middleware(['can:delete,App\Models\RecruitmentUser']);
 
     /* Form Fields */
     Route::get('/form-fields', 'FormFieldsController@list');
@@ -41,16 +47,16 @@ Route::group([
 
     /* Candidates */
     Route::get('/candidates', 'CandidatesController@list');
-    Route::get('/candidates/names', 'CandidatesController@names');
-    Route::get('/candidates/{candidateId}', 'CandidatesController@get');
-    Route::put('/candidates/{candidateId}', 'CandidatesController@update');
-    Route::post('/candidates', 'CandidatesController@create');
-    Route::delete('/candidates/{candidateId}', 'CandidatesController@delete');
-    Route::put('/candidates/hasbeenseen/{candidateId}', 'CandidatesController@hasBeenSeen');
+    //Route::get('/candidates/names', 'CandidatesController@names'); deprecated
+    Route::get('/candidates/{candidate}', 'CandidatesController@get')->middleware(['can:view,candidate']);
+    Route::put('/candidates/{candidate}', 'CandidatesController@update')->middleware(['can:update,candidate']);
+    Route::post('/candidates', 'CandidatesController@create')->middleware(['can:create,App\Models\Candidate']);
+    Route::delete('/candidates/{candidate}', 'CandidatesController@delete')->middleware(['can:delete,candidate']);
+    Route::put('/candidates/hasbeenseen/{candidate}', 'CandidatesController@hasBeenSeen')->middleware(['can:update,candidate']);
 
     /* Notes */
-    Route::get('/notes', 'NotesController@get');
-    Route::post('/notes', 'NotesController@create');
+    Route::get('/notes', 'NotesController@get')->middleware(['can:list,App\Models\Note']);
+    Route::post('/notes', 'NotesController@create')->middleware(['can:create,App\Models\Note']);
 
     /* Predefined messages */
     Route::get('/predefined_messages', 'MessageTemplatesController@list');
@@ -63,10 +69,10 @@ Route::group([
     Route::delete('/sources/{sourceId}', 'SourcesController@delete');
 
     /* Remaining endpoints */
-    Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage');
-    Route::get('/messages', 'MessagesController@list');
+    Route::put('/change-stage-commands/{commandUUID}', 'CandidatesController@changeStage')->middleware(['can:changeStage,App\Models\Candidate']);
+    Route::get('/messages', 'MessagesController@list')->middleware(['can:list,App\Models\Message']);
     Route::get('/stages', 'StagesController@list');
-    Route::get('/activities', 'ActivitiesController@list');
+    Route::get('/activities', 'ActivitiesController@list')->middleware(['can:list,App\Models\Activity']);
 });
 
 Route::group([
