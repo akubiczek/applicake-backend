@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes;
+    use HasRoles, HasApiTokens, Notifiable, SoftDeletes;
 
     protected $connection = 'tenant';
 
@@ -49,5 +50,15 @@ class User extends Authenticatable
     public function findForPassport($username)
     {
         return $this->where('email', $username)->where('pending_invitation', 0)->first();
+    }
+
+    /**
+     * Used to determine access rights if a user has limited role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function grantedRecruitments()
+    {
+        return $this->belongsToMany(Recruitment::class)->withTimestamps();
     }
 }

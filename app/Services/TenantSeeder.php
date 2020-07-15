@@ -34,5 +34,5 @@ abstract class TenantSeeder extends Seeder
         $this->connection = $connection;
     }
 
-    public abstract function run(\App\Models\Recruitment $recruitment);
+    public abstract function run(\App\Models\Recruitment $recruitment = null);
 }

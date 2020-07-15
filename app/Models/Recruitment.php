@@ -44,7 +44,13 @@ class Recruitment extends Model
         return $this->hasMany(Stage::class)->orderBy('order');
     }
 
-    protected $dispatchesEvents = [
-//        'created' => \App\Events\RecruitmentWasStored::class,
-    ];
+    /**
+     * Used to determine access rights if a user has limited role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function grantedUsers()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 }
