@@ -5,11 +5,15 @@ namespace App\Providers;
 use App\Http\Middleware\AppendTenantURL;
 use App\Http\Middleware\IdentifyTenantByUsername;
 use App\Http\Middleware\TranslateOAuthException;
+use App\Models\Activity;
 use App\Models\Candidate;
+use App\Models\Message;
 use App\Models\Note;
 use App\Models\Recruitment;
 use App\Models\RecruitmentUser;
+use App\Policies\ActivityPolicy;
 use App\Policies\CandidatePolicy;
+use App\Policies\MessagePolicy;
 use App\Policies\NotePolicy;
 use App\Policies\RecruitmentPolicy;
 use App\Policies\RecruitmentUserPolicy;
@@ -27,6 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         Recruitment::class => RecruitmentPolicy::class,
         Candidate::class => CandidatePolicy::class,
         Note::class => NotePolicy::class,
+        Message::class => MessagePolicy::class,
+        Activity::class => ActivityPolicy::class,
         RecruitmentUser::class => RecruitmentUserPolicy::class,
     ];
 
