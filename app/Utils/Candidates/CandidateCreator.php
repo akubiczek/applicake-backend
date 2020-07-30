@@ -3,27 +3,39 @@
 namespace App\Utils\Candidates;
 
 use App\Http\Requests\CandidatesApplyRequest;
+use App\Http\Requests\CandidatesCreateRequest;
 use App\Models\Candidate;
-use App\Models\Recruitment;
+use App\Models\Note;
 use App\Models\Source;
 use App\Services\TenantManager;
 use App\Utils\StageHelper;
 
 class CandidateCreator
 {
-    public static function createCandidate(CandidatesApplyRequest $request, TenantManager $tenantManager)
+    public static function createFromCreationRequest(CandidatesCreateRequest $request, $userId, TenantManager $tenantManager)
+    {
+        $candidate = Candidate::create($request->validated());
+        $candidate->stage_id = StageHelper::getFirstStage($candidate->recruitment_id)->id;
+        $candidate->save();
+
+        if (!empty($request->get('comment'))) {
+            $note = Note::create([
+                'user_id' => $userId,
+                'candidate_id' => $candidate->id,
+                'body' => $request->get('comment'),
+            ]);
+        }
+
+        return $candidate;
+    }
+
+    public static function createFromApplyRequest(CandidatesApplyRequest $request, TenantManager $tenantManager)
     {
         $key = $request->get('key');
 
-        if (!empty($key)) {
-            $source = Source::where('key', $key)->firstOrFail();
-            if ($source) {
-                $recruitment = $source->recruitment;
-            }
-        } else {
-            //TODO podanie rectruitment_id powinno być dozwolone tylko z poziomu panelu, a nie publicznej rekrutacji
-            $recruitment_id = $request->get('recruitment_id');
-            $recruitment = Recruitment::find($recruitment_id);
+        $source = Source::where('key', $key)->firstOrFail();
+        if ($source) {
+            $recruitment = $source->recruitment;
         }
 
         if (empty($recruitment)) {
@@ -31,7 +43,7 @@ class CandidateCreator
         }
 
         if ($request->file) {
-            $path_to_cv = $request->file->store($tenantManager->getTenant()->subdomain . '/' . $recruitment->id, 's3');
+            $path_to_cv = $request->file->store($tenantManager->getTenant()->subdomain . '/' . $recruitment->id);
         } else {
             $path_to_cv = '';
         }

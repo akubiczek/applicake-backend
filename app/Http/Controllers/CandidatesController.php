@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CandidateCreated;
 use App\Http\Requests\CandidateDeleteRequest;
 use App\Http\Requests\CandidatesCreateRequest;
 use App\Http\Requests\CandidatesListRequest;
@@ -16,7 +17,6 @@ use App\Utils\Candidates\CandidateCreator;
 use App\Utils\Candidates\CandidateDeleter;
 use App\Utils\Candidates\CandidateUpdater;
 use App\Utils\Candidates\StageChanger;
-use App\Utils\StageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -41,10 +41,8 @@ class CandidatesController extends Controller
 
     public function create(CandidatesCreateRequest $request)
     {
-        $candidate = Candidate::create($request->validated());
-        $candidate->stage_id = StageHelper::getFirstStage($candidate->recruitment_id)->id;
-        $candidate->save();
-
+        $candidate = CandidateCreator::createFromCreationRequest($request, Auth::user(), $this->tenantManager);
+        event(new CandidateCreated($candidate, Auth::user()));
         return response()->json($candidate, 201);
     }
 

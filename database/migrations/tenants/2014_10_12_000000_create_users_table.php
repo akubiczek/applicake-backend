@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->boolean('pending_invitation');
+            $table->timestamp('last_login_at')->nullable();
         });
     }
 

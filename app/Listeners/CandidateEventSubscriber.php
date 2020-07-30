@@ -3,6 +3,7 @@
 
 namespace App\Listeners;
 
+use App\Events\CandidateCreated;
 use App\Events\CandidateMoved;
 use App\Events\CandidateRated;
 use App\Events\CandidateStageChanged;
@@ -10,6 +11,15 @@ use App\Models\Activity;
 
 class CandidateEventSubscriber
 {
+    public function handleCandidateCreated(CandidateCreated $event)
+    {
+        Activity::create([
+            'candidate_id' => $event->candidate->id,
+            'type' => \App\Models\Candidate::class,
+            'user_id' => $event->user->id
+        ]);
+    }
+
     public function handleCandidateMoved(CandidateMoved $event)
     {
         Activity::create([
@@ -50,6 +60,11 @@ class CandidateEventSubscriber
      */
     public function subscribe($events)
     {
+        $events->listen(
+            'App\Events\CandidateCreated',
+            'App\Listeners\CandidateEventSubscriber@handleCandidateCreated'
+        );
+
         $events->listen(
             'App\Events\CandidateMoved',
             'App\Listeners\CandidateEventSubscriber@handleCandidateMoved'

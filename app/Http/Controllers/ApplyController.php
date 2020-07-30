@@ -6,6 +6,7 @@ use App\Events\CandidateApplied;
 use App\Http\Requests\CandidatesApplyRequest;
 use App\Http\Resources\ApplyFormResource;
 use App\Jobs\ProcessResume;
+use App\Jobs\StoreUploadedFile;
 use App\Models\Source;
 use App\Services\TenantManager;
 use App\Utils\Candidates\CandidateCreator;
@@ -44,9 +45,9 @@ class ApplyController extends Controller
         if (empty($source))
             return response()->json(['message' => 'Recruitment not found'], 404);
 
-        $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
+        $candidate = CandidateCreator::createFromApplyRequest($request, $this->tenantManager);
 
-        ProcessResume::dispatch($candidate);
+        StoreUploadedFile::withChain([new ProcessResume($candidate)])->dispatch($candidate->path_to_cv);
         event(new CandidateApplied($candidate));
         return response()->json($candidate, 201);
     }

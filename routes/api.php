@@ -50,9 +50,11 @@ Route::group([
     //Route::get('/candidates/names', 'CandidatesController@names'); deprecated
     Route::get('/candidates/{candidate}', 'CandidatesController@get')->middleware(['can:view,candidate']);
     Route::put('/candidates/{candidate}', 'CandidatesController@update')->middleware(['can:update,candidate']);
-    Route::post('/candidates', 'CandidatesController@create')->middleware(['can:create,App\Models\Candidate']);
     Route::delete('/candidates/{candidate}', 'CandidatesController@delete')->middleware(['can:delete,candidate']);
     Route::put('/candidates/hasbeenseen/{candidate}', 'CandidatesController@hasBeenSeen')->middleware(['can:update,candidate']);
+
+    Route::post('/candidate-creations', 'CandidatesController@create')->middleware(['can:create,App\Models\Candidate']);
+
 
     /* Notes */
     Route::get('/notes', 'NotesController@get')->middleware(['can:list,App\Models\Note']);

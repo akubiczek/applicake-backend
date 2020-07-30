@@ -40,6 +40,9 @@ class CandidatesCreateRequest extends FormRequest
                 'integer',
                 'exists:tenant.recruitments,id'
             ],
+            'comment' => [
+                'string',
+            ],
         ];
     }
 }
