@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CandidatesCreateRequest extends FormRequest
+class CandidatesApplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,22 +24,25 @@ class CandidatesCreateRequest extends FormRequest
     public function rules()
     {
         return [
+//            'key' => [
+//                'required',
+//                'exists:tenant.sources,key',
+//            ],
             'name' => [
                 'required',
                 'string',
             ],
             'email' => [
-                'email',
+                'required',
                 'string',
             ],
             'phone_number' => [
+                'required',
                 'string',
             ],
-            'recruitment_id' => [
-                'required',
-                'integer',
-                'exists:tenant.recruitments,id'
-            ],
+//            'future_agreement' => [
+//                'boolean',
+//            ]
         ];
     }
 }

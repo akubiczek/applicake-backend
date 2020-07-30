@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\CandidateApplied;
-use App\Http\Requests\CandidatesCreateRequest;
+use App\Http\Requests\CandidatesApplyRequest;
 use App\Http\Resources\ApplyFormResource;
 use App\Jobs\ProcessResume;
 use App\Models\Source;
@@ -38,7 +38,7 @@ class ApplyController extends Controller
         return new ApplyFormResource($source->recruitment);
     }
 
-    public function apply(CandidatesCreateRequest $request)
+    public function apply(CandidatesApplyRequest $request)
     {
         $source = Source::where('key', $request->get('key'))->get()->first();
         if (empty($source))

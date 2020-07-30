@@ -34,7 +34,7 @@ class CandidatePolicy
 
     public function create(User $user)
     {
-        if ($user->can('create candidates')) {
+        if ($user->can('update any recruitment')) {
             return true;
         }
 

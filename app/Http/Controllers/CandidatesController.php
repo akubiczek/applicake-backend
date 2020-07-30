@@ -16,6 +16,7 @@ use App\Utils\Candidates\CandidateCreator;
 use App\Utils\Candidates\CandidateDeleter;
 use App\Utils\Candidates\CandidateUpdater;
 use App\Utils\Candidates\StageChanger;
+use App\Utils\StageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -40,7 +41,10 @@ class CandidatesController extends Controller
 
     public function create(CandidatesCreateRequest $request)
     {
-        $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
+        $candidate = Candidate::create($request->validated());
+        $candidate->stage_id = StageHelper::getFirstStage($candidate->recruitment_id)->id;
+        $candidate->save();
+
         return response()->json($candidate, 201);
     }
 
@@ -68,20 +72,6 @@ class CandidatesController extends Controller
 
         return TruncatedCandidateResource::collection($candidates);
     }
-
-//    DEPRECATED
-//    public function names(Request $request)
-//    {
-//        $search = $request->get('search');
-//        $columns = ['id', 'name'];
-//
-//        if ($search) {
-//            $candidates = CandidatesRepository::search(['search' => $search], $columns);
-//        } else {
-//            $candidates = Candidate::select($columns)->get();
-//        }
-//        return response()->json($candidates);
-//    }
 
     public function get(Candidate $candidate)
     {

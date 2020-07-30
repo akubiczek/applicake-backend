@@ -2,7 +2,7 @@
 
 namespace App\Utils\Candidates;
 
-use App\Http\Requests\CandidatesCreateRequest;
+use App\Http\Requests\CandidatesApplyRequest;
 use App\Models\Candidate;
 use App\Models\Recruitment;
 use App\Models\Source;
@@ -11,7 +11,7 @@ use App\Utils\StageHelper;
 
 class CandidateCreator
 {
-    public static function createCandidate(CandidatesCreateRequest $request, TenantManager $tenantManager)
+    public static function createCandidate(CandidatesApplyRequest $request, TenantManager $tenantManager)
     {
         $key = $request->get('key');
 
