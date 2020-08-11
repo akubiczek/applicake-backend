@@ -13,7 +13,7 @@ class StagesSeeder extends \App\Services\TenantSeeder
      * @param \App\Models\Recruitment $recruitment
      * @return void
      */
-    public function run(\App\Models\Recruitment $recruitment)
+    public function run(\App\Models\Recruitment $recruitment = null)
     {
         $stages = json_decode(file_get_contents(base_path() . self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
