@@ -10,7 +10,7 @@ class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
      *
      * @return void
      */
-    public function run(\App\Models\Recruitment $recruitment)
+    public function run(\App\Models\Recruitment $recruitment = null)
     {
         $messages = json_decode(file_get_contents(base_path() . self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
