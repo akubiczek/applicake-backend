@@ -33,7 +33,6 @@ build {
             "php composer-setup.php",
             "php -r \"unlink('composer-setup.php');\"",
             "sudo mv composer.phar /usr/local/bin/composer",
-            "composer self-update --1",
             #install app
             "mkdir /var/www/api.applicake.to",
             "git clone https://akubiczek:${var.git_password}@github.com/akubiczek/miss-piggy-api.git /var/www/api.applicake.to/web",
