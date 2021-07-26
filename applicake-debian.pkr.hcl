@@ -24,9 +24,13 @@ build {
     ]
     provisioner "shell" {
         inline = [
-            "apt-get update && apt-get install -y dialog apt-utils apt-transport-https ca-certificates",
-            "apt-get install -y curl git-core sudo apache2 unzip",
-            "apt-get install -y php libapache2-mod-php php-mysql php-imagick php-simplexml php-mbstring php-dom php-zip",
+            "apt-get update && apt-get install -y apt-utils apt-transport-https ca-certificates lsb-release",
+            "apt-get install -y curl wget git-core sudo apache2 unzip",
+            "sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg",
+            "echo \"deb https://packages.sury.org/php/ $(lsb_release -sc) main\" | sudo tee /etc/apt/sources.list.d/php.list",
+            "apt-get update",
+            "apt-get install -y php7.4",
+            "apt-get install -y php7.4-mysql php7.4-curl php7.4-imagick php7.4-simplexml php7.4-mbstring php7.4-dom php7.4-zip",
             #configure apache
             #install composer
             "php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\"",
@@ -35,14 +39,14 @@ build {
             "sudo mv composer.phar /usr/local/bin/composer",
             #install app
             "mkdir /var/www/api.applicake.to",
-            "git clone https://akubiczek:${var.git_password}@github.com/akubiczek/miss-piggy-api.git /var/www/api.applicake.to/web",
+            "git clone -b feature/terraform https://akubiczek:${var.git_password}@github.com/akubiczek/miss-piggy-api.git /var/www/api.applicake.to/web",
             "cd /var/www/api.applicake.to/web",
-            "composer install",
+            "composer update && composer install",
             "cp .env.example .env",
-            "php artisan migrate",
-            "php artisan key:generate",
-            "php artisan passport:keys",
-            "php artisan passport:client --password"
+            #"php artisan migrate",
+            #"php artisan key:generate",
+            #"php artisan passport:keys",
+            #"php artisan passport:client --password"
         ]
     }
 }

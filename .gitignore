@@ -17,4 +17,6 @@ npm-debug.log
 yarn-error.log
 *.swp
 *.swo
+.terraform
+.terraform.lock.hcl
 
