@@ -15,7 +15,8 @@ class MessagePreview extends Controller
     {
         $predefinedMessage = PredefinedMessage::findOrFail($messageId);
         $message = new Message();
-        $message->body = ContentParser::parse($predefinedMessage->body,
+        $message->body = ContentParser::parse(
+            $predefinedMessage->body,
             CandidateCreator::fakeCandidate($predefinedMessage->recruitment),
             Carbon::tomorrow()->setHour(10)->setMinute(30)->toDateTime(),
             auth('api')->user()
@@ -24,4 +25,3 @@ class MessagePreview extends Controller
         return new CandidateMailable($message);
     }
 }
-

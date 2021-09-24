@@ -16,13 +16,15 @@ class CandidateMailable extends Mailable
     private $messageToSend; //the name cannot be just $message bacause it interferes with sth
 
     /**
-     * Using in event listener
+     * Using in event listener.
+     *
      * @var int
      */
     public $messageId;
 
     /**
-     * We need Tenant to use in MessageSentListener
+     * We need Tenant to use in MessageSentListener.
+     *
      * @var string
      */
     public $tenantIdentifier;

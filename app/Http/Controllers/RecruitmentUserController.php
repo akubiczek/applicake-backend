@@ -14,6 +14,7 @@ class RecruitmentUserController extends Controller
      * Create a new controller instance.
      *
      * @param TenantManager $tenantManager
+     *
      * @return void
      */
     public function __construct(TenantManager $tenantManager)
@@ -31,12 +32,14 @@ class RecruitmentUserController extends Controller
         //TODO logować kto kiedy dał komu dostęp bo relacje znikają z pivota
         $userId = $request->get('user_id');
         $recruitment->grantedUsers()->attach($userId, ['creator_id' => Auth::user()->id]);
+
         return response()->json($recruitment->grantedUsers);
     }
 
     public function delete(Recruitment $recruitment, $userId)
     {
         $recruitment->grantedUsers()->detach($userId);
+
         return response()->json($recruitment->grantedUsers);
     }
 }

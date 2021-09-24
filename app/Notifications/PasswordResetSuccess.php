@@ -25,6 +25,7 @@ class PasswordResetSuccess extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -36,11 +37,12 @@ class PasswordResetSuccess extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->line('You have changed your password successfully.')
             ->line('If you did change password, no further action is required.')
             ->line('If you did not change password, sign in and change your password NOW!');
@@ -50,6 +52,7 @@ class PasswordResetSuccess extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)

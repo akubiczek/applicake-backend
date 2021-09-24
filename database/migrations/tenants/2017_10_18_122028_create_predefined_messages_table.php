@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreatePredefinedMessagesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -23,17 +22,15 @@ class CreatePredefinedMessagesTable extends Migration
             $table->string('subject', 191)->default('');
             $table->text('body', 65535);
         });
-	}
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
     {
         Schema::drop('predefined_messages');
     }
-
 }

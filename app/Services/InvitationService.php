@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\Mail\UserInvitation;
 use App\Models\User;
@@ -48,6 +46,7 @@ class InvitationService
         Mail::to($user->email)->queue(new UserInvitation($invitation));
 
         unset($invitation->token);
+
         return $invitation;
     }
 

@@ -31,7 +31,7 @@ class RecruitmentUserCreateRequest extends FormRequest
                 Rule::unique('tenant.recruitment_user')->where(function ($query) {
                     return $query->where('recruitment_id', $this->recruitment->id);
                 }),
-            ]
+            ],
         ];
     }
 }

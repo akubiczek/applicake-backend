@@ -15,6 +15,7 @@ class SourcesController extends Controller
      * Create a new controller instance.
      *
      * @param TenantManager $tenantManager
+     *
      * @return void
      */
     public function __construct(TenantManager $tenantManager)
@@ -38,12 +39,14 @@ class SourcesController extends Controller
     public function create(SourceCreateRequest $request)
     {
         $source = SourceCreator::create($request->validated());
+
         return new SourceResource($source);
     }
 
     public function delete($sourceId)
     {
         Source::find($sourceId)->delete();
+
         return response()->json(null, 200);
     }
 }

@@ -21,6 +21,7 @@ class CandidateDeleteListener
      * Handle the event.
      *
      * @param CandidateDeleted $event
+     *
      * @return void
      */
     public function handle(CandidateDeleted $event)

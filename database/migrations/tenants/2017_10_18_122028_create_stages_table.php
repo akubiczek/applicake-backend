@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateStagesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -34,5 +33,4 @@ class CreateStagesTable extends Migration
     {
         Schema::drop('stages');
     }
-
 }

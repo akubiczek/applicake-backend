@@ -27,7 +27,7 @@ class MessageService
         $message->candidate_id = $candidate->id;
         $message->to = $candidate->email;
         //$message->from = '';
-        $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate) . ' ' . UtilsService::hashSuffix($candidate->id);
+        $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate).' '.UtilsService::hashSuffix($candidate->id);
         $message->body = ContentParser::parse($predefinedMessage->body, $candidate);
         $message->save();
 
@@ -63,6 +63,7 @@ class MessageService
         }
 
         Mail::to($notificationEmail)->queue(new NewCandidateNotification($candidate));
+
         return true;
     }
 
@@ -78,7 +79,7 @@ class MessageService
         $message->candidate_id = $candidate->id;
         $message->to = $emailAddress;
         //$message->from = '';
-        $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate, null, Auth::user());// . ' ' . UtilsService::hashSuffix($candidate->id);
+        $message->subject = ContentParser::parse($predefinedMessage->subject, $candidate, null, Auth::user()); // . ' ' . UtilsService::hashSuffix($candidate->id);
         $message->body = ContentParser::parse($predefinedMessage->body, $candidate, null, Auth::user());
         $message->save();
 

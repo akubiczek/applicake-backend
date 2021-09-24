@@ -25,7 +25,7 @@ class PasswordResetRequest extends FormRequest
     {
         return [
             'password' => 'required|string|confirmed',
-            'token' => 'required|string'
+            'token'    => 'required|string',
         ];
     }
 }

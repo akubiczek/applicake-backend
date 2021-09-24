@@ -48,7 +48,7 @@ class TenantSeed extends Command
         $tenant = Tenant::find($tenantId);
 
         if (!$tenant) {
-            throw new RuntimeException('Tenant with ID = ' . $tenantId . ' does not exist.');
+            throw new RuntimeException('Tenant with ID = '.$tenantId.' does not exist.');
         }
 
         $this->tenantManager->setTenant($tenant);
@@ -57,6 +57,6 @@ class TenantSeed extends Command
         $seeder = new \RolesAndPermissionsSeeder('tenant');
         $seeder->run(null);
 
-        $this->info('Data have been seeded for tenant with subdomain \'' . $tenant->subdomain . '\'.');
+        $this->info('Data have been seeded for tenant with subdomain \''.$tenant->subdomain.'\'.');
     }
 }

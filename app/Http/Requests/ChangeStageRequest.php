@@ -30,7 +30,7 @@ class ChangeStageRequest extends FormRequest
             ],
             'delay_message_send' => [
                 'required',
-                'boolean'
+                'boolean',
             ],
             'delayed_message_date' => [
                 'requiredIf:delay_message_send,1',

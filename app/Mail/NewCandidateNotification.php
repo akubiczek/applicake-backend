@@ -50,6 +50,6 @@ class NewCandidateNotification extends Mailable
 
     protected function getCvPath()
     {
-        return storage_path('app/' . $this->candidate->path_to_cv);
+        return storage_path('app/'.$this->candidate->path_to_cv);
     }
 }

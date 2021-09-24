@@ -27,7 +27,7 @@ class CreateFormFieldRequest extends FormRequest
             'type' => [
                 'required',
                 'string',
-                'max:8'
+                'max:8',
             ],
             'label' => [
                 'required',
@@ -36,8 +36,8 @@ class CreateFormFieldRequest extends FormRequest
             ],
             'recruitment_id' => [
                 'required',
-                'exists:tenant.recruitments,id'
-            ]
+                'exists:tenant.recruitments,id',
+            ],
         ];
     }
 }

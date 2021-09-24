@@ -28,7 +28,6 @@ class CreateTenantUser extends Command
 
     protected $tenantManager;
 
-
     /**
      * Create a new command instance.
      *
@@ -44,8 +43,9 @@ class CreateTenantUser extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      * @throws \Throwable
+     *
+     * @return mixed
      */
     public function handle()
     {
@@ -95,6 +95,6 @@ class CreateTenantUser extends Command
             $user->save();
         });
 
-        $this->comment('Created user with username \'' . $user->email . '\'.');
+        $this->comment('Created user with username \''.$user->email.'\'.');
     }
 }

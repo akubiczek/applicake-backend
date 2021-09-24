@@ -25,17 +25,17 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         CandidateApplied::class => [
-            CandidateApplyListener::class
+            CandidateApplyListener::class,
         ],
-//        CandidateStageChanged::class => [
-//            CandidateStageListener::class
-//        ],
+        //        CandidateStageChanged::class => [
+        //            CandidateStageListener::class
+        //        ],
         CandidateDeleted::class => [
-            CandidateDeleteListener::class
+            CandidateDeleteListener::class,
         ],
         MessageSent::class => [
-            MessageSentListener::class
-        ]
+            MessageSentListener::class,
+        ],
     ];
 
     /**
@@ -44,7 +44,7 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $subscribe = [
-        CandidateEventSubscriber::class
+        CandidateEventSubscriber::class,
     ];
 
     /**

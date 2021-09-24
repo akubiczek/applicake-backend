@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Helpers\Tenant;
 use App\Models\Message;
 use App\Services\TenantManager;
 use Illuminate\Mail\Events\MessageSent;
@@ -25,6 +24,7 @@ class MessageSentListener
      * Handle the event.
      *
      * @param MessageSent $event
+     *
      * @return void
      */
     public function handle(MessageSent $event)

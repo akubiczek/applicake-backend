@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Services\TenantManager;
 use App\Models\Tenant;
+use App\Services\TenantManager;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
 
 class TenantMigrate extends Command
@@ -32,7 +32,7 @@ class TenantMigrate extends Command
         if ($tenantId) {
             $tenant = Tenant::find($tenantId);
             if (!$tenant) {
-                throw new RuntimeException('Tenant with ID = ' . $tenantId . ' does not exist.');
+                throw new RuntimeException('Tenant with ID = '.$tenantId.' does not exist.');
             }
 
             $this->tenantManager->setTenant($tenant);
@@ -43,7 +43,6 @@ class TenantMigrate extends Command
         }
 
         if (!$tenantId && $this->confirm('Do you wish to run migration for ALL tenants?')) {
-
             $tenants = Tenant::all();
 
             foreach ($tenants as $tenant) {
@@ -54,7 +53,6 @@ class TenantMigrate extends Command
 
             return;
         }
-
     }
 
     private function migrate()

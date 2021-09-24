@@ -31,8 +31,8 @@ class SourceCreateRequest extends FormRequest
             ],
             'recruitment_id' => [
                 'required',
-                'exists:tenant.recruitments,id'
-            ]
+                'exists:tenant.recruitments,id',
+            ],
         ];
     }
 }

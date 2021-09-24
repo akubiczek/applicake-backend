@@ -2,13 +2,12 @@
 
 namespace App\Mail;
 
+use App\Message;
+use App\MessageTemplate;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\View;
-use App\MessageTemplate;
-use App\Message;
 
 class ForwardCv extends Mailable
 {

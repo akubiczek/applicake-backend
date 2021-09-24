@@ -45,7 +45,7 @@ class Recruitment extends Model
     }
 
     /**
-     * Used to determine access rights if a user has limited role
+     * Used to determine access rights if a user has limited role.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

@@ -25,7 +25,7 @@ class TenantServiceProvider extends ServiceProvider
             $tenant = $manager->getTenant();
 
             if ($tenant) {
-                $config['database'] = 'tenant_' . $tenant->id;
+                $config['database'] = 'tenant_'.$tenant->id;
             }
 
             return $this->app['db.factory']->make($config, $name);

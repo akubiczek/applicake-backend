@@ -33,5 +33,4 @@ class CreateRecruitmentsTable extends Migration
     {
         Schema::drop('recruitments');
     }
-
 }

@@ -6,7 +6,8 @@ use Imagick;
 
 class PdfToImage
 {
-    protected $pdfFile, $pdfContent;
+    protected $pdfFile;
+    protected $pdfContent;
 
     protected $resolution = 144;
 
@@ -45,6 +46,7 @@ class PdfToImage
     {
         $pdf = new self();
         $pdf->pdfContent = $pdfContent;
+
         return $pdf;
     }
 
@@ -78,9 +80,9 @@ class PdfToImage
      *
      * @param int|null
      *
-     * @return $this
-     *
      * @throws \Spatie\PdfToImage\Exceptions\InvalidLayerMethod
+     *
+     * @return $this
      *
      * @see https://secure.php.net/manual/en/imagick.constants.php
      * @see PdfToImage::getImageData()
@@ -116,7 +118,7 @@ class PdfToImage
     public function saveImage(string $pathToImage): bool
     {
         if (is_dir($pathToImage)) {
-            $pathToImage = rtrim($pathToImage, '\/') . DIRECTORY_SEPARATOR . $this->page . '.' . $this->outputFormat;
+            $pathToImage = rtrim($pathToImage, '\/').DIRECTORY_SEPARATOR.$this->page.'.'.$this->outputFormat;
         }
 
         $imageData = $this->getImageData($pathToImage);

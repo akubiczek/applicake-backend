@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CandidatesIndexRequest;
 use App\Models\Stage;
-use App\Repositories\RecruitmentsRepository;
-use App\Services\CandidateDeleter;
-use App\Services\MessagesService;
 use Illuminate\Http\Request;
 
 class StagesController extends Controller

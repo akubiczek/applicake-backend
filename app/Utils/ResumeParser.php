@@ -21,6 +21,7 @@ class ResumeParser
 
             if ($photo) {
                 Storage::disk('s3-avatars')->put($photoFilePath, $photo->getImageBlob());
+
                 return true;
             }
         }
@@ -31,22 +32,24 @@ class ResumeParser
     protected static function pdfToImage($resumeFilePath)
     {
         $pdfFile = Storage::disk('s3')->get($resumeFilePath);
+
         return PdfToImage::fromContent($pdfFile)->getImageData();
     }
 
     protected static function rekognizePhoto($imageData): ?\Imagick
     {
         $options = [
-            'region' => 'eu-central-1',
-            'version' => 'latest'
+            'region'  => 'eu-central-1',
+            'version' => 'latest',
         ];
 
         $rekognition = new RekognitionClient($options);
-        $result = $rekognition->detectLabels(array(
-                'Image' => array(
+        $result = $rekognition->detectLabels(
+            [
+                'Image' => [
                     'Bytes' => $imageData,
-                ),
-            )
+                ],
+            ]
         );
 
         if ($result) {
@@ -57,7 +60,8 @@ class ResumeParser
                         $label['Instances'][0]['BoundingBox']['Width'],
                         $label['Instances'][0]['BoundingBox']['Height'],
                         $label['Instances'][0]['BoundingBox']['Left'],
-                        $label['Instances'][0]['BoundingBox']['Top']);
+                        $label['Instances'][0]['BoundingBox']['Top']
+                    );
                 }
             }
         }
@@ -77,6 +81,7 @@ class ResumeParser
         $cropHeight = $height * $geometry['height'];
 
         $image->cropImage($cropWidth, $cropHeight, $cropX, $cropY);
+
         return $image;
     }
 }

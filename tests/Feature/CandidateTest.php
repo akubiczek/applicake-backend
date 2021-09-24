@@ -14,11 +14,11 @@ class CandidateTest extends TestCase
     use RefreshDatabase;
 
     private $candidate = [
-        'first_name' => 'Adam',
-        'last_name' => 'Testowy',
-        'email' => 'adam@kubiczek.eu',
+        'first_name'   => 'Adam',
+        'last_name'    => 'Testowy',
+        'email'        => 'adam@kubiczek.eu',
         'phone_number' => '+48600600600',
-        'key' => 'XXXYYZ1',
+        'key'          => 'XXXYYZ1',
     ];
 
     /** @test */
@@ -34,11 +34,11 @@ class CandidateTest extends TestCase
         $this->post('http://tenant1.misspiggy.local/api/candidates', $this->candidate)
             ->assertStatus(201)
             ->assertJsonFragment([
-            'first_name' => $this->candidate['first_name'],
-            'last_name' => $this->candidate['last_name'],
-            'email' => $this->candidate['email'],
-            'phone_number' => $this->candidate['phone_number'],
-        ]);
+                'first_name'   => $this->candidate['first_name'],
+                'last_name'    => $this->candidate['last_name'],
+                'email'        => $this->candidate['email'],
+                'phone_number' => $this->candidate['phone_number'],
+            ]);
 
         Event::assertDispatched(CandidateStageChanged::class, function ($event) {
             return $event->candidate->first_name === $this->candidate['first_name'];

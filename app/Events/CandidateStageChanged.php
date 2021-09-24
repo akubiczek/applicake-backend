@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CandidateStageChanged
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * @var Candidate
@@ -24,7 +26,8 @@ class CandidateStageChanged
      */
     public $user;
 
-    public $previousStage, $newStage;
+    public $previousStage;
+    public $newStage;
 
     /**
      * Create a new event instance.

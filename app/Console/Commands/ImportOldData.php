@@ -50,14 +50,14 @@ class ImportOldData extends Command
         $tenant = Tenant::find($tenantId);
 
         if (!$tenant) {
-            throw new RuntimeException('Tenant with ID = ' . $tenantId . ' does not exist.');
+            throw new RuntimeException('Tenant with ID = '.$tenantId.' does not exist.');
         }
 
         if (!$this->confirm('Do you REALLY WANT to run import legacy data?')) {
             return;
         }
 
-        if (!$this->confirm('It will ERASE ALL current data for ::' . $tenant->subdomain . ':: tenant. Are you sure?')) {
+        if (!$this->confirm('It will ERASE ALL current data for ::'.$tenant->subdomain.':: tenant. Are you sure?')) {
             return;
         }
 
@@ -76,7 +76,7 @@ class ImportOldData extends Command
         DB::connection('tenant')->delete('DELETE FROM user_invitations');
         DB::connection('tenant')->delete('DELETE FROM users');
 
-        DB::connection()->delete('DELETE FROM tenant_users WHERE tenant_id=' . $tenant->id);
+        DB::connection()->delete('DELETE FROM tenant_users WHERE tenant_id='.$tenant->id);
 
         DB::connection('tenant')->statement('ALTER TABLE sources AUTO_INCREMENT = 1;');
         DB::connection('tenant')->statement('ALTER TABLE notes AUTO_INCREMENT = 1;');
@@ -93,7 +93,8 @@ class ImportOldData extends Command
         $users = DB::connection('legacy')->select('SELECT * FROM users');
         foreach ($users as $user) {
             $email = str_replace('.pl', '.com', $user->email);
-            DB::connection('tenant')->insert('INSERT INTO users (id, created_at, updated_at, `name`, email, `password`)
+            DB::connection('tenant')->insert(
+                'INSERT INTO users (id, created_at, updated_at, `name`, email, `password`)
                 VALUES (?, ?, ?, ?, ?, ?)',
                 [
                     $user->id,
@@ -102,16 +103,19 @@ class ImportOldData extends Command
                     $user->name,
                     $email,
                     $user->password,
-                ]);
+                ]
+            );
 
-            DB::connection('')->insert('INSERT INTO tenant_users (created_at, updated_at, `username`, tenant_id)
+            DB::connection('')->insert(
+                'INSERT INTO tenant_users (created_at, updated_at, `username`, tenant_id)
                 VALUES (?, ?, ?, ?)',
                 [
                     $user->created_at,
                     $user->updated_at,
                     $email,
-                    $tenantId
-                ]);
+                    $tenantId,
+                ]
+            );
         }
 
         $stages = json_decode('[
@@ -163,7 +167,8 @@ class ImportOldData extends Command
         $stageMap = [];
         $recruitments = DB::connection('legacy')->select('SELECT * FROM recruitments');
         foreach ($recruitments as $recruitment) {
-            DB::connection('tenant')->insert('INSERT INTO recruitments (id, created_at, updated_at, name, job_title, notification_email, is_draft, state)
+            DB::connection('tenant')->insert(
+                'INSERT INTO recruitments (id, created_at, updated_at, name, job_title, notification_email, is_draft, state)
                 VALUES (?, ?, ?, ?, ?, ?, 0, ?)',
                 [
                     $recruitment->id,
@@ -173,10 +178,12 @@ class ImportOldData extends Command
                     $recruitment->name,
                     $recruitment->notification_email,
                     $recruitment->state == 0 ? 0 : 2,
-                ]);
+                ]
+            );
 
             foreach ($stages as $stage) {
-                DB::connection('tenant')->insert('INSERT INTO stages (id, created_at, updated_at, recruitment_id, name,
+                DB::connection('tenant')->insert(
+                    'INSERT INTO stages (id, created_at, updated_at, recruitment_id, name,
                 has_appointment, is_quick_link, `order`, action_name)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     [
@@ -189,32 +196,32 @@ class ImportOldData extends Command
                         $stage->is_quick_link,
                         $stage->order,
                         $stage->action_name,
-                    ]);
+                    ]
+                );
 
                 $stageMap[$recruitment->id][$stage->name] = $stageId;
 
                 $stageId++;
             }
 
-            $fields = json_decode(file_get_contents(base_path() . '/database/seeds/form_fields.json'), true);
+            $fields = json_decode(file_get_contents(base_path().'/database/seeds/form_fields.json'), true);
             $now = \Carbon\Carbon::now()->toDateTimeString();
 
             foreach ($fields as $field) {
                 DB::connection('tenant')->table('form_fields')->insert([
-                    'name' => $field['name'],
-                    'label' => $field['label'],
-                    'system' => $field['system'],
-                    'type' => $field['type'],
-                    'required' => $field['required'],
-                    'order' => $field['order'],
+                    'name'           => $field['name'],
+                    'label'          => $field['label'],
+                    'system'         => $field['system'],
+                    'type'           => $field['type'],
+                    'required'       => $field['required'],
+                    'order'          => $field['order'],
                     'recruitment_id' => $recruitment->id,
-                    'created_at' => $now,
-                    'updated_at' => $now,
+                    'created_at'     => $now,
+                    'updated_at'     => $now,
                 ]);
             }
 
-
-            $messages = json_decode(file_get_contents(base_path() . '/database/seeds/predefined_messages.json'), true);
+            $messages = json_decode(file_get_contents(base_path().'/database/seeds/predefined_messages.json'), true);
 
             foreach ($messages as $message) {
                 $from_stage_id = null;
@@ -233,21 +240,22 @@ class ImportOldData extends Command
                 }
 
                 DB::connection('tenant')->table('predefined_messages')->insert([
-                    'subject' => $message['subject'],
-                    'body' => $message['body'],
-                    'trigger' => $message['trigger'],
-                    'from_stage_id' => $from_stage_id,
-                    'to_stage_id' => $to_stage_id,
+                    'subject'        => $message['subject'],
+                    'body'           => $message['body'],
+                    'trigger'        => $message['trigger'],
+                    'from_stage_id'  => $from_stage_id,
+                    'to_stage_id'    => $to_stage_id,
                     'recruitment_id' => $recruitment->id,
-                    'created_at' => $now,
-                    'updated_at' => $now,
+                    'created_at'     => $now,
+                    'updated_at'     => $now,
                 ]);
             }
         }
 
         $sources = DB::connection('legacy')->select('SELECT * FROM sources');
         foreach ($sources as $source) {
-            DB::connection('tenant')->insert('INSERT INTO sources (id, created_at, updated_at, `name`, recruitment_id, `key`)
+            DB::connection('tenant')->insert(
+                'INSERT INTO sources (id, created_at, updated_at, `name`, recruitment_id, `key`)
                 VALUES (?, ?, ?, ?, ?, ?)',
                 [
                     $source->id,
@@ -256,16 +264,16 @@ class ImportOldData extends Command
                     $source->name,
                     $source->recruitment_id,
                     $source->key,
-                ]);
+                ]
+            );
         }
 
         $candidates = DB::connection('legacy')->select('SELECT * FROM candidates');
         foreach ($candidates as $candidate) {
-
-            $customFields = '[{"id": 0, "label": "Informacje dodatkowe", "value": ' . json_encode($candidate->additional_info) . '}]';
+            $customFields = '[{"id": 0, "label": "Informacje dodatkowe", "value": '.json_encode($candidate->additional_info).'}]';
             $seenAt = $candidate->stage_id != 1 ? $candidate->created_at : null;
 
-            $pathToCV = 'kissdigital/' . $candidate->path_to_cv;
+            $pathToCV = 'kissdigital/'.$candidate->path_to_cv;
 
             $stageId = 0;
 
@@ -307,14 +315,15 @@ class ImportOldData extends Command
                 $photoExtraction = null;
             }
 
-            DB::connection('tenant')->insert('INSERT INTO candidates (id, created_at, updated_at, `name`, email,
+            DB::connection('tenant')->insert(
+                'INSERT INTO candidates (id, created_at, updated_at, `name`, email,
                 `phone_number`, future_agreement, path_to_cv, source_id, recruitment_id, seen_at, stage_id, rate, custom_fields, photo_path, photo_extraction)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [
                     $candidate->id,
                     $candidate->created_at,
                     $candidate->updated_at,
-                    $candidate->first_name . ' ' . $candidate->last_name,
+                    $candidate->first_name.' '.$candidate->last_name,
                     $candidate->email,
                     $candidate->phone_number,
                     $candidate->future_agreement,
@@ -326,13 +335,15 @@ class ImportOldData extends Command
                     $candidate->rate,
                     $customFields,
                     $photoPath,
-                    $photoExtraction
-                ]);
+                    $photoExtraction,
+                ]
+            );
         }
 
         $notes = DB::connection('legacy')->select('SELECT * FROM notes');
         foreach ($notes as $note) {
-            DB::connection('tenant')->insert('INSERT INTO notes (id, created_at, updated_at, `body`, candidate_id, `user_id`)
+            DB::connection('tenant')->insert(
+                'INSERT INTO notes (id, created_at, updated_at, `body`, candidate_id, `user_id`)
                 VALUES (?, ?, ?, ?, ?, ?)',
                 [
                     $note->id,
@@ -341,11 +352,13 @@ class ImportOldData extends Command
                     $note->body,
                     $note->candidate_id,
                     $note->user_id ? $note->user_id : 2,
-                ]);
+                ]
+            );
         }
         foreach ($candidates as $candidate) {
             if ($candidate->stage_id == 10) {
-                DB::connection('tenant')->insert('INSERT INTO notes (created_at, updated_at, `body`, candidate_id, `user_id`)
+                DB::connection('tenant')->insert(
+                    'INSERT INTO notes (created_at, updated_at, `body`, candidate_id, `user_id`)
                 VALUES (?, ?, ?, ?, ?)',
                     [
                         new \DateTime(),
@@ -353,14 +366,16 @@ class ImportOldData extends Command
                         'Kandydat zrezygnował w trakcie rekrutacji',
                         $candidate->id,
                         2,
-                    ]);
+                    ]
+                );
             }
         }
 
         $messages = DB::connection('legacy')->select('SELECT * FROM messages');
         foreach ($messages as $message) {
-            $candidate = DB::connection('tenant')->select('SELECT * FROM candidates WHERE `id`=' . $message->candidate_id);
-            DB::connection('tenant')->insert('INSERT INTO messages (id, created_at, updated_at, `type`, candidate_id,
+            $candidate = DB::connection('tenant')->select('SELECT * FROM candidates WHERE `id`='.$message->candidate_id);
+            DB::connection('tenant')->insert(
+                'INSERT INTO messages (id, created_at, updated_at, `type`, candidate_id,
                 `subject`, `body`, `scheduled_for`, `sent_at`, `to`)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [
@@ -374,9 +389,10 @@ class ImportOldData extends Command
                     $message->scheduled_at,
                     $message->created_at,
                     $candidate[0]->email,
-                ]);
+                ]
+            );
         }
 
-        $this->info('Legacy data have been imported for tenant with subdomain \'' . $tenant->subdomain . '\'.');
+        $this->info('Legacy data have been imported for tenant with subdomain \''.$tenant->subdomain.'\'.');
     }
 }

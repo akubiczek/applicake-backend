@@ -1,6 +1,5 @@
 <?php
 
-
 class ExamplePredefinedMessages extends \App\Services\TenantSeeder
 {
     /**

@@ -6,10 +6,11 @@ use App\Queue\DatabaseQueue;
 
 class DatabaseConnector extends \Illuminate\Queue\Connectors\DatabaseConnector
 {
-
     /**
-     * Overrides default method to use my own DatabaseQueue
+     * Overrides default method to use my own DatabaseQueue.
+     *
      * @param array $config
+     *
      * @return DatabaseQueue|\Illuminate\Contracts\Queue\Queue
      */
     public function connect(array $config)

@@ -27,6 +27,7 @@ abstract class TenantSeeder extends Seeder
      * Set the default connection name.
      *
      * @param string $connection
+     *
      * @return void
      */
     public function setConnection($connection)
@@ -34,5 +35,5 @@ abstract class TenantSeeder extends Seeder
         $this->connection = $connection;
     }
 
-    public abstract function run(\App\Models\Recruitment $recruitment = null);
+    abstract public function run(\App\Models\Recruitment $recruitment = null);
 }

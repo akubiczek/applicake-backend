@@ -12,9 +12,9 @@
 */
 
 Route::group([
-    'prefix' => '/{tenant}',
+    'prefix'     => '/{tenant}',
     'middleware' => ['tenant.identify', 'auth:api'],
-    'as' => 'tenant:',
+    'as'         => 'tenant:',
 ], function () {
 
     /* Users */
@@ -76,9 +76,9 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => '/{tenant}',
+    'prefix'     => '/{tenant}',
     'middleware' => [\App\Http\Middleware\IdentifyTenant::class],
-    'as' => 'tenant:',
+    'as'         => 'tenant:',
 ], function () {
     Route::post('/apply', 'ApplyController@apply');
     Route::get('/apply-form/{sourceKey}', 'ApplyController@applyForm');
@@ -86,9 +86,9 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => '/{tenant}',
+    'prefix'     => '/{tenant}',
     'middleware' => ['api.addAccessToken', 'tenant.identify', 'auth:api'],
-    'as' => 'tenant:',
+    'as'         => 'tenant:',
 ], function () {
     Route::get('/message_preview/{messageId}', 'MessagePreview@render')->name('message_preview.render');
     Route::get('/candidates/{candidateId}/cv', 'CandidatesController@cv')->name('candidates.cv');

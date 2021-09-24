@@ -47,7 +47,7 @@ class CandidatesRepository
 
             if (count($array) === 2) {
                 $query = $query
-                    ->where('name', 'like', '%' . $array[0] . '%');
+                    ->where('name', 'like', '%'.$array[0].'%');
             } else {
                 $query = $query
                     ->where(function (Builder $query) use ($array) {

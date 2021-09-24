@@ -21,6 +21,7 @@ class RecruitmentCreator
         $recruitment->save();
 
         self::seedData($recruitment);
+
         return Recruitment::with('sources')->with('predefinedMessages')->where('id', $recruitment->id)->get()->first();
     }
 

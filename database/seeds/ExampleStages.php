@@ -1,6 +1,5 @@
 <?php
 
-
 class ExampleStages extends \App\Services\TenantSeeder
 {
     /**

@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Models\Message;
 use App\Models\PredefinedMessage;
-use App\Services\UtilsService;
 use App\Models\StageMessageTemplate;
-use Illuminate\Http\Request;
 use App\Services\MessagesService;
+use App\Services\UtilsService;
+use Illuminate\Http\Request;
 
 class MessagesController extends Controller
 {
@@ -33,16 +33,14 @@ class MessagesController extends Controller
 
         $messageTemplate = PredefinedMessage::where('recruitment_id', $candidate->recruitment_id)->where('stage_id', $request->stage_id)->first();
 
-        if (!$messageTemplate)
-        {
+        if (!$messageTemplate) {
             $messageTemplate = StageMessageTemplate::where('stage_id', $request->stage_id)->first();
         }
 
-        if (!$messageTemplate)
-        {
+        if (!$messageTemplate) {
             return response()->json([
                 'subject' => $hashSuffix,
-                'body' => ''
+                'body'    => '',
             ]);
         }
 
@@ -50,7 +48,7 @@ class MessagesController extends Controller
 
         return response()->json([
             'subject' => "$messageTemplate->subject $hashSuffix",
-            'body' => $messageTemplate->body
+            'body'    => $messageTemplate->body,
         ]);
     }
 

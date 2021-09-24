@@ -31,6 +31,7 @@ class CandidatesController extends Controller
      * Create a new controller instance.
      *
      * @param TenantManager $tenantManager
+     *
      * @return void
      */
     public function __construct(TenantManager $tenantManager)
@@ -41,6 +42,7 @@ class CandidatesController extends Controller
     public function create(CandidatesCreateRequest $request)
     {
         $candidate = CandidateCreator::createCandidate($request, $this->tenantManager);
+
         return response()->json($candidate, 201);
     }
 
@@ -51,14 +53,15 @@ class CandidatesController extends Controller
 
         if ($request->get('search')) {
             $candidates = CandidatesRepository::search($request->validated());
-        } else if ($recruitmentId) {
+        } elseif ($recruitmentId) {
             $candidates = Candidate::where('recruitment_id', $recruitmentId)->with('recruitment')->orderBy('created_at', 'DESC')->get();
         } else {
             $candidates = Candidate::with('recruitment')->orderBy('created_at', 'DESC')->get();
         }
 
         if (!$user->can('read all recruitments')) {
-            $filtered = $candidates->filter(function ($candidate, $key) use ($user) {
+            $filtered = $candidates->filter(
+                function ($candidate, $key) use ($user) {
                 return $user->can('view', $candidate);
             }
             );
@@ -91,12 +94,14 @@ class CandidatesController extends Controller
     public function update(CandidateUpdateRequest $request, Candidate $candidate)
     {
         $candidate = CandidateUpdater::updateCandidate($candidate->id, $request);
-        return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
+
+        return response()->json($candidate, 200, ['Location' => '/candidates/'.$candidate->id]);
     }
 
     public function delete(CandidateDeleteRequest $request, Candidate $candidate)
     {
         CandidateDeleter::deleteCandidate($request, $candidate->id);
+
         return response()->json(null, 200);
     }
 
@@ -107,7 +112,7 @@ class CandidatesController extends Controller
             $candidate->save();
         }
 
-        return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
+        return response()->json($candidate, 200, ['Location' => '/candidates/'.$candidate->id]);
     }
 
     //TODO: route nie chroniony - docelowo zrobić zabezpieczenie z użyciem jednorazowych tokenów, a także nie przekazywać do klienta pola path_to_cv
@@ -120,7 +125,7 @@ class CandidatesController extends Controller
             return response('File not found', 404);
         }
 
-        $fileName = str_replace(' ', '_', $candidate->name) . '-CV.pdf'; //TODO sanitize
+        $fileName = str_replace(' ', '_', $candidate->name).'-CV.pdf'; //TODO sanitize
 
         if ($download) {
             return Storage::disk('s3')->download($candidate->path_to_cv, $fileName);
@@ -132,7 +137,7 @@ class CandidatesController extends Controller
     public function changeStage(ChangeStageRequest $request)
     {
         $candidate = StageChanger::changeStage($request);
-        return response()->json($candidate, 200, ['Location' => '/candidates/' . $candidate->id]);
+
+        return response()->json($candidate, 200, ['Location' => '/candidates/'.$candidate->id]);
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Utils\Candidates;
 
 use App\Events\CandidateDeleted;
@@ -17,7 +18,7 @@ class CandidateDeleter
             $notificationEmailAddress = $candidate->email;
         }
 
-        Storage::delete(storage_path('app/' . $candidate->path_to_cv));
+        Storage::delete(storage_path('app/'.$candidate->path_to_cv));
         $candidate->path_to_cv = '';
         self::hashData($candidate);
         $candidate->save();
