@@ -11,24 +11,25 @@ class FormFieldsSeeder extends \App\Services\TenantSeeder
      * Run the database seeds.
      *
      * @param \App\Models\Recruitment $recruitment
+     *
      * @return void
      */
     public function run(\App\Models\Recruitment $recruitment = null)
     {
-        $fields = json_decode(file_get_contents(base_path() . self::JSON_PATH), true);
+        $fields = json_decode(file_get_contents(base_path().self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
 
         foreach ($fields as $field) {
             DB::connection($this->connection)->table('form_fields')->insert([
-                'name' => $field['name'],
-                'label' => $field['label'],
-                'system' => $field['system'],
-                'type' => $field['type'],
-                'required' => $field['required'],
-                'order' => $field['order'],
+                'name'           => $field['name'],
+                'label'          => $field['label'],
+                'system'         => $field['system'],
+                'type'           => $field['type'],
+                'required'       => $field['required'],
+                'order'          => $field['order'],
                 'recruitment_id' => $recruitment->id,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'created_at'     => $now,
+                'updated_at'     => $now,
             ]);
         }
     }

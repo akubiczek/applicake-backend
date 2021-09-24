@@ -38,6 +38,6 @@ class UserInvitation extends Mailable
 
     protected function getSubject()
     {
-        return "Zaproszenie do systemu Applicake.to";
+        return 'Zaproszenie do systemu Applicake.to';
     }
 }

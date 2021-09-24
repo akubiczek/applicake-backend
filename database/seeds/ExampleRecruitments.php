@@ -1,6 +1,5 @@
 <?php
 
-
 class ExampleRecruitments extends \App\Services\TenantSeeder
 {
     const JSON_PATH = './database/seeds/recruitments.json';
@@ -16,26 +15,24 @@ class ExampleRecruitments extends \App\Services\TenantSeeder
         $now = \Carbon\Carbon::now()->toDateTimeString();
         $id = 1;
 
-        foreach ($recruitments as $recruitment)
-        {
+        foreach ($recruitments as $recruitment) {
             DB::connection($this->connection)->table('recruitments')->insert([
-                'id' => $id,
-                'name' => $recruitment['name'],
+                'id'                 => $id,
+                'name'               => $recruitment['name'],
                 'notification_email' => $recruitment['notification_email'],
-                'created_at' => $now,
-                'updated_at' => $now,
+                'created_at'         => $now,
+                'updated_at'         => $now,
             ]);
 
             DB::connection($this->connection)->table('sources')->insert([
-                'name' => 'KISSdigital.com',
+                'name'           => 'KISSdigital.com',
                 'recruitment_id' => $id,
-                'key' => 'XXXYYZ' . $id,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'key'            => 'XXXYYZ'.$id,
+                'created_at'     => $now,
+                'updated_at'     => $now,
             ]);
 
             $id++;
         }
-
     }
 }

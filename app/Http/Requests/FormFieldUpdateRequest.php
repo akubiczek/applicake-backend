@@ -29,11 +29,11 @@ class FormFieldUpdateRequest extends FormRequest
                 'max:191',
             ],
             'order' => [
-                'int'
+                'int',
             ],
             'required' => [
-                'boolean'
-            ]
+                'boolean',
+            ],
         ];
     }
 }

@@ -18,6 +18,7 @@ class PasswordsController extends Controller
      * Create a new controller instance.
      *
      * @param TenantManager $tenantManager
+     *
      * @return void
      */
     public function __construct(TenantManager $tenantManager)
@@ -28,7 +29,6 @@ class PasswordsController extends Controller
     public function token(PasswordTokenRequest $request)
     {
         if ($this->tenantManager->loadTenantByUsername($request->email)) {
-
             $user = User::where('email', $request->email)->first();
 
             if ($user) {
@@ -46,7 +46,6 @@ class PasswordsController extends Controller
         //always empty response regardless of actual result (for security reasons)
         return response()->json();
     }
-
 
     public function reset(\App\Http\Requests\PasswordResetRequest $request)
     {
@@ -73,9 +72,3 @@ class PasswordsController extends Controller
         return response()->json(['message' => 'Password has been changed.']);
     }
 }
-
-
-
-
-
-

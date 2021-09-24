@@ -2,15 +2,14 @@
 
 namespace App\Utils;
 
-use McCool\LaravelAutoPresenter\BasePresenter;
-
 class PhoneFormatter
 {
     public static function format($phoneNumber)
     {
-        $phoneNumber = preg_replace("/[^0-9]/", '', $phoneNumber);
+        $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
         $len = strlen($phoneNumber);
-        return substr($phoneNumber, 0,$len-6 )." ".substr($phoneNumber, $len-6,3 )." ".substr($phoneNumber, $len-3);
+
+        return substr($phoneNumber, 0, $len - 6).' '.substr($phoneNumber, $len - 6, 3).' '.substr($phoneNumber, $len - 3);
     }
 //
 //    public function created_at()

@@ -21,13 +21,14 @@ class SourceResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
     {
         $array = parent::toArray($request);
-        $array['url'] = config('app.apply_url') . '/' . static::$tenantManager->getTenant()->subdomain . '/' . $array['key']
-            . '-' . preg_replace("/[^A-Za-z0-9\-]/", '', str_replace(' ', '-', $this->recruitment->job_title));
+        $array['url'] = config('app.apply_url').'/'.static::$tenantManager->getTenant()->subdomain.'/'.$array['key']
+            .'-'.preg_replace("/[^A-Za-z0-9\-]/", '', str_replace(' ', '-', $this->recruitment->job_title));
 
         return $array;
     }

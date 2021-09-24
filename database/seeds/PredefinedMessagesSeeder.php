@@ -1,6 +1,5 @@
 <?php
 
-
 class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
 {
     const JSON_PATH = '/database/seeds/predefined_messages.json';
@@ -12,7 +11,7 @@ class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
      */
     public function run(\App\Models\Recruitment $recruitment = null)
     {
-        $messages = json_decode(file_get_contents(base_path() . self::JSON_PATH), true);
+        $messages = json_decode(file_get_contents(base_path().self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
 
         foreach ($messages as $message) {
@@ -32,14 +31,14 @@ class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
             }
 
             DB::connection($this->connection)->table('predefined_messages')->insert([
-                'subject' => $message['subject'],
-                'body' => $message['body'],
-                'trigger' => $message['trigger'],
-                'from_stage_id' => $from_stage_id,
-                'to_stage_id' => $to_stage_id,
+                'subject'        => $message['subject'],
+                'body'           => $message['body'],
+                'trigger'        => $message['trigger'],
+                'from_stage_id'  => $from_stage_id,
+                'to_stage_id'    => $to_stage_id,
                 'recruitment_id' => $recruitment->id,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'created_at'     => $now,
+                'updated_at'     => $now,
             ]);
         }
     }

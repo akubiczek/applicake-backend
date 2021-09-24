@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stage extends Model
 {
-
     protected $connection = 'tenant';
 
     const STAGE_NEW = 1;

@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProcessResume implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * @var Candidate
@@ -26,7 +29,7 @@ class ProcessResume implements ShouldQueue
      * Create a new job instance.
      *
      * @param Candidate $candidate
-     * @param bool $override
+     * @param bool      $override
      */
     public function __construct(Candidate $candidate, $override = false)
     {
@@ -37,8 +40,9 @@ class ProcessResume implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function handle()
     {

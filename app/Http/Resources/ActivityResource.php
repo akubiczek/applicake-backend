@@ -11,6 +11,7 @@ class ActivityResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -21,14 +22,14 @@ class ActivityResource extends JsonResource
         }
 
         return [
-            'created_at' => $this->created_at,
-            'type' => $this->type,
-            'prev_value' => $this->prev_value,
-            'new_value' => $this->new_value,
+            'created_at'     => $this->created_at,
+            'type'           => $this->type,
+            'prev_value'     => $this->prev_value,
+            'new_value'      => $this->new_value,
             'new_value_text' => $valueText,
-            'user' => [
+            'user'           => [
                 'name' => $this->user->name,
-            ]
+            ],
         ];
     }
 }

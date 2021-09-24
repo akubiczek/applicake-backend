@@ -7,5 +7,4 @@ use Illuminate\Database\Eloquent\Model;
 class UserInvitation extends Model
 {
     protected $connection = 'tenant';
-
 }

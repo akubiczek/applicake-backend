@@ -10,14 +10,18 @@ use Illuminate\Queue\SerializesModels;
 
 class CandidateRated
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * @var Candidate
      */
     public $candidate;
 
-    public $userId, $previousRate, $newRate;
+    public $userId;
+    public $previousRate;
+    public $newRate;
 
     /**
      * Create a new event instance.

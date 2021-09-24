@@ -20,6 +20,7 @@ class UsersController
      * Create a new controller instance.
      *
      * @param TenantManager $tenantManager
+     *
      * @return void
      */
     public function __construct(TenantManager $tenantManager)
@@ -30,6 +31,7 @@ class UsersController
     public function list()
     {
         $users = User::with('roles')->get();
+
         return UserResource::collection($users);
     }
 
@@ -66,7 +68,6 @@ class UsersController
             }
 
             DB::transaction(function () use ($tenantUser, $user) {
-
                 $user->grantedRecruitments()->detach();
                 $tenantUser->delete();
 
@@ -86,6 +87,7 @@ class UsersController
     public function invite(Request $request)
     {
         $invitation = InvitationService::invite($request, Auth::user(), $this->tenantManager->getTenant());
+
         return response()->json($invitation);
     }
 
@@ -99,6 +101,4 @@ class UsersController
 
         return response()->json($user);
     }
-
-
 }

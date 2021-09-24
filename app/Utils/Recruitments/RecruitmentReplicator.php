@@ -19,11 +19,12 @@ class RecruitmentReplicator
         $recruitment = Recruitment::with(static::$relationships)->findOrFail($recruitmentId);
 
         $newRecruitment = $recruitment->replicate()->setRelations([]);
-        $newRecruitment->name = $newRecruitment->name . ' ' . date('d.m.Y');
+        $newRecruitment->name = $newRecruitment->name.' '.date('d.m.Y');
         $newRecruitment->is_draft = true;
         $newRecruitment->push();
 
         $replicatedOrder = static::replicateRelations($recruitment, $newRecruitment);
+
         return $replicatedOrder->loadMissing(static::$relationships);
     }
 
@@ -36,7 +37,6 @@ class RecruitmentReplicator
 //            }
 
             foreach ($modelCollection as $model) {
-
                 if ($relation === 'sources') {
                     SourceCreator::create(['name' => $model->name, 'recruitment_id' => $newModel->id]);
                 } else {

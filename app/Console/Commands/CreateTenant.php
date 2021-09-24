@@ -3,8 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Tenant;
-use App\Services\TenantManager;
-use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -51,21 +49,21 @@ class CreateTenant extends Command
         $num = Tenant::where('subdomain', $subdomain)->count();
 
         if ($num) {
-            throw new RuntimeException('Tenant with subdomain \'' . $subdomain . '\' already exists.');
+            throw new RuntimeException('Tenant with subdomain \''.$subdomain.'\' already exists.');
         }
 
         $tenant = new Tenant();
         $tenant->subdomain = $subdomain;
         $tenant->save();
 
-        $databaseName = 'tenant_' . $tenant->id;
-        DB::connection('tenant')->statement('CREATE DATABASE ' . $databaseName);
+        $databaseName = 'tenant_'.$tenant->id;
+        DB::connection('tenant')->statement('CREATE DATABASE '.$databaseName);
 
         $this->callSilent('tenant:migrate', [
-            'tenantId' => $tenant->id
+            'tenantId' => $tenant->id,
         ]);
 
-        $this->info('Created tenant with subdomain \'' . $subdomain . '\' and ID ' . $tenant->id . '.');
+        $this->info('Created tenant with subdomain \''.$subdomain.'\' and ID '.$tenant->id.'.');
         $this->info('Database tables has been migrated.');
     }
 }

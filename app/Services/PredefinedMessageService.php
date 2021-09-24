@@ -7,7 +7,6 @@ use App\Models\PredefinedMessage;
 
 class PredefinedMessageService
 {
-
     public static function update($messageId, PredefinedMessageUpdateRequest $request)
     {
         $recruitment = PredefinedMessage::findOrFail($messageId);

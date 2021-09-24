@@ -31,7 +31,7 @@ class CandidateCreator
         }
 
         if ($request->file) {
-            $path_to_cv = $request->file->store($tenantManager->getTenant()->subdomain . '/' . $recruitment->id, 's3');
+            $path_to_cv = $request->file->store($tenantManager->getTenant()->subdomain.'/'.$recruitment->id, 's3');
         } else {
             $path_to_cv = '';
         }
@@ -40,7 +40,7 @@ class CandidateCreator
         $candidate->name = $request->get('name');
         $candidate->email = $request->get('email');
         $candidate->phone_number = $request->get('phone_number');
-        $candidate->future_agreement = (bool)data_get($request->validated(), 'future_agreement');
+        $candidate->future_agreement = (bool) data_get($request->validated(), 'future_agreement');
         $candidate->source_recruitment_id = $request->get('source_recruitment_id');
         $candidate->stage_id = StageHelper::getFirstStage($recruitment->id)->id;
         $candidate->path_to_cv = $path_to_cv;

@@ -12,7 +12,7 @@ class DatabaseJob extends \Illuminate\Queue\Jobs\DatabaseJob
     {
         if ($this->job->tenant_id) {
             $tenant = Tenant::findOrFail($this->job->tenant_id);
-            Config::set('database.connections.tenant.database', 'tenant_' . $this->job->tenant_id);
+            Config::set('database.connections.tenant.database', 'tenant_'.$this->job->tenant_id);
             DB::purge('tenant');
         }
 

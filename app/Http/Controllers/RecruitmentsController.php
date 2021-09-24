@@ -18,6 +18,7 @@ class RecruitmentsController extends Controller
      * Create a new controller instance.
      *
      * @param TenantManager $tenantManager
+     *
      * @return void
      */
     public function __construct(TenantManager $tenantManager)
@@ -30,6 +31,7 @@ class RecruitmentsController extends Controller
         $user = Auth::user();
         if ($user->can('create recruitments')) {
             $recruitment = RecruitmentCreator::create($request->validated());
+
             return response()->json($recruitment);
         }
 
@@ -60,24 +62,28 @@ class RecruitmentsController extends Controller
     public function update(RecruitmentUpdateRequest $request, Recruitment $recruitment)
     {
         $recruitment = RecruitmentCreator::updateRecruitment($recruitment->id, $request);
+
         return response()->json($recruitment, 200);
     }
 
     public function close(RecruitmentCloseRequest $request, Recruitment $recruitment)
     {
         $recruitment = RecruitmentCreator::close($recruitment->id, $request);
+
         return response()->json($recruitment, 200);
     }
 
     public function reopen(Recruitment $recruitment)
     {
         $recruitment = RecruitmentCreator::reopen($recruitment->id);
+
         return response()->json($recruitment, 200);
     }
 
     public function duplicate(Recruitment $recruitment)
     {
         $recruitment = RecruitmentReplicator::duplicate($recruitment->id);
+
         return response()->json($recruitment, 200);
     }
 }

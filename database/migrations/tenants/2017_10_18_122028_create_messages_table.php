@@ -3,17 +3,16 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMessagesTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('messages', function(Blueprint $table)
-		{
+class CreateMessagesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id('id');
             $table->timestamps();
             $table->softDeletes();
@@ -28,16 +27,15 @@ class CreateMessagesTable extends Migration {
             $table->dateTime('scheduled_for')->nullable();
             $table->dateTime('sent_at')->nullable();
         });
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('messages');
-	}
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('messages');
+    }
 }

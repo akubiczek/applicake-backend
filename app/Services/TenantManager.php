@@ -15,6 +15,7 @@ class TenantManager
     public function setTenant(?Tenant $tenant)
     {
         $this->tenant = $tenant;
+
         return $this;
     }
 
@@ -29,6 +30,7 @@ class TenantManager
 
         if ($tenant) {
             $this->setTenant($tenant);
+
             return true;
         }
 
@@ -41,6 +43,7 @@ class TenantManager
 
         if ($user) {
             $this->setTenant($user->tenant);
+
             return true;
         }
 

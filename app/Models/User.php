@@ -10,7 +10,10 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasRoles, HasApiTokens, Notifiable, SoftDeletes;
+    use HasRoles;
+    use HasApiTokens;
+    use Notifiable;
+    use SoftDeletes;
 
     protected $connection = 'tenant';
 
@@ -45,6 +48,7 @@ class User extends Authenticatable
      * Find the user instance for the given username.
      *
      * @param string $username
+     *
      * @return User
      */
     public function findForPassport($username)
@@ -53,7 +57,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Used to determine access rights if a user has limited role
+     * Used to determine access rights if a user has limited role.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

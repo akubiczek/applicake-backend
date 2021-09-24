@@ -50,7 +50,7 @@ class ExtractPhotos extends Command
         $tenant = Tenant::find($tenantId);
 
         if (!$tenant) {
-            throw new RuntimeException('Tenant with ID = ' . $tenantId . ' does not exist.');
+            throw new RuntimeException('Tenant with ID = '.$tenantId.' does not exist.');
         }
 
         $this->tenantManager->setTenant($tenant);
@@ -59,7 +59,7 @@ class ExtractPhotos extends Command
         $candidates = Candidate::whereNull('photo_extraction')->where('path_to_cv', '<>', '')->get();
 
         foreach ($candidates as $candidate) {
-            $this->info('Parsing candidate id ' . $candidate->id);
+            $this->info('Parsing candidate id '.$candidate->id);
             ProcessResume::dispatchNow($candidate);
             gc_collect_cycles();
         }

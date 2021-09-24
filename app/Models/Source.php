@@ -43,14 +43,14 @@ class Source extends Model
         do {
             $key = strtoupper(substr(md5(uniqid()), 0, self::SOURCE_KEY_MAXLENGTH));
             $sources = Source::where('key', $key)->count();
-        } while($sources > 0);
+        } while ($sources > 0);
 
         return $key;
     }
 
     public function save(array $options = [])
     {
-        if(empty($this->key)){
+        if (empty($this->key)) {
             $this->key = $this->getUniqueKey();
         }
         parent::save();

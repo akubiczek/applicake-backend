@@ -41,7 +41,7 @@ class CandidatesListRequest extends FormRequest
                 'nullable',
                 'integer',
                 'exists:recruitments,id',
-            ]
+            ],
         ];
     }
 }

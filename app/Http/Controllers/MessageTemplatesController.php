@@ -16,20 +16,22 @@ class MessageTemplatesController extends Controller
     {
         $recruitment_id = $request->get('recruitment_id');
         $messages = PredefinedMessage::where('recruitment_id', $recruitment_id)->get();
+
         return response()->json($messages);
     }
 
     public function update(PredefinedMessageUpdateRequest $request, $messageId)
     {
         $field = PredefinedMessageService::update($messageId, $request);
+
         return response()->json($field, 200);
     }
 
     public function getParsed(Request $request)
     {
         $candidateId = $request->get('candidate_id');
-        $fromStageId = $request->get('from_stage_id');;
-        $toStageId = $request->get('to_stage_id');;
+        $fromStageId = $request->get('from_stage_id');
+        $toStageId = $request->get('to_stage_id');
         $candidate = Candidate::findOrFail($candidateId);
         $appointmentDateString = $request->get('appointment_date');
         $appointmentDate = new \DateTime($appointmentDateString);
@@ -46,6 +48,7 @@ class MessageTemplatesController extends Controller
 
         $predefinedMessage->body = ContentParser::parse($predefinedMessage->body, $candidate, $appointmentDate, Auth::user());
         $predefinedMessage->subject = ContentParser::parse($predefinedMessage->subject, $candidate, $appointmentDate, Auth::user());
+
         return response()->json($predefinedMessage);
     }
 }

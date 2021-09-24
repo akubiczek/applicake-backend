@@ -10,7 +10,9 @@ use Illuminate\Queue\SerializesModels;
 
 class CandidateMoved
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * @var Candidate
@@ -19,7 +21,8 @@ class CandidateMoved
 
     public $userId;
 
-    public $previousRecruitmentId, $newRecruitmentId;
+    public $previousRecruitmentId;
+    public $newRecruitmentId;
 
     /**
      * Create a new event instance.

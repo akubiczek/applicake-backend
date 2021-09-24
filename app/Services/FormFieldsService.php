@@ -19,7 +19,7 @@ class FormFieldsService
         $field->order = $order + 1;
         $field->save();
 
-        $field->name = 'custom_field_' . $field->id;
+        $field->name = 'custom_field_'.$field->id;
         $field->save();
 
         return $field;
