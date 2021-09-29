@@ -62,8 +62,8 @@ class CandidatesController extends Controller
         if (!$user->can('read all recruitments')) {
             $filtered = $candidates->filter(
                 function ($candidate, $key) use ($user) {
-                return $user->can('view', $candidate);
-            }
+                    return $user->can('view', $candidate);
+                }
             );
 
             $candidates = $filtered;
