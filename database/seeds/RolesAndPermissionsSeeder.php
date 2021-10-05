@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Permission;
-use App\Models\Recruitment;
 use App\Models\Role;
 
 class RolesAndPermissionsSeeder extends \App\Services\TenantAwareSeeder
