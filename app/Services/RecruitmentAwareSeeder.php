@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\Recruitment;
 
 abstract class RecruitmentAwareSeeder extends TenantAwareSeeder
@@ -18,6 +19,7 @@ abstract class RecruitmentAwareSeeder extends TenantAwareSeeder
     public function setRecruitment(Recruitment $recruitment): RecruitmentAwareSeeder
     {
         $this->recruitment = $recruitment;
+
         return $this;
     }
 }
