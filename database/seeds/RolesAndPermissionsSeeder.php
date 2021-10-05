@@ -1,11 +1,12 @@
 <?php
 
 use App\Models\Permission;
+use App\Models\Recruitment;
 use App\Models\Role;
 
-class RolesAndPermissionsSeeder extends \App\Services\TenantSeeder
+class RolesAndPermissionsSeeder extends \App\Services\TenantAwareSeeder
 {
-    public function run(\App\Models\Recruitment $recruitment = null)
+    public function run()
     {
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();

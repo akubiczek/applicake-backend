@@ -1,20 +1,22 @@
 <?php
 
+use App\Models\Recruitment;
+
 /**
  * This seeder is used in production code to seeds new recruitments. Be careful!
  */
-class StagesSeeder extends \App\Services\TenantSeeder
+class StagesSeeder extends \App\Services\RecruitmentAwareSeeder
 {
-    const JSON_PATH = '/database/seeds/stages.json';
+    const JSON_PATH = '/database/demodata/stages.json';
 
     /**
      * Run the database seeds.
      *
-     * @param \App\Models\Recruitment $recruitment
+     * @param Recruitment $recruitment
      *
      * @return void
      */
-    public function run(\App\Models\Recruitment $recruitment = null)
+    public function run()
     {
         $stages = json_decode(file_get_contents(base_path().self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
@@ -26,7 +28,7 @@ class StagesSeeder extends \App\Services\TenantSeeder
                 'has_appointment' => $stage['has_appointment'],
                 'is_quick_link'   => $stage['is_quick_link'],
                 'order'           => $stage['order'],
-                'recruitment_id'  => $recruitment->id,
+                'recruitment_id'  => $this->recruitment->id,
                 'created_at'      => $now,
                 'updated_at'      => $now,
             ]);

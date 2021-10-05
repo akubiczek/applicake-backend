@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Database\Seeder;
 
-abstract class TenantSeeder extends Seeder
+abstract class TenantAwareSeeder extends Seeder
 {
     /**
      * The name of the default connection.
@@ -13,12 +13,12 @@ abstract class TenantSeeder extends Seeder
      */
     protected $connection;
 
-    public function __construct($connection)
+    public function __construct(string $connection)
     {
         $this->connection = $connection;
     }
 
-    public static function connection($connection)
+    public static function connection(string $connection): TenantAwareSeeder
     {
         return new static($connection);
     }
@@ -30,10 +30,10 @@ abstract class TenantSeeder extends Seeder
      *
      * @return void
      */
-    public function setConnection($connection)
+    public function setConnection(string $connection)
     {
         $this->connection = $connection;
     }
 
-    abstract public function run(\App\Models\Recruitment $recruitment = null);
+    abstract public function run();
 }

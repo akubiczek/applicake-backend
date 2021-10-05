@@ -1,6 +1,6 @@
 <?php
 
-class ExampleStages extends \App\Services\TenantSeeder
+class ExampleStages extends \App\Services\TenantAwareSeeder
 {
     /**
      * Run the database seeds.

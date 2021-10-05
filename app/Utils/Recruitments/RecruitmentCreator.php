@@ -29,12 +29,19 @@ class RecruitmentCreator
     {
         SourceCreator::create(['recruitment_id' => $recruitment->id, 'name' => self::defaultSourceName()]);
 
-        \StagesSeeder::connection('tenant')->run($recruitment);
-        \PredefinedMessagesSeeder::connection('tenant')->run($recruitment);
-        \FormFieldsSeeder::connection('tenant')->run($recruitment);
+        $connection = 'tenant';
+
+        $seeder = new \StagesSeeder($connection);
+        $seeder->setRecruitment($recruitment)->run();
+
+        $seeder = new \PredefinedMessagesSeeder($connection);
+        $seeder->setRecruitment($recruitment)->run();
+
+        $seeder = new \FormFieldsSeeder($connection);
+        $seeder->setRecruitment($recruitment)->run();
     }
 
-    public static function defaultSourceName()
+    public static function defaultSourceName(): string
     {
         return self::DEFAULT_SOURCE_NAME;
     }

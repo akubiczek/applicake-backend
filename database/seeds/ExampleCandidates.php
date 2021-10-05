@@ -1,8 +1,8 @@
 <?php
 
-class ExampleCandidates extends \App\Services\TenantSeeder
+class ExampleCandidates extends \App\Services\TenantAwareSeeder
 {
-    const JSON_PATH = './database/seeds/candidates.json';
+    const JSON_PATH = './database/demodata/candidates.json';
 
     /**
      * Run the database seeds.

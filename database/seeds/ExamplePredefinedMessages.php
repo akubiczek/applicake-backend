@@ -1,6 +1,6 @@
 <?php
 
-class ExamplePredefinedMessages extends \App\Services\TenantSeeder
+class ExamplePredefinedMessages extends \App\Services\TenantAwareSeeder
 {
     /**
      * Run the database seeds.

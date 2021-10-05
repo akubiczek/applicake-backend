@@ -1,15 +1,15 @@
 <?php
 
-class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
+class PredefinedMessagesSeeder extends \App\Services\RecruitmentAwareSeeder
 {
-    const JSON_PATH = '/database/seeds/predefined_messages.json';
+    const JSON_PATH = '/database/demodata/predefined_messages.json';
 
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run(\App\Models\Recruitment $recruitment = null)
+    public function run()
     {
         $messages = json_decode(file_get_contents(base_path().self::JSON_PATH), true);
         $now = \Carbon\Carbon::now()->toDateTimeString();
@@ -20,13 +20,13 @@ class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
 
             if ($message['from_stage'] !== null) {
                 $from_stage_id = DB::connection($this->connection)->table('stages')
-                    ->where('recruitment_id', $recruitment->id)
+                    ->where('recruitment_id', $this->recruitment->id)
                     ->where('order', $message['from_stage'])->select('id')->value('id');
             }
 
             if ($message['to_stage'] !== null) {
                 $to_stage_id = DB::connection($this->connection)->table('stages')
-                    ->where('recruitment_id', $recruitment->id)
+                    ->where('recruitment_id', $this->recruitment->id)
                     ->where('order', $message['to_stage'])->select('id')->value('id');
             }
 
@@ -36,7 +36,7 @@ class PredefinedMessagesSeeder extends \App\Services\TenantSeeder
                 'trigger'        => $message['trigger'],
                 'from_stage_id'  => $from_stage_id,
                 'to_stage_id'    => $to_stage_id,
-                'recruitment_id' => $recruitment->id,
+                'recruitment_id' => $this->recruitment->id,
                 'created_at'     => $now,
                 'updated_at'     => $now,
             ]);

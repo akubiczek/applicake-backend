@@ -1,42 +1,42 @@
 [
     {
         "order": 1,
-        "name": "Nowy",
+        "name": "New",
         "action_name": "Zmień etap",
         "has_appointment": false,
         "is_quick_link": false
     },
     {
         "order": 2,
-        "name": "Rozmowa telefoniczna",
+        "name": "HR screening",
         "action_name": "Zmień etap",
         "has_appointment": true,
         "is_quick_link": true
     },
     {
         "order": 3,
-        "name": "Spotkanie",
+        "name": "Tech screening",
         "action_name": "Zmień etap",
         "has_appointment": true,
         "is_quick_link": false
     },
     {
         "order": 4,
-        "name": "Złożenie oferty",
+        "name": "Offert sent",
         "action_name": "Zmień etap",
         "has_appointment": false,
         "is_quick_link": false
     },
     {
         "order": 5,
-        "name": "Zatrudnienie",
+        "name": "Hired",
         "action_name": "Zmień etap",
         "has_appointment": false,
         "is_quick_link": false
     },
     {
         "order": 6,
-        "name": "Odrzucenie",
+        "name": "Rejected",
         "action_name": "Odrzuć",
         "has_appointment": false,
         "is_quick_link": true
